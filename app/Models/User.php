@@ -9,10 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Lunar\Base\Traits\LunarUser;
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
+    use HasApiTokens, LunarUser;
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
