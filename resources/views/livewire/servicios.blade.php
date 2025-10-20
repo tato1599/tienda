@@ -20,8 +20,8 @@
         <div class="grid grid-cols-2 divide-x divide-y divide-gray-200 text-gray-900 dark:divide-gray-700 dark:text-white">
           <div class="relative pb-4 pr-4">
 
-            <a href="" title="" class="font-medium hover:underline">{{ $servicio['nombre'] }}</a>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $servicio['descripcion'] }}</p>
+            <a href="{{ route('product.show', $servicio) }}" title="" class="font-medium hover:underline">{{ $servicio->translateAttribute('name') }}</a>
+            {{-- <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $servicio['descripcion'] }}</p> --}}
           </div>
 
 

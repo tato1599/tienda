@@ -2,25 +2,22 @@
 
 namespace App\Livewire;
 
+use FontLib\Table\Type\name;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Lunar\Models\Product;
 
 class Servicios extends Component
 {
 
     //array de ejemplo para mostrar en la vista
    public $servicios = [];
+    public $media = [];
 
     public function mount()
     {
-        $this->servicios = [
-            ['nombre' => 'Desarrollo Web', 'descripcion' => 'Creación de sitios web personalizados.'],
-            ['nombre' => 'Marketing Digital', 'descripcion' => 'Estrategias de marketing en línea.'],
-            ['nombre' => 'Consultoría IT', 'descripcion' => 'Asesoramiento en tecnología de la información.'],
-            ['nombre' => 'Diseño Gráfico', 'descripcion' => 'Creación de contenido visual atractivo.'],
-            ['nombre' => 'Soporte Técnico', 'descripcion' => 'Asistencia técnica para problemas informáticos.'],
-            ['nombre' => 'SEO', 'descripcion' => 'Optimización para motores de búsqueda.'],
-        ];
+        $this->servicios = Product::where('status', 'published')->with('media')->get();
+
     }
 
 
