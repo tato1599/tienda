@@ -30,7 +30,7 @@ class ProductShow extends Component
 
     public function mount($product)
     {
-        $this->cartQuantity = CartSession::current()->lines()->count();
+
 
         $this->searchProducts($product);
     }
