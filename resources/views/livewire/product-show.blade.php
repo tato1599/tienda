@@ -24,11 +24,16 @@
     <div>
 
         <div>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                wire:click="addToCart"
-            >
-                Agregar al carrito
-            </button>
+            @auth
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" wire:click="addToCart">
+                    Agregar al carrito
+                </button>
+            @endauth
+            @guest
+                <a href="{{ route('login') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Iniciar sesión para agregar al carrito
+                </a>
+            @endguest
         </div>
 
     </div>
