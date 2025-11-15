@@ -19,6 +19,10 @@ class HeaderTienda extends Component
         if (is_null($cartQuantity)) {
             // Lógica para obtener el total del modelo CartSession
             // REEMPLAZA CartSession::getTotalItems() con tu método real.
+            if(!CartSession::current()) {
+                $this->cartQuantity = 0;
+                return;
+            }
             $this->cartQuantity = CartSession::current()->lines()->count();
         } else {
             // Si el layout SÍ lo pasó (por ejemplo, si lo pasaste como :cartQuantity="12")
