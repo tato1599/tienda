@@ -1,60 +1,31 @@
 <x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+    <div class="text-center">
+        <x-mary-icon name="m-user-group" class="w-12 h-12 text-blue-500" /> 
+    <div class="w-1/2 mx-auto mt-3 p-1">
+        <x-mary-header title="Crea tu cuenta" subtitle="Únete a la plataforma de servicios del ITCJ" separator />
+    </div>
+    </div>
+    
+    <div class="w-1/2 mx-auto mt-10 p-3">
+        <div class="grid grid-cols-2 gap-4">
+            <x-mary-input label="Nombre" wire:model="name" placeholder="Ingresa tu nombre" icon="o-user" hint="Tu nombre completo" />
 
-        <x-validation-errors class="mb-4" />
+            <x-mary-input label="Apellido" wire:model="name" placeholder="Ingresa tus apellido" icon="o-user" hint="Tus apellidos completos" />
+        </div><br>
+    
+        <div class="grid gap-8">
+            <x-mary-input label="Correo electrónico institucional" wire:model="name" prefix="" suffix="@cdjuarez.tecnm.mx" />
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+            <x-mary-input label="Matrícula" wire:model="name" placeholder="Ingresa tu matrícula" />
 
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
+            <x-mary-password label="Contraseña" wire:model="password" right />
 
-            <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            </div>
+            <x-mary-password label="Confirmar contraseña" wire:model="password" password-icon="o-lock-closed" password-visible-icon="o-lock-open" />
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required />
-
-                            <div class="ms-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-label>
-                </div>
-            @endif
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ms-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
+        </div><br>
+        <div class="grid gap-8">
+            <x-mary-button label="Registrarse" class="btn-primary" type="submit"/>
+            
+        </div>
+    </div>
 </x-guest-layout>

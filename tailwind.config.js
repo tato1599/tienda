@@ -19,5 +19,5 @@ export default {
         },
     },
 
-    plugins: [forms, typography, require('daisyui')],
+    plugins: [typography, require('daisyui')],
 };
