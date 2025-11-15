@@ -9,6 +9,7 @@ Route::get('/', function () {
 
 Route::get('/servicios', Servicios::class)->name('servicios');
 Route::get('/product/{product}', App\Livewire\ProductShow::class)->name('product.show');
+Route::get('/cart', App\Livewire\Cart::class)->name('cart');
 
 Route::middleware([
     'auth:sanctum',
