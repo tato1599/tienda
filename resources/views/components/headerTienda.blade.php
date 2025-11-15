@@ -5,7 +5,7 @@
                 <div class="py-4 border-b border-gray-200 dark:border-gray-700">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center flex-1 gap-4">
-                            <a href="#" title="" class="shrink-0">
+                            <a href="{{ route('welcome') }}" title="" class="shrink-0">
                                 <img class="block w-auto h-8 dark:hidden"
                                     src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/logo-full.svg"
                                     alt="">
@@ -14,22 +14,24 @@
                                     alt="">
                             </a>
                         </div>
+                        <div class=" lg:block lg:me-8">
 
-                        <ul class="items-center gap-8 md:flex">
-                            <li>
-                                <a href="/" title=""
+                            <ul class="items-center gap-8 md:flex">
+                                <li>
+                                    <a href="/" title=""
                                     class="block text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
                                     Inicio
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('servicios') }}" title=""
-                                    class="block text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                    Servicios
-                                </a>
-                            </li>
+                                class="block text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                                Servicios
+                            </a>
+                        </li>
 
-                        </ul>
+                    </ul>
+                </div>
 
                         @auth
 

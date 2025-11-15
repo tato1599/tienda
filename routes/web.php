@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/servicios', Servicios::class)->name('servicios');
 Route::get('/product/{product}', App\Livewire\ProductShow::class)->name('product.show');
