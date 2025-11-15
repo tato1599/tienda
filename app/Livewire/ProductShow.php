@@ -21,12 +21,17 @@ class ProductShow extends Component
     public $product;
     public $media;
 
+    public $cartQuantity = 0;
+
+
     public $variants;
 
     use Toast;
 
     public function mount($product)
     {
+        $this->cartQuantity = CartSession::current()->lines()->count();
+
         $this->searchProducts($product);
     }
 

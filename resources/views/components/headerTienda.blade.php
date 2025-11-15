@@ -1,5 +1,6 @@
+
 <div>
-    <header class="">
+    <header class="" >
         <nav class="bg-white dark:bg-gray-800 antialiased">
             <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
                 <div class="py-4 border-b border-gray-200 dark:border-gray-700">
@@ -139,6 +140,22 @@
                             </form>
                         </div>
 
+                         <ul class="items-center hidden gap-8 md:flex">
+                            <li>
+                                <a href="/" title=""
+                                    class="block text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                                    Inicio
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('servicios') }}" title=""
+                                    class="block text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
+                                    Servicios
+                                </a>
+                            </li>
+
+                        </ul>
+
                         <div class="flex items-center justify-end lg:space-x-2">
                             <div class="relative md:hidden">
                                 <button type="button" data-collapse-toggle="ecommerce-navbar-search-4"
@@ -170,10 +187,11 @@
                                                 stroke-linejoin="round" stroke-width="2"
                                                 d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312" />
                                         </svg>
-                                        @if (false)
+
+                                        @if ( $cartQuantity > 0 )
                                             <div
                                                 class="absolute inline-flex items-center justify-center w-4 h-4 text-xs font-medium text-white bg-red-700 rounded-full -top-1.5 -end-1.5 dark:bg-red-600 ">
-
+                                                {{  $cartQuantity }}
                                             </div>
                                         @endif
                                     </div>
@@ -519,319 +537,8 @@
                     </div>
                 </div>
 
-                <form action="#" id="ecommerce-navbar-search-4"
-                    class="w-full md:w-auto md:flex-1 md:order-2 hidden pt-4">
-                    <label for="default-search"
-                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                    <div class="relative">
-                        <input type="search" id="default-search"
-                            class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Search in all categories" required />
-                        <button type="submit"
-                            class="text-white absolute end-1.5 translate-y-1/2 bottom-1/2 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Search</button>
-                    </div>
-                </form>
 
-                <div class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 py-3 sm:gap-4">
-                    <div class="flex items-center">
-                        <button type="button" data-collapse-toggle="ecommerce-navbar-menu-4"
-                            class="flex md:hidden items-center rounded-lg justify-center gap-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium leading-none text-gray-900 dark:text-white">
-                            <svg class="w-5 h-5 text-gray-900 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                                    d="M5 7h14M5 12h14M5 17h14" />
-                            </svg>
-                            Menu
-                        </button>
 
-                        <ul class="items-center hidden gap-8 md:flex">
-                            <li>
-                                <a href="/" title=""
-                                    class="block text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                    Inicio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('servicios') }}" title=""
-                                    class="block text-sm font-medium text-gray-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500">
-                                    Servicios
-                                </a>
-                            </li>
-
-                        </ul>
-                    </div>
-
-                    <div class="relative shrink-0 sm:ml-auto">
-                        <button id="locationDropdownButton1" data-dropdown-toggle="locationDropdown1" type="button"
-                            class="inline-flex hover:bg-gray-100 rounded-md dark:hover:bg-gray-700 items-center justify-center px-3 font-medium text-sm py-2 text-gray-900 dark:text-white">
-                            <svg class="w-5 h-5 text-gray-900 dark:text-white me-1" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z" />
-                            </svg>
-                            Deliver to: United States
-                            <svg class="w-4 h-4 text-gray-900 dark:text-white ms-1" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m19 9-7 7-7-7"></path>
-                            </svg>
-                        </button>
-                        <!-- Dropdown Menu-->
-                        <div id="locationDropdown1"
-                            class="z-50 hidden w-52 overflow-hidden overflow-y-auto rounded-lg bg-white shadow dark:bg-gray-700">
-                            <ul class="p-2 text-start text-sm font-medium text-gray-900 dark:text-white">
-                                <li
-                                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="country-checkbox-2" type="checkbox" value=""
-                                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                                    <label for="country-checkbox-2"
-                                        class="inline-flex w-full items-center gap-2 text-gray-900 dark:text-gray-300"><img
-                                            class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/ca.svg"
-                                            alt="" /> Canada</label>
-                                </li>
-                                <li
-                                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="country-checkbox-3" type="checkbox" value=""
-                                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                                    <label for="country-checkbox-3"
-                                        class="inline-flex w-full items-center gap-2 text-gray-900 dark:text-gray-300"><img
-                                            class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/gb.svg"
-                                            alt="" /> United Kingdom</label>
-                                </li>
-                                <li
-                                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="country-checkbox-1" type="checkbox" value=""
-                                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                                        checked />
-                                    <label for="country-checkbox-1"
-                                        class="inline-flex w-full items-center gap-2 text-gray-900 dark:text-gray-300"><img
-                                            class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/us.svg"
-                                            alt="" /> United States</label>
-                                </li>
-                                <li
-                                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="country-checkbox-5" type="checkbox" value=""
-                                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                                    <label for="country-checkbox-5"
-                                        class="inline-flex w-full items-center gap-2 text-gray-900 dark:text-gray-300"><img
-                                            class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/de.svg"
-                                            alt="" /> Germany</label>
-                                </li>
-                                <li
-                                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="country-checkbox-6" type="checkbox" value=""
-                                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                                    <label for="country-checkbox-6"
-                                        class="inline-flex w-full items-center gap-2 text-gray-900 dark:text-gray-300"><img
-                                            class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/fr.svg"
-                                            alt="" /> France</label>
-                                </li>
-                                <li
-                                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="country-checkbox-7" type="checkbox" value=""
-                                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                                    <label for="country-checkbox-7"
-                                        class="inline-flex w-full items-center gap-2 text-gray-900 dark:text-gray-300"><img
-                                            class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/cn.svg"
-                                            alt="" /> China</label>
-                                </li>
-                                <li
-                                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="country-checkbox-8" type="checkbox" value=""
-                                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                                    <label for="country-checkbox-8"
-                                        class="inline-flex w-full items-center gap-2 text-gray-900 dark:text-gray-300"><img
-                                            class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/jp.svg"
-                                            alt="" /> Japan</label>
-                                </li>
-                                <li
-                                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="country-checkbox-9" type="checkbox" value=""
-                                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                                    <label for="country-checkbox-9"
-                                        class="inline-flex w-full items-center gap-2 text-gray-900 dark:text-gray-300"><img
-                                            class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/it.svg"
-                                            alt="" /> Italy</label>
-                                </li>
-                                <li
-                                    class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="country-checkbox-10" type="checkbox" value=""
-                                        class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                                    <label for="country-checkbox-10"
-                                        class="inline-flex w-full items-center gap-2 text-gray-900 dark:text-gray-300"><img
-                                            class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/es.svg"
-                                            alt="" /> Spain</label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="w-full sm:w-auto sm:shrink-0">
-                        <button id="languageDropdownButton1" data-dropdown-toggle="languageDropdown1" type="button"
-                            class="inline-flex items-center justify-center w-full py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                            <img class="object-cover w-4 rounded-sm me-2"
-                                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/us.svg" alt="">
-                            English (USA)
-                            <svg class="w-4 h-4 ms-2 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m19 9-7 7-7-7" />
-                            </svg>
-                        </button>
-
-                        <!-- Dropdown Menu -->
-                        <div id="languageDropdown1"
-                            class="z-50 w-52 hidden overflow-hidden overflow-y-auto rounded-lg bg-white shadow dark:bg-gray-700">
-                            <div class="px-2 pt-2">
-                                <form class="mx-auto max-w-md">
-                                    <label for="default-search"
-                                        class="sr-only mb-2 text-sm font-medium text-gray-900 dark:text-white">Search</label>
-                                    <div class="relative">
-                                        <div
-                                            class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
-                                            <svg class="h-4 w-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                                                    d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
-                                            </svg>
-                                        </div>
-                                        <input type="search" id="default-search"
-                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 ps-9 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                                            placeholder="Search" required />
-                                    </div>
-                                </form>
-                            </div>
-
-                            <ul class="p-2 text-start text-sm font-medium text-gray-900 dark:text-white">
-                                <li>
-                                    <a href="#" title=""
-                                        class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <img class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/us.svg"
-                                            alt="" />
-                                        English (U.S.)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title=""
-                                        class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <img class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/ca.svg"
-                                            alt="" />
-                                        English (Canada)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title=""
-                                        class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <img class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/gb.svg"
-                                            alt="" />
-                                        English (U.K)
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title=""
-                                        class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <img class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/de.svg"
-                                            alt="" />
-                                        Deutsch
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title=""
-                                        class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <img class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/fr.svg"
-                                            alt="" />
-                                        Français
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title=""
-                                        class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <img class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/cn.svg"
-                                            alt="" />
-                                        中國人
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title=""
-                                        class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <img class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/jp.svg"
-                                            alt="" />
-                                        日本語
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title=""
-                                        class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <img class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/it.svg"
-                                            alt="" />
-                                        Italiano
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" title=""
-                                        class="inline-flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                        <img class="h-auto w-4 shrink-0"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/flags/es.svg"
-                                            alt="" />
-                                        Español
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div id="ecommerce-navbar-menu-4"
-                        class="w-full bg-gray-50 dark:bg-gray-700 dark:border-gray-600 border border-gray-200 rounded-lg py-3 hidden px-4 mt-2">
-                        <ul class="text-gray-900 dark:text-white text-sm font-medium space-y-3">
-                            <li>
-                                <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Home</a>
-                            </li>
-                            <li>
-                                <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Best
-                                    Sellers</a>
-                            </li>
-                            <li>
-                                <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Gift
-                                    Ideas</a>
-                            </li>
-                            <li>
-                                <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Games</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="hover:text-primary-700 dark:hover:text-primary-500">Electronics</a>
-                            </li>
-                            <li>
-                                <a href="#" class="hover:text-primary-700 dark:hover:text-primary-500">Home &
-                                    Garden</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
 </div>
 </nav>

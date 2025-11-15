@@ -63,7 +63,8 @@
                 <!-- Left Column: Cart Items -->
                 <div class="space-y-4 lg:col-span-2">
                     <!-- Item 1 -->
-                    <div
+                    @foreach ($purchasableItemsMap as $item)
+                        <div
                         class="flex flex-col gap-4 rounded-lg bg-white/5 p-4 sm:flex-row sm:items-center sm:justify-between">
                         <div class="flex items-center gap-4">
                             <div class="h-20 w-20 flex-shrink-0 rounded-lg bg-cover bg-center bg-no-repeat"
@@ -71,7 +72,7 @@
                                 style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBPtngokQOxnqS80BJtUYHBUW9xuqYrbxxmnOlkYUsu1daA7pl2LijT-DtQKafyy5kvfImzv40JMcP3nS_nAYqcUcF6WSjnZpgaXssjpY2A9yYv5C7VRd9jQ1ZxX1aEFXEowM79BXG0xLXjzAsXKAVIG5Cez6jZY98YoQSDwbOC54PHEj1j_AQCGPz3_t20uKNuZ9o2FXaEp3SgLIXUzJOT0LLdnBQGtjpe6e2kNEqHe7omzuQpkF9k_7ZZpKDVGCwd70GanCLOppU");'>
                             </div>
                             <div class="flex flex-col justify-center">
-                                <p class="text-lg font-medium leading-normal text-white">Network Configuration</p>
+                                <p class="text-lg font-medium leading-normal text-white">{{ $item['name'] }}</p>
                                 <p class="text-sm font-normal leading-normal text-[#9dabb9]">On-site network setup and
                                     troubleshooting.</p>
                                 <p class="mt-1 text-base font-bold text-white sm:hidden">$99.00</p>
@@ -83,7 +84,7 @@
                                     class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl font-medium leading-normal transition-colors hover:bg-white/20">-</button>
                                 <input
                                     class="w-8 border-none bg-transparent p-0 text-center text-base font-medium leading-normal focus:border-none focus:outline-0 focus:ring-0 [appearance:textfield] [&amp;::-webkit-inner-spin-button]:appearance-none [&amp;::-webkit-outer-spin-button]:appearance-none"
-                                    type="number" value="1" />
+                                    type="number" value="{{ $item['quantity'] }}" />
                                 <button
                                     class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl font-medium leading-normal transition-colors hover:bg-white/20">+</button>
                             </div>
@@ -93,37 +94,9 @@
                             </button>
                         </div>
                     </div>
-                    <!-- Item 2 -->
-                    <div
-                        class="flex flex-col gap-4 rounded-lg bg-white/5 p-4 sm:flex-row sm:items-center sm:justify-between">
-                        <div class="flex items-center gap-4">
-                            <div class="h-20 w-20 flex-shrink-0 rounded-lg bg-cover bg-center bg-no-repeat"
-                                data-alt="Icon for data recovery service"
-                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD5J5NaVlG9rPsjsbgUHh9YKKDENXAraobvNIrXAjyxM2uv_vn_oUsOzQg1pgJrSOR0_kwyiB_iMepmbLK2TxtMYdvvemYSBR5055GA323tzEt0LeYG88_ZtjL6-J-TwmXn_Qg5bPyKH0NbMsyn6X8uL7OPTZsZzjVD_3yPY8dEobEUWNYNgHIDNGNSUySFTx6xSKSMe3xEPDv7WwSjZI3Q-38w13RZQiqjHjDUAUq0rKd33G3rtVy2glEbCU5EqMMBMTCUDt48Lp0");'>
-                            </div>
-                            <div class="flex flex-col justify-center">
-                                <p class="text-lg font-medium leading-normal text-white">Data Recovery Service</p>
-                                <p class="text-sm font-normal leading-normal text-[#9dabb9]">Advanced data recovery from
-                                    damaged drives.</p>
-                                <p class="mt-1 text-base font-bold text-white sm:hidden">$250.00</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between gap-4 sm:justify-end">
-                            <div class="flex items-center gap-2 text-white">
-                                <button
-                                    class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl font-medium leading-normal transition-colors hover:bg-white/20">-</button>
-                                <input
-                                    class="w-8 border-none bg-transparent p-0 text-center text-base font-medium leading-normal focus:border-none focus:outline-0 focus:ring-0 [appearance:textfield] [&amp;::-webkit-inner-spin-button]:appearance-none [&amp;::-webkit-outer-spin-button]:appearance-none"
-                                    type="number" value="1" />
-                                <button
-                                    class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl font-medium leading-normal transition-colors hover:bg-white/20">+</button>
-                            </div>
-                            <p class="hidden w-20 text-right text-base font-bold text-white sm:block">$250.00</p>
-                            <button class="cursor-pointer text-[#9dabb9] transition-colors hover:text-red-500">
-                                <span class="material-symbols-outlined">delete</span>
-                            </button>
-                        </div>
-                    </div>
+                    @endforeach
+
+
                 </div>
                 <!-- Right Column: Order Summary -->
                 <div class="lg:col-span-1">
