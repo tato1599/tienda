@@ -83,143 +83,35 @@
                 </div>
                 <!-- ImageGrid -->
                 <div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-6">
-                    <div
+                    @foreach ( $servicios as $servicio )
+                        <div
                         class="group flex cursor-pointer flex-col gap-3 rounded-xl bg-surface-dark p-4 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10">
                         <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg overflow-hidden"
-                            data-alt="A person working on a laptop with code on the screen"
-                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA-GLA3VH_fpGOLgVDScwWBGd53ukaDkVePeBYp7UWfgA5RuTxLuOmgIbNDhZpBwFBoqR6-anTu5iTiaW95SMrBhP3xHwxLvv-S-lQvPngnVDyy_D7CSs0dT9otZXgQGrINjNeFc3gi3Ksb788A1en8ZqkIE9xj4QqBkgG0a2vSbQbChd3sEweyPxwDwMfuNZEnZywVbue420nyW-5XouzYlnRizTb_0mvVSHFzBbnagqzZbOXnT8Lh3n17nzeAK7_llDdgrhHdknA");'>
+
+                        >
+                            <img src="{{ asset($servicio->getFirstMediaUrl('images')) }}"
+                                alt="Service Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                         </div>
                         <div class="flex flex-col gap-1">
-                            <p class="text-white text-base font-bold leading-normal">PC Formatting &amp; Optimization
+                            <p class="text-white text-base font-bold leading-normal">
+                                {{ $servicio->translateAttribute('name') }}
                             </p>
-                            <p class="text-text-secondary-dark text-sm font-normal leading-normal">Complete system
-                                cleanup and performance boost.</p>
+                            <div class="text-text-secondary-dark text-sm font-normal leading-normal">
+                                {{ $servicio->translateAttribute('description') }}
+                            </div>
+
                             <div class="flex items-center justify-between pt-2">
-                                <p class="text-white text-base font-bold leading-normal">$350 MXN</p>
+                                <p class="text-white text-base font-bold leading-normal">
+                                    ${{ $servicio->price }}
+                                </p>
                                 <a class="text-primary text-sm font-medium leading-normal opacity-0 group-hover:opacity-100 transition-opacity"
-                                    href="#">View Details</a>
+                                   href="{{ route('product.show', $servicio) }}">Ver detalles</a>
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="group flex cursor-pointer flex-col gap-3 rounded-xl bg-surface-dark p-4 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10">
-                        <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg overflow-hidden"
-                            data-alt="Abstract colorful code lines on a dark background"
-                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDBXz97w3RvIEV269ALcT2pGVt4oVsj8dI_92hL5YRoX1f8G3MTDCjuEXEnlZ1vXPSyIgghL3DtC8SI2H8M24ZhfShQK8OsTgidHa-naPaLFSHyllYzXoXWXq_o9SpWUAonkQAaoTdY-4-qLcsLb4nWm4SrNqG-_7DkSol5TzB1r5MUiuKZe-vALY2cgbX_aKWaxPVxz1_JmdWLtXrEZwDIPT48qWurMQbU_pZRRf2_I2_ajsTS9qkjsy6IcQxhL9tuhItqmC8pw4k");'>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <p class="text-white text-base font-bold leading-normal">Custom Website Development</p>
-                            <p class="text-text-secondary-dark text-sm font-normal leading-normal">From landing pages to
-                                full e-commerce sites.</p>
-                            <div class="flex items-center justify-between pt-2">
-                                <p class="text-white text-base font-bold leading-normal">$1500 MXN</p>
-                                <a class="text-primary text-sm font-medium leading-normal opacity-0 group-hover:opacity-100 transition-opacity"
-                                    href="#">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="group flex cursor-pointer flex-col gap-3 rounded-xl bg-surface-dark p-4 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10">
-                        <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg overflow-hidden"
-                            data-alt="A magnifying glass over a computer screen with a bug icon"
-                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuALnv1M02fuL_jcjJW4HaIKihJWgYrZV15OaCDDF3UmDfbiGg92U0skCnKOLyj0OvJIFYY4sYaCwPf5Sl-Quks2BOJav_zrE7CyKCDLUyvddpCIRcZoegbxmapu5y4XGDo71SBQIn9QJEGko8bd_YbUTTRVA1vuGjtPcyofGPy3Pi2foEASoZwBaTxm4Cg7Ez7VYT7oyDxE8NZjaNEQ5hISP5eY9t3gtE2LCnCdaeLEP10veHDguOpVDKrBA86ZVQvPjceXP8WmLAE");'>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <p class="text-white text-base font-bold leading-normal">Virus and Malware Removal</p>
-                            <p class="text-text-secondary-dark text-sm font-normal leading-normal">Secure your system
-                                and protect your data.</p>
-                            <div class="flex items-center justify-between pt-2">
-                                <p class="text-white text-base font-bold leading-normal">$400 MXN</p>
-                                <a class="text-primary text-sm font-medium leading-normal opacity-0 group-hover:opacity-100 transition-opacity"
-                                    href="#">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="group flex cursor-pointer flex-col gap-3 rounded-xl bg-surface-dark p-4 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10">
-                        <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg overflow-hidden"
-                            data-alt="An open laptop with a broken screen"
-                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBVIAy68n_PMKohnIT0dRIs0YVjdopeVJ3G4CHBhXTSMMCXHb011ae_b7k94Pfr0pRFBn460kqLHo_m_OVsgcbkBkI5prD8416dqaXIX4BvxQVDEO8cdzMwwPZ0sOVorP0k3Mpj0Nz1Ob4UpH9f56154duLNwk48V8vj37YqpxFGW_TVdR6zGg6V60cbERfssX7lKl2To6YurxYBB3i2LqStQ5vG-tA4y29-CwU3UuqaM-yun3Ak8CwhPNVSbcb4qd366jSCQtmhY0");'>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <p class="text-white text-base font-bold leading-normal">Laptop Screen Replacement</p>
-                            <p class="text-text-secondary-dark text-sm font-normal leading-normal">Professional repair
-                                for cracked or faulty screens.</p>
-                            <div class="flex items-center justify-between pt-2">
-                                <p class="text-white text-base font-bold leading-normal">$800 MXN</p>
-                                <a class="text-primary text-sm font-medium leading-normal opacity-0 group-hover:opacity-100 transition-opacity"
-                                    href="#">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="group flex cursor-pointer flex-col gap-3 rounded-xl bg-surface-dark p-4 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10">
-                        <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg overflow-hidden"
-                            data-alt="Various software logos on a digital background"
-                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCo4S3yJvjDZ8tgJulAfltBe8oS2J-wfo1loO5erDDCW1X8kieZ4K-YMqUjGd_cn6gtS36kX8Jx4gn_FnGBuAtAt1eUkBNtnFvGW6eam1FzqzAc2SYxRmHexAOh7ugneRRXzl-m7uHxCy3m4e-XwyFrauaMuUEhOla-vjvdcUVd0LGImf2eKgTyMTHTz0RRapq8d2weoVozXWFbjk54QGOjWjVBMP7dX8psTbquFznVyxbDxXHYEzOr1GngZgfhcQgqMlK2AgqrRiM");'>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <p class="text-white text-base font-bold leading-normal">Software Installation Service</p>
-                            <p class="text-text-secondary-dark text-sm font-normal leading-normal">Hassle-free setup
-                                for any application.</p>
-                            <div class="flex items-center justify-between pt-2">
-                                <p class="text-white text-base font-bold leading-normal">$200 MXN</p>
-                                <a class="text-primary text-sm font-medium leading-normal opacity-0 group-hover:opacity-100 transition-opacity"
-                                    href="#">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="group flex cursor-pointer flex-col gap-3 rounded-xl bg-surface-dark p-4 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10">
-                        <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg overflow-hidden"
-                            data-alt="A hard drive opened up showing the internal platters"
-                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDwKzebGiLcT7XZ70aXDKhvysmxcic-iqDBhPzJYX_bFkjqfZoLBizIQ2jFhuJ1M3evVf7Srp0unlfKXRwCfbo_UZvKQLg4ApB6rCY9hLKjzNRk9vjLjgurhXAonNGLMTrFwNAfLb5cfwUJOqbNG7bnYPZgeJpIrnjmFxkKSy0yst1e8TFayjJK6ptrUyMqRoUiAhbFG0HrTWG5PqaT-cEaqOaLddJUG1rdCeusLo-Hfy9LCkGh7jviN9soOHdtFdao6-x_svACfpU");'>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <p class="text-white text-base font-bold leading-normal">Data Recovery</p>
-                            <p class="text-text-secondary-dark text-sm font-normal leading-normal">Recover lost files
-                                from damaged drives.</p>
-                            <div class="flex items-center justify-between pt-2">
-                                <p class="text-white text-base font-bold leading-normal">$500 MXN</p>
-                                <a class="text-primary text-sm font-medium leading-normal opacity-0 group-hover:opacity-100 transition-opacity"
-                                    href="#">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="group flex cursor-pointer flex-col gap-3 rounded-xl bg-surface-dark p-4 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10">
-                        <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg overflow-hidden"
-                            data-alt="Network servers in a data center"
-                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYQztkW9CNyg3mHyQqLOpXrPne7Bc_sFQT9-ygORRJoSSI6Ogo3bkY3Fh1wZdW_Yb1o2nKW5RjUg_arl7pBrcMvGHjTjDqfh_tvcogrgUSK1rLMUGfUDWBseGigc1TxiBoEHOFdFrZWMH6_qbdkomKW885w-LyGlgvWFFyU9cUaTuFbRBPqGJwHGkva9CVPE3WSh3YJ2MY-8UzJUZQlYOx8TMNmYUdbFb04QcFosnH_-HJq76LydlL2Mv6shX4AztScTyakzmEhUg");'>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <p class="text-white text-base font-bold leading-normal">Network Configuration</p>
-                            <p class="text-text-secondary-dark text-sm font-normal leading-normal">Home and small
-                                office network setup.</p>
-                            <div class="flex items-center justify-between pt-2">
-                                <p class="text-white text-base font-bold leading-normal">$450 MXN</p>
-                                <a class="text-primary text-sm font-medium leading-normal opacity-0 group-hover:opacity-100 transition-opacity"
-                                    href="#">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="group flex cursor-pointer flex-col gap-3 rounded-xl bg-surface-dark p-4 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10">
-                        <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover rounded-lg overflow-hidden"
-                            data-alt="Computer hardware components like RAM and CPU on a motherboard"
-                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuANn8rTWXpwm0TKH8Ty_46ZALNJEfelAfqNaNDFkMMmFQeMn6TWbLcA6a0QzrP9bfsvyOm3yyS4pCy8Zoz0R70FW94GTR5p9TMOH7FwUrV629F2sx2oZQAfHpxr2ddcsdFjn7g9B_WO0HJ1KmDwG9prkqqDLhcsGZov0drOWsekMdSubcWOOUGl2COo7w9R2LNeKSjjGKHqEQHXdrql3l4WbjsXjlMKivMFdlVC-LkgvaD3Cr_7TJ5mhJh-_7Rkak-SUhMtJLaf8R8");'>
-                        </div>
-                        <div class="flex flex-col gap-1">
-                            <p class="text-white text-base font-bold leading-normal">Hardware Upgrade</p>
-                            <p class="text-text-secondary-dark text-sm font-normal leading-normal">Boost your PC's
-                                speed with new components.</p>
-                            <div class="flex items-center justify-between pt-2">
-                                <p class="text-white text-base font-bold leading-normal">$300 MXN</p>
-                                <a class="text-primary text-sm font-medium leading-normal opacity-0 group-hover:opacity-100 transition-opacity"
-                                    href="#">View Details</a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
+
                 </div>
                 <!-- Pagination -->
                 <div class="flex items-center justify-center gap-2 pt-6">

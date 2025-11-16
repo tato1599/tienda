@@ -17,7 +17,7 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans ">
         <x-banner />
 
         <div class="min-h-screen bg-gray-100">
@@ -39,7 +39,6 @@
         </div>
 
         @stack('modals')
-        <x-toast />
         @livewireScripts
     </body>
 </html>

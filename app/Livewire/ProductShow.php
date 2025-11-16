@@ -74,6 +74,8 @@ class ProductShow extends Component
                 // crea un nuevo carrito
                 $cart = Cart::create(
                     [
+                        // 'user_id' => auth()->id(), // asigna el id del usuario autenticado
+                        // 'customer_id' => null, // asigna null al id del cliente (puede ser util para carritos de invitados)
                         'currency_id' => '1', // asigna la moneda con id 1 (Es pesos mexicanos)
                         'channel_id' => '1', // asigna el canal con id 1 (es la tienda principal)
                     ]

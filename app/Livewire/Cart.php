@@ -13,6 +13,9 @@ class Cart extends Component
 
     public function mount()
     {
+        if(!CartSession::current()) {
+           return;
+        }
         $this->cart = CartSession::current()->lines()->get();
 
         $this->purchasableItemsMap = $this->cart
@@ -26,13 +29,16 @@ class Cart extends Component
                 $totalQuantity = $lines->sum('quantity');
 
                 return [
-                    'name' => $firstLine->purchasable->product->name,
-                    'price' => $firstLine->purchasable->price,
+                    'name' => $firstLine->purchasable->product->translateAttribute('name'),
+                    'description' => $firstLine->purchasable->product->translateAttribute('description'),
+                    'price' => $firstLine->purchasable->product->variant->prices()->first()->price->decimal,
                     'quantity' => $totalQuantity,
+                    'media' => $firstLine->purchasable->product->media,
                 ];
             })
 
             ->values();
+
 
     }
 

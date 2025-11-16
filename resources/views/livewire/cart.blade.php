@@ -69,26 +69,35 @@
                         <div class="flex items-center gap-4">
                             <div class="h-20 w-20 flex-shrink-0 rounded-lg bg-cover bg-center bg-no-repeat"
                                 data-alt="Icon for network configuration service"
-                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBPtngokQOxnqS80BJtUYHBUW9xuqYrbxxmnOlkYUsu1daA7pl2LijT-DtQKafyy5kvfImzv40JMcP3nS_nAYqcUcF6WSjnZpgaXssjpY2A9yYv5C7VRd9jQ1ZxX1aEFXEowM79BXG0xLXjzAsXKAVIG5Cez6jZY98YoQSDwbOC54PHEj1j_AQCGPz3_t20uKNuZ9o2FXaEp3SgLIXUzJOT0LLdnBQGtjpe6e2kNEqHe7omzuQpkF9k_7ZZpKDVGCwd70GanCLOppU");'>
+                               >
+                                <img src="{{ asset($item['media']->first()->getUrl()) }}"
+                                alt="Service Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                             </div>
                             <div class="flex flex-col justify-center">
                                 <p class="text-lg font-medium leading-normal text-white">{{ $item['name'] }}</p>
-                                <p class="text-sm font-normal leading-normal text-[#9dabb9]">On-site network setup and
-                                    troubleshooting.</p>
-                                <p class="mt-1 text-base font-bold text-white sm:hidden">$99.00</p>
+                                <p class="text-sm font-normal leading-normal text-[#9dabb9]">
+                                    {{ $item['description'] }}
+                                </p>
+                                <p class="mt-1 text-base font-bold text-white sm:hidden">$
+                                    {{ number_format($item['price'] * $item['quantity'], 2) }}
+                                </p>
                             </div>
                         </div>
                         <div class="flex items-center justify-between gap-4 sm:justify-end">
                             <div class="flex items-center gap-2 text-white">
                                 <button
-                                    class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl font-medium leading-normal transition-colors hover:bg-white/20">-</button>
+                                    class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl
+                                    font-medium leading-normal transition-colors hover:bg-white/20">-</button>
                                 <input
                                     class="w-8 border-none bg-transparent p-0 text-center text-base font-medium leading-normal focus:border-none focus:outline-0 focus:ring-0 [appearance:textfield] [&amp;::-webkit-inner-spin-button]:appearance-none [&amp;::-webkit-outer-spin-button]:appearance-none"
                                     type="number" value="{{ $item['quantity'] }}" />
                                 <button
-                                    class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl font-medium leading-normal transition-colors hover:bg-white/20">+</button>
+                                    class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl
+                                    font-medium leading-normal transition-colors hover:bg-white/20">+</button>
                             </div>
-                            <p class="hidden w-20 text-right text-base font-bold text-white sm:block">$99.00</p>
+                            <p class="hidden w-20 text-right text-base font-bold text-white sm:block">$
+                                {{ number_format($item['price'] * $item['quantity'], 2) }}
+                            </p>
                             <button class="cursor-pointer text-[#9dabb9] transition-colors hover:text-red-500">
                                 <span class="material-symbols-outlined">delete</span>
                             </button>
@@ -101,7 +110,9 @@
                 <!-- Right Column: Order Summary -->
                 <div class="lg:col-span-1">
                     <div class="sticky top-24 rounded-lg bg-white/5 p-6">
-                        <h3 class="text-xl font-bold text-white">Order Summary</h3>
+                        <h3 class="text-xl font-bold text-white">Resumen de Pedido
+
+                        </h3>
                         <div class="mt-6 space-y-4 border-b border-white/10 pb-6">
                             <div class="flex justify-between text-base">
                                 <span class="text-[#9dabb9]">Subtotal</span>
