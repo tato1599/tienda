@@ -196,10 +196,19 @@
                                     class="text-white text-3xl sm:text-4xl font-bold leading-tight tracking-[-0.015em]">
                                     ¿Listo para resolver tus problemas tecnológicos?</h2>
                                 <p class="text-white/80 mt-2 max-w-xl">Únete a la comunidad tecnológica de ITCJ hoy. Regístrate gratis y obtén acceso a ayuda técnica confiable de tus compañeros.</p>
+
+                                @auth
+                                <a href="{{ route('servicios') }}"
+                                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-white text-black text-base font-bold leading-normal tracking-[0.015em] mt-8 hover:bg-white/90 transition-colors">
+                                    <span class="truncate">Explorar Servicios</span>
+                                </a>
+                                @endauth
+                                @guest
                                 <a href="{{ route('register') }}"
                                     class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-white text-black text-base font-bold leading-normal tracking-[0.015em] mt-8 hover:bg-white/90 transition-colors">
                                     <span class="truncate">Regístrate Gratis</span>
                                 </a>
+                                @endguest
                             </div>
                         </section>
                     </div>

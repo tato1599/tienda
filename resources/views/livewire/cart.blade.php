@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="en">
+<html class="dark" lang="es">
 
 <head>
     <meta charset="utf-8" />
@@ -45,17 +45,16 @@
             <div class="mb-8">
                 <div class="flex flex-wrap gap-2">
                     <a class="text-base font-medium leading-normal text-[#9dabb9] hover:text-primary"
-                        href="#">Home</a>
+                        href="/">Inicio</a>
                     <span class="text-base font-medium leading-normal text-[#9dabb9]">/</span>
                     <a class="text-base font-medium leading-normal text-[#9dabb9] hover:text-primary"
-                        href="#">Services</a>
+                        href="{{ route('servicios') }}">Servicios</a>
                     <span class="text-base font-medium leading-normal text-[#9dabb9]">/</span>
                     <span class="text-base font-medium leading-normal text-white">Shopping Cart</span>
                 </div>
                 <div class="mt-4 flex flex-wrap items-baseline justify-between gap-3">
-                    <p class="text-4xl font-black leading-tight tracking-[-0.033em] text-white min-w-72">Your Shopping
-                        Cart</p>
-                    <p class="text-base font-medium text-[#9dabb9]">2 items</p>
+                    <p class="text-4xl font-black leading-tight tracking-[-0.033em] text-white min-w-72">Tu carrito</p>
+                    <p class="text-base font-medium text-[#9dabb9]">{{ count($purchasableItemsMap) }} artículos</p>
                 </div>
             </div>
             <!-- Main Content Grid -->
@@ -63,7 +62,11 @@
                 <!-- Left Column: Cart Items -->
                 <div class="space-y-4 lg:col-span-2">
                     <!-- Item 1 -->
-                    @foreach ($purchasableItemsMap as $item)
+                    @if ( empty($purchasableItemsMap) )
+                        <p class="text-center text-white">Tu carrito está vacío.</p>
+
+                    @else
+                        @foreach ($purchasableItemsMap as $item)
                         <div
                         class="flex flex-col gap-4 rounded-lg bg-white/5 p-4 sm:flex-row sm:items-center sm:justify-between">
                         <div class="flex items-center gap-4">
@@ -104,6 +107,7 @@
                         </div>
                     </div>
                     @endforeach
+                    @endif
 
 
                 </div>

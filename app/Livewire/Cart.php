@@ -9,7 +9,7 @@ use Lunar\Facades\CartSession;
 class Cart extends Component
 {
     public $cart;
-    public $purchasableItemsMap;
+    public $purchasableItemsMap = [];
 
     public function mount()
     {
