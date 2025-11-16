@@ -81,7 +81,7 @@ class ProductShow extends Component
                     ]
                 );
 
-                $cartSession = CartSession::create($cart); // crea una nueva sesion de carrito con el carrito recien creado
+                $cartSession = CartSession::create($cart->toArray()); // crea una nueva sesion de carrito con el carrito recien creado
 
             }
 
@@ -100,7 +100,7 @@ class ProductShow extends Component
             );
 
             $cartSession->lines()->create($cartLine->toArray()); // guarda la linea de carrito en el carrito actual
-
+            $cartSession->calculate();
             $this->toast(
                 type: 'success',
                 title: 'Producto agregado al carrito',

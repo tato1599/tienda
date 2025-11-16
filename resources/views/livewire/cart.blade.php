@@ -117,19 +117,22 @@
                         <h3 class="text-xl font-bold text-white">Resumen de Pedido
 
                         </h3>
+                        @if (empty($cartPrices))
+                            <p class="text-center text-white mt-4">No hay artículos en el carrito.</p>
+                        @else
                         <div class="mt-6 space-y-4 border-b border-white/10 pb-6">
                             <div class="flex justify-between text-base">
                                 <span class="text-[#9dabb9]">Subtotal</span>
-                                <span class="font-medium text-white">$349.00</span>
+                                <span class="font-medium text-white">${{$cartPrices->subTotal->decimal() }}</span>
                             </div>
                             <div class="flex justify-between text-base">
-                                <span class="text-[#9dabb9]">Taxes (IVA 16%)</span>
-                                <span class="font-medium text-white">$55.84</span>
+                                <span class="text-[#9dabb9]">Impuesto (IVA 16%)</span>
+                                <span class="font-medium text-white">${{$cartPrices->taxTotal->decimal() }}</span>
                             </div>
                         </div>
                         <div class="mt-6 flex justify-between">
                             <span class="text-lg font-bold text-white">Total</span>
-                            <span class="text-lg font-bold text-white">$404.84</span>
+                            <span class="text-lg font-bold text-white">${{$cartPrices->total->decimal() }}</span>
                         </div>
                         <div class="mt-6">
                             <label class="mb-2 block text-sm font-medium text-[#9dabb9]" for="promo-code">Promo
@@ -156,6 +159,7 @@
                             </a>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </main>

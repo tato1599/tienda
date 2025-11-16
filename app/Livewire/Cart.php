@@ -5,11 +5,14 @@ namespace App\Livewire;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Lunar\Facades\CartSession;
+use Lunar\Models\CartLine;
 
 class Cart extends Component
 {
     public $cart;
     public $purchasableItemsMap = [];
+
+    public $cartPrices;
 
     public function mount()
     {
@@ -17,7 +20,8 @@ class Cart extends Component
            return;
         }
         $this->cart = CartSession::current()->lines()->get();
-
+        $this->cartPrices = CartSession::current()->calculate();
+        // dd($this->cartPrices->subTotal);
         $this->purchasableItemsMap = $this->cart
             ->filter(fn($line) => $line->purchasable_id)
 
