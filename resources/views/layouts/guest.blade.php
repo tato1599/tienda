@@ -18,9 +18,14 @@
         @livewireStyles
     </head>
     <body>
-        <div class="font-sans text-gray-900 antialiased">
+        <x-mary-toast />
+
+        <x-headerTienda  />
+
+        <div class="font-sans text-gray-900 antialiased bg-gray-100 dark:bg-gray-900 min-h-screen">
             {{ $slot }}
         </div>
+
 
         @livewireScripts
     </body>
