@@ -30,7 +30,7 @@
 */
 
 .mary-table-pagination span[aria-current="page"] > span {
-    /* @apply bg-primary text-base-100 */
+    @apply bg-primary text-base-100
 }
 
 .mary-table-pagination button {

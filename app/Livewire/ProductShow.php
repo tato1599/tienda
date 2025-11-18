@@ -72,10 +72,11 @@ class ProductShow extends Component
 
             if (!$cartSession) { // si no hay un carrito asociado a la sesion actual
                 // crea un nuevo carrito
+                dd(auth()->id(), auth()->user()->customer->id ?? null);
                 $cart = Cart::create(
                     [
-                        // 'user_id' => auth()->id(), // asigna el id del usuario autenticado
-                        // 'customer_id' => null, // asigna null al id del cliente (puede ser util para carritos de invitados)
+                        'user_id' => auth()->id(), // asigna el id del usuario autenticado
+                        'customer_id' => auth()->user()->customer->id ?? null, // asigna el id del cliente (puede ser util para carritos de invitados)
                         'currency_id' => '1', // asigna la moneda con id 1 (Es pesos mexicanos)
                         'channel_id' => '1', // asigna el canal con id 1 (es la tienda principal)
                     ]

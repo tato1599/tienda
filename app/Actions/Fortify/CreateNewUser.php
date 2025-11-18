@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use Lunar\Models\Customer;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -41,11 +42,27 @@ class CreateNewUser implements CreatesNewUsers
 
 
         // Esta funcion crea un nuevo usuario en la base de datos con los datos validados
-        return User::create([
+
+        $customer = Customer::create([
+            // 'title' => '',
+            'first_name' => $input['name'],
+            'last_name' => $input['apellido'],
+            'company_name' => '',
+            // 'vat_no' => null,
+        ]);
+
+
+
+        $user = User::create([
             'name' => $input['name'] . ' ' . $input['apellido'],
             'email' => $fullEmail, // Usamos el email completo
             'matricula' => $input['matricula'], // 3. Guardar la Matrícula
             'password' => Hash::make($input['password']),
         ]);
+
+        $customer->users()->attach($user);
+
+        return $user;
+
     }
 }
