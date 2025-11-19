@@ -25,10 +25,10 @@ class CreateNewUser implements CreatesNewUsers
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'apellido' => ['required', 'string', 'max:255'],
-            // El campo 'email' contendrá solo la parte antes del '@', lo validamos como requerido y string
-            'email' => ['required', 'string', 'max:255'],
-            // Nueva validación para la matrícula
-            'matricula' => ['required', 'string', 'max:255', 'unique:users'], // Asumiendo que la matrícula es única
+            // El campo 'email' contendrá solo la parte antes del '@', lo validamos como requerido y con caracteres válidos
+            'email' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z0-9._%+-]+$/'],
+            // Nueva validación para la matrícula (comprobar unicidad sobre la columna matricula)
+            'matricula' => ['required', 'string', 'max:50', 'unique:users,matricula'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
