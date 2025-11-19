@@ -20,7 +20,7 @@
                             name="email"
                             type="email"
                             :value="old('email')"
-                            placeholder="tucorreo@ejemplo.com"
+                            placeholder="numcontrol@cdjuarez.tecnm.mx"
                             required
                             autofocus
                         />
