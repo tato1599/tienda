@@ -147,6 +147,7 @@
                         </div>
                         <div class="mt-8 flex flex-col gap-4">
                             <button
+                                wire:click="checkout"
                                 class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary py-3 text-base font-bold text-white shadow-lg shadow-primary/20 transition-transform hover:scale-[1.02]">
                                 <span class="material-symbols-outlined">lock</span>
                                 Proceed to Checkout

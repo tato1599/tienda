@@ -46,6 +46,11 @@ class Cart extends Component
 
     }
 
+    public function checkout()
+    {
+
+    }
+
 
     #[Layout('layouts.guest')]
     public function render()

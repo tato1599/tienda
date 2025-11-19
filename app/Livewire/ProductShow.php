@@ -10,6 +10,7 @@ use Lunar\Facades\Payments;
 use Lunar\Models\Cart;
 use Lunar\Models\CartLine;
 use Lunar\Models\Contracts\Product;
+use Lunar\Models\Customer;
 use Lunar\Models\Product as ModelsProduct;
 use Lunar\Models\ProductVariant;
 
@@ -67,16 +68,17 @@ class ProductShow extends Component
     #[On('addToCart')]
     public function addToCart()
     {
+
         try { // primero engloba todo en un bloque try para capturar errores
             $cartSession = CartSession::current(); // esto obtiene la sesion actual del carrito de compras
 
+
             if (!$cartSession) { // si no hay un carrito asociado a la sesion actual
                 // crea un nuevo carrito
-                dd(auth()->id(), auth()->user()->customer->id ?? null);
                 $cart = Cart::create(
                     [
                         'user_id' => auth()->id(), // asigna el id del usuario autenticado
-                        'customer_id' => auth()->user()->customer->id ?? null, // asigna el id del cliente (puede ser util para carritos de invitados)
+                        'customer_id' => auth()->user()->customers()->first()->id ?? null, // asigna el id del cliente (puede ser util para carritos de invitados)
                         'currency_id' => '1', // asigna la moneda con id 1 (Es pesos mexicanos)
                         'channel_id' => '1', // asigna el canal con id 1 (es la tienda principal)
                     ]
@@ -102,14 +104,7 @@ class ProductShow extends Component
 
             $cartSession->lines()->create($cartLine->toArray()); // guarda la linea de carrito en el carrito actual
             $cartSession->calculate();
-            $this->toast(
-                type: 'success',
-                title: 'Producto agregado al carrito',
-                description: 'El producto se ha agregado correctamente a tu carrito de compras.',
-                css: "bg-green-500 text-white",         // optional (tailwind classes)
-                timeout: 3000,                      // optional (ms)
-                redirectTo: null                    // optional (uri)
-            );
+            $this->success('Success', 'Producto agregado al carrito exitosamente.');
 
         } catch (\Exception $e) { // si ocurre algun error durante el proceso
             report($e); // reporta el error para su revision
