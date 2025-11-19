@@ -123,16 +123,16 @@
                         <div class="mt-6 space-y-4 border-b border-white/10 pb-6">
                             <div class="flex justify-between text-base">
                                 <span class="text-[#9dabb9]">Subtotal</span>
-                                <span class="font-medium text-white">${{$cartPrices->subTotal->decimal() }}</span>
+                                <span class="font-medium text-white">${{$cartPrices->subTotal}}</span>
                             </div>
                             <div class="flex justify-between text-base">
                                 <span class="text-[#9dabb9]">Impuesto (IVA 16%)</span>
-                                <span class="font-medium text-white">${{$cartPrices->taxTotal->decimal() }}</span>
+                                <span class="font-medium text-white">${{$cartPrices->taxTotal }}</span>
                             </div>
                         </div>
                         <div class="mt-6 flex justify-between">
                             <span class="text-lg font-bold text-white">Total</span>
-                            <span class="text-lg font-bold text-white">${{$cartPrices->total->decimal() }}</span>
+                            <span class="text-lg font-bold text-white">${{$cartPrices->total }}</span>
                         </div>
                         <div class="mt-6">
                             <label class="mb-2 block text-sm font-medium text-[#9dabb9]" for="promo-code">Promo
@@ -160,11 +160,13 @@
                             </a>
                         </div>
                     </div>
+
                     @endif
                 </div>
             </div>
         </main>
     </div>
 </body>
+
 
 </html>
