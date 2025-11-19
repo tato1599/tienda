@@ -64,7 +64,7 @@
                                         <div class="flex flex-col gap-2 text-left max-w-2xl">
                                             <h1
                                                 class="text-white text-4xl font-bold leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-bold @[480px]:leading-tight @[480px]:tracking-[-0.033em]">
-                                                Tu sol tecnológica al alcance de un clic
+                                                Tu solución tecnológica al alcance de un click
                                             </h1>
                                             <h2
                                                 class="text-white/80 text-sm font-normal leading-normal @[480px]:text-base @[480px]:font-normal @[480px]:leading-normal">
