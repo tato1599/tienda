@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+// 1. Importar el modelo Customer de Lunar
+use Lunar\Models\Customer;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -39,13 +41,29 @@ class CreateNewUser implements CreatesNewUsers
             'email_completo' => ['unique:users,email'],
         ])->validate();
 
-
-        // Esta funcion crea un nuevo usuario en la base de datos con los datos validados
-        return User::create([
+        // --- INICIO: Lógica para la creación del User ---
+        $user = User::create([
             'name' => $input['name'] . ' ' . $input['apellido'],
             'email' => $fullEmail, // Usamos el email completo
-            'matricula' => $input['matricula'], // 3. Guardar la Matrícula
+            'matricula' => $input['matricula'], // Guardar la Matrícula
             'password' => Hash::make($input['password']),
         ]);
+        // --- FIN: Lógica para la creación del User ---
+
+        // 2. Crear el Customer de Lunar
+        $customer = Customer::create([
+            // Puedes añadir 'title' si lo solicitas en el formulario de registro
+            // 'title' => $input['title'] ?? null,
+            'first_name' => $input['name'],
+            'last_name' => $input['apellido'],
+            // Si necesitas otros campos como company_name, agrégalos aquí.
+        ]);
+
+
+        // 3. Asociar el User con el Customer
+        // Se utiliza la relación 'users' en el modelo Customer de Lunar
+        $customer->users()->attach($user);
+
+        return $user;
     }
 }
