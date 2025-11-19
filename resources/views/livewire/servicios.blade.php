@@ -102,7 +102,7 @@
 
                             <div class="flex items-center justify-between pt-2">
                                 <p class="text-white text-base font-bold leading-normal">
-                                    ${{ $servicio->price }}
+                                    ${{ $servicio->variants->first()->prices->first()->price->decimal }}
                                 </p>
                                 <a class="text-primary text-sm font-medium leading-normal opacity-0 group-hover:opacity-100 transition-opacity"
                                    href="{{ route('product.show', $servicio) }}">Ver detalles</a>

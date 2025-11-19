@@ -16,7 +16,7 @@ class Servicios extends Component
 
     public function mount()
     {
-        $this->servicios = Product::where('status', 'published')->with('media')->get();
+        $this->servicios = Product::where('status', 'published')->with(['media','variants'])->get();
 
     }
 
