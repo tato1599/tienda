@@ -1,13 +1,13 @@
 <x-guest-layout>
     <div class="text-center">
         <x-mary-icon name="m-user-group" class="w-12 h-12 text-blue-500" />
-        <div class="w-1/2 mx-auto mt-3 p-1">
+        <div class="w-full md:1/2  md:w-1/2 mx-auto mt-3 p-1">
             <x-mary-header title="Crea tu cuenta" subtitle="Únete a la plataforma de servicios del ITCJ" separator />
         </div>
     </div>
     <form method="POST" action="{{ route('register') }}">
         @csrf
-        <div class="w-1/2 mx-auto mt-10 p-3">
+        <div class="w-full md:1/2 md:w-1/2 mx-auto mt-10 p-3">
             <div class="grid grid-cols-2 gap-4">
                 <x-mary-input label="Nombre" id="name" wire:model="name" name="name"
                     placeholder="Ingresa tu nombre" icon="o-user" hint="Tu nombre completo" />
