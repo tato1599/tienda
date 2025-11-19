@@ -1,43 +1,5 @@
-<!DOCTYPE html>
 
-<html class="dark" lang="es">
 
-<head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Shopping Cart - ITCJ Services</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#2b8cee",
-                        "background-light": "#f6f7f8",
-                        "background-dark": "#101922",
-                    },
-                    fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
-</head>
-
-<body class="bg-background-light dark:bg-background-dark font-display text-[#EAEAEA]">
     <div class="relative flex min-h-screen w-full flex-col">
 
         <main class="container mx-auto flex-1 px-4 py-8 sm:px-6 lg:px-8">
@@ -50,7 +12,9 @@
                     <a class="text-base font-medium leading-normal text-[#9dabb9] hover:text-primary"
                         href="{{ route('servicios') }}">Servicios</a>
                     <span class="text-base font-medium leading-normal text-[#9dabb9]">/</span>
-                    <span class="text-base font-medium leading-normal text-white">Shopping Cart</span>
+                    <span class="text-base font-medium leading-normal text-white">
+                        Carrito de Compras
+                    </span>
                 </div>
                 <div class="mt-4 flex flex-wrap items-baseline justify-between gap-3">
                     <p class="text-4xl font-black leading-tight tracking-[-0.033em] text-white min-w-72">Tu carrito</p>
@@ -102,7 +66,11 @@
                                 {{ number_format($item['price'] * $item['quantity'], 2) }}
                             </p>
                             <button class="cursor-pointer text-[#9dabb9] transition-colors hover:text-red-500">
-                                <span class="material-symbols-outlined">delete</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
                             </button>
                         </div>
                     </div>
@@ -123,18 +91,18 @@
                         <div class="mt-6 space-y-4 border-b border-white/10 pb-6">
                             <div class="flex justify-between text-base">
                                 <span class="text-[#9dabb9]">Subtotal</span>
-                                <span class="font-medium text-white">${{$cartPrices->subTotal->decimal() }}</span>
+                                <span class="font-medium text-white">{{$cartPrices->subTotal?->formatted() }}</span>
                             </div>
                             <div class="flex justify-between text-base">
                                 <span class="text-[#9dabb9]">Impuesto (IVA 16%)</span>
-                                <span class="font-medium text-white">${{$cartPrices->taxTotal->decimal() }}</span>
+                                <span class="font-medium text-white">{{$cartPrices->taxTotal?->formatted() }}</span>
                             </div>
                         </div>
                         <div class="mt-6 flex justify-between">
                             <span class="text-lg font-bold text-white">Total</span>
-                            <span class="text-lg font-bold text-white">${{$cartPrices->total->decimal() }}</span>
+                            <span class="text-lg font-bold text-white">{{$cartPrices->total?->formatted() }}</span>
                         </div>
-                        <div class="mt-6">
+                        {{-- <div class="mt-6">
                             <label class="mb-2 block text-sm font-medium text-[#9dabb9]" for="promo-code">Promo
                                 Code</label>
                             <div class="flex gap-2">
@@ -144,18 +112,17 @@
                                 <button
                                     class="rounded-lg bg-white/20 px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-white/30">Apply</button>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="mt-8 flex flex-col gap-4">
                             <button
+                                wire:click="checkout"
                                 class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary py-3 text-base font-bold text-white shadow-lg shadow-primary/20 transition-transform hover:scale-[1.02]">
-                                <span class="material-symbols-outlined">lock</span>
-                                Proceed to Checkout
+
+                                Proceder al Pago
                             </button>
                             <a class="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg py-3 text-base font-medium text-[#9dabb9] transition-colors hover:text-white"
                                 href="#">
-                                <span
-                                    class="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span>
-                                Continue Shopping
+                                 Continuar Comprando
                             </a>
                         </div>
                     </div>
@@ -164,6 +131,5 @@
             </div>
         </main>
     </div>
-</body>
 
-</html>
+
