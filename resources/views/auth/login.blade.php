@@ -14,32 +14,35 @@
                 <div class="w-full max-w-lg mx-auto mt-.5 p-3">
                     <div class="grid gap-5">
 
-                        <x-mary-input
-                            label="Correo electrónico"
-                            id="email"
-                            name="email"
-                            type="email"
-                            :value="old('email')"
-                            placeholder="numcontrol@cdjuarez.tecnm.mx"
-                            required
-                            autofocus
-                        />
+                        <div>
+                            <x-mary-input
+                                label="Correo electrónico"
+                                id="email"
+                                name="email"
+                                type="email"
+                                :value="old('email')"
+                                placeholder="numcontrol@cdjuarez.tecnm.mx"
+                                required
+                                autofocus
+                            />
+                            @error('email')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                        <x-mary-password
-                            label="Contraseña"
-                            id="password"
-                            name="password"
-                            right
-                            required
-                            autocomplete="current-password"
-                        />
-
-                        @error('email')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                        @error('password')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
+                        <div>
+                            <x-mary-password
+                                label="Contraseña"
+                                id="password"
+                                name="password"
+                                right
+                                required
+                                autocomplete="current-password"
+                            />
+                            @error('password')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
 
                     </div><br>
                     <div class="grid gap-8">
