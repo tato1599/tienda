@@ -18,8 +18,9 @@
                                 <span class="material-symbols-outlined">search</span>
                             </div>
                             <input
+                                wire:model.live.debounce.300ms="search"
                                 class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-gray-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 pl-2 text-base font-normal leading-normal"
-                                placeholder="Search for services like 'PC repair'..." value="" />
+                                placeholder="Search for services like 'PC repair'..." />
                         </div>
                     </label>
                 </div>

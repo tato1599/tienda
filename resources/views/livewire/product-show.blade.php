@@ -27,7 +27,7 @@
             
             <!-- Price Component -->
             <h1 class="text-gray-900 dark:text-white tracking-light text-4xl font-bold leading-tight">
-                {{ $this->product->variants->first()?->price?->formatted ?? 'Precio no disponible' }}
+                ${{ $this->product->variants->first()?->prices->first()?->price->decimal ?? '0.00' }}
             </h1>
             
             <!-- Description & Specs Accordion -->
