@@ -116,34 +116,38 @@
                         <div class="mt-8 flex flex-col gap-4">
                             @if(!$addressSaved)
                                 <div class="space-y-4">
-                                    <h4 class="text-lg font-bold text-white">Datos de Envío</h4>
+                                    <h4 class="text-lg font-bold text-white">Shipping Address</h4>
                                     <div class="grid grid-cols-2 gap-4">
-                                        <input wire:model="firstName" type="text" placeholder="Nombre" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
-                                        <input wire:model="lastName" type="text" placeholder="Apellido" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
+                                        <input wire:model="firstName" type="text" placeholder="First Name" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
+                                        <input wire:model="lastName" type="text" placeholder="Last Name" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
                                     </div>
-                                    <input wire:model="email" type="email" placeholder="Email" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
-                                    <input wire:model="lineOne" type="text" placeholder="Dirección" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
+                                    <input wire:model="lineOne" type="text" placeholder="Address Line 1" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
                                     <div class="grid grid-cols-2 gap-4">
-                                        <input wire:model="city" type="text" placeholder="Ciudad" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
-                                        <input wire:model="state" type="text" placeholder="Estado" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
+                                        <input wire:model="city" type="text" placeholder="City" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
+                                        <input wire:model="state" type="text" placeholder="State" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
                                     </div>
-                                    <input wire:model="postCode" type="text" placeholder="Código Postal" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <input wire:model="postcode" type="text" placeholder="Postal Code" class="w-full rounded-lg bg-white/5 border-white/10 text-white placeholder:text-gray-500">
+                                        <select wire:model="countryId" class="w-full rounded-lg bg-white/5 border-white/10 text-white">
+                                            <option value="143">Mexico</option>
+                                        </select>
+                                    </div>
                                     
                                     <button
                                         wire:click="saveAddress"
                                         class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary py-3 text-base font-bold text-white shadow-lg shadow-primary/20 transition-transform hover:scale-[1.02]">
-                                        Continuar al Pago
+                                        Continue to Payment
                                     </button>
                                 </div>
                             @else
                                 <div class="bg-white/5 p-4 rounded-lg mb-4">
                                     <div class="flex justify-between items-center mb-2">
-                                        <h4 class="text-white font-bold">Enviando a:</h4>
-                                        <button wire:click="$set('addressSaved', false)" class="text-sm text-primary hover:underline">Editar</button>
+                                        <h4 class="text-white font-bold">Shipping Address:</h4>
+                                        <button wire:click="$set('addressSaved', false)" class="text-sm text-primary hover:underline">Edit</button>
                                     </div>
                                     <p class="text-gray-400 text-sm">{{ $firstName }} {{ $lastName }}</p>
                                     <p class="text-gray-400 text-sm">{{ $lineOne }}</p>
-                                    <p class="text-gray-400 text-sm">{{ $city }}, {{ $state }} {{ $postCode }}</p>
+                                    <p class="text-gray-400 text-sm">{{ $city }}, {{ $state }} {{ $postcode }}</p>
                                 </div>
 
                                 @if($paymentIntentClientSecret)
@@ -185,17 +189,19 @@
                                                 const { error } = await stripe.confirmPayment({
                                                     elements,
                                                     confirmParams: {
-                                                        return_url: '{{ route("servicios") }}', // Redirect to services or a thank you page
+                                                        return_url: '{{ route("checkout.success") }}', 
                                                     },
                                                 });
 
                                                 if (error) {
+                                                    console.log('Stripe Error:', error);
                                                     errorMsg.innerText = error.message;
                                                     errorMsg.classList.remove('hidden');
-                                                    submitBtn.disabled = false;
-                                                    submitBtn.innerText = 'Pagar Ahora';
-                                                } else {
-                                                    // The UI will auto-redirect to the return_url
+                                                    if (error.type === "card_error" || error.type === "validation_error") {
+                                                        showMessage(error.message);
+                                                    } else {
+                                                        showMessage(error.message || "Se ha producido un error de procesamiento.");
+                                                    }
                                                 }
                                             });
                                         });

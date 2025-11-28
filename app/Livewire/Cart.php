@@ -26,9 +26,8 @@ class Cart extends Component
     public $lineOne = '';
     public $city = '';
     public $state = '';
-    public $postCode = '';
-    public $countryId = 156; // Default to Mexico (check your DB for correct ID)
-    public $email = '';
+    public $postcode = '';
+    public $countryId = 143; // Mexico default
     
     public $addressSaved = false;
 
@@ -51,10 +50,26 @@ class Cart extends Component
             $this->lineOne = $shippingAddress->line_one;
             $this->city = $shippingAddress->city;
             $this->state = $shippingAddress->state;
-            $this->postCode = $shippingAddress->postcode;
+            $this->postcode = $shippingAddress->postcode;
             $this->countryId = $shippingAddress->country_id;
-            $this->email = $shippingAddress->contact_email;
             $this->addressSaved = true;
+        } else {
+             // Pre-fill with user data
+             $user = auth()->user();
+             if($user) {
+                 $this->firstName = $user->name;
+                 $this->lastName = '.';
+                 $this->countryId = 143;
+             }
+        }
+
+        // Ensure shipping option is set if address is present
+        if ($this->addressSaved && !$currentCart->shippingOption) {
+             $shippingOptions = \Lunar\Facades\ShippingManifest::getOptions($currentCart);
+             if ($option = $shippingOptions->first()) {
+                 $currentCart->setShippingOption($option);
+                 $currentCart->save();
+             }
         }
 
         // Only create intent if address is saved
@@ -62,9 +77,15 @@ class Cart extends Component
             try {
                 \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
                 $intent = \Lunar\Stripe\Facades\Stripe::createIntent($currentCart);
+                
+                if ($intent->status === 'succeeded') {
+                    $this->redirect(route('checkout.success'));
+                    return;
+                }
+
                 $this->paymentIntentClientSecret = $intent->client_secret;
             } catch (\Exception $e) {
-                // Log error
+                \Illuminate\Support\Facades\Log::error('Stripe createIntent error in mount: ' . $e->getMessage());
             }
         }
 
@@ -94,11 +115,12 @@ class Cart extends Component
             'lineOne' => 'required',
             'city' => 'required',
             'state' => 'required',
-            'postCode' => 'required',
-            'email' => 'required|email',
+            'postcode' => 'required',
+            'countryId' => 'required',
         ]);
 
         $cart = CartSession::current();
+        $user = auth()->user();
         
         $addressData = [
             'first_name' => $this->firstName,
@@ -106,26 +128,39 @@ class Cart extends Component
             'line_one' => $this->lineOne,
             'city' => $this->city,
             'state' => $this->state,
-            'postcode' => $this->postCode,
+            'postcode' => $this->postcode,
             'country_id' => $this->countryId,
-            'contact_email' => $this->email,
-            'type' => 'shipping', // Lunar requires type
+            'contact_email' => $user->email ?? 'guest@example.com',
+            'type' => 'shipping',
         ];
 
         // Save Shipping Address
         $cart->setShippingAddress($addressData);
         
-        // Save Billing Address (using same data for now)
+        // Save Billing Address
         $billingData = $addressData;
         $billingData['type'] = 'billing';
         $cart->setBillingAddress($billingData);
 
         $this->addressSaved = true;
-        
+
+        // Auto-select first shipping option
+        $shippingOptions = \Lunar\Facades\ShippingManifest::getOptions($cart);
+        if ($option = $shippingOptions->first()) {
+            $cart->setShippingOption($option);
+            $cart->save();
+        }
+
         // Create Payment Intent now that we have an address
         try {
             \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             $intent = \Lunar\Stripe\Facades\Stripe::createIntent($cart);
+
+            if ($intent->status === 'succeeded') {
+                $this->redirect(route('checkout.success'));
+                return;
+            }
+
             $this->paymentIntentClientSecret = $intent->client_secret;
         } catch (\Exception $e) {
             $this->error('Error creating payment intent: ' . $e->getMessage());

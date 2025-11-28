@@ -6,12 +6,7 @@
                     <div class="flex items-center justify-between">
                         <div class="flex items-center flex-1 gap-4">
                             <a href="{{ route('welcome') }}" title="" class="shrink-0">
-                                <img class="block w-auto h-8 dark:hidden"
-                                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/logo-full.svg"
-                                    alt="">
-                                <img class="hidden w-auto h-8 dark:block"
-                                    src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/logo-full-dark.svg"
-                                    alt="">
+                                <span class="self-center text-2xl font-semibold whitespace-nowrap text-gray-900 dark:text-white">ITCJ SERVICIOS</span>
                             </a>
                             <button @click="openMenu = !openMenu"
                                 class="lg:hidden p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700">
