@@ -17,20 +17,56 @@ class Cart extends Component
     public $purchasableItemsMap = [];
 
     public $cartPrices;
+    public $paymentIntentClientSecret;
+    public $stripeKey;
+
+    // Address Fields
+    public $firstName = '';
+    public $lastName = '';
+    public $lineOne = '';
+    public $city = '';
+    public $state = '';
+    public $postCode = '';
+    public $countryId = 156; // Default to Mexico (check your DB for correct ID)
+    public $email = '';
+    
+    public $addressSaved = false;
 
     public function mount()
     {
+        $this->stripeKey = env('STRIPE_PK');
         $currentCart = CartSession::current();
 
         if (!$currentCart) {
            return;
         }
 
-        // Calcular cartPrices solo si hay un carrito,
-        // y la lógica de la vista DEBE manejar si $cartPrices es null
-        // (usando el operador ?-> como se recomendó antes para evitar el error 'decimal() on null')
         $this->cart = $currentCart->lines()->get();
         $this->cartPrices = $currentCart->calculate();
+        
+        // Load existing address if available
+        if ($shippingAddress = $currentCart->shippingAddress) {
+            $this->firstName = $shippingAddress->first_name;
+            $this->lastName = $shippingAddress->last_name;
+            $this->lineOne = $shippingAddress->line_one;
+            $this->city = $shippingAddress->city;
+            $this->state = $shippingAddress->state;
+            $this->postCode = $shippingAddress->postcode;
+            $this->countryId = $shippingAddress->country_id;
+            $this->email = $shippingAddress->contact_email;
+            $this->addressSaved = true;
+        }
+
+        // Only create intent if address is saved
+        if ($this->addressSaved) {
+            try {
+                \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                $intent = \Lunar\Stripe\Facades\Stripe::createIntent($currentCart);
+                $this->paymentIntentClientSecret = $intent->client_secret;
+            } catch (\Exception $e) {
+                // Log error
+            }
+        }
 
         $this->purchasableItemsMap = $this->cart
              ->filter(fn($line) => $line->purchasable_id)
@@ -42,13 +78,58 @@ class Cart extends Component
                  return [
                      'name' => $firstLine->purchasable->product->translateAttribute('name'),
                      'description' => $firstLine->purchasable->product->translateAttribute('description'),
-                     // Si el error de 'decimal() on null' persiste aquí, necesitas más comprobaciones:
                      'price' => optional($firstLine->purchasable->product->variant->prices()->first())->price->decimal,
                      'quantity' => $totalQuantity,
                      'media' => $firstLine->purchasable->product->media,
                  ];
              })
              ->values();
+    }
+
+    public function saveAddress()
+    {
+        $this->validate([
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'lineOne' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'postCode' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        $cart = CartSession::current();
+        
+        $addressData = [
+            'first_name' => $this->firstName,
+            'last_name' => $this->lastName,
+            'line_one' => $this->lineOne,
+            'city' => $this->city,
+            'state' => $this->state,
+            'postcode' => $this->postCode,
+            'country_id' => $this->countryId,
+            'contact_email' => $this->email,
+            'type' => 'shipping', // Lunar requires type
+        ];
+
+        // Save Shipping Address
+        $cart->setShippingAddress($addressData);
+        
+        // Save Billing Address (using same data for now)
+        $billingData = $addressData;
+        $billingData['type'] = 'billing';
+        $cart->setBillingAddress($billingData);
+
+        $this->addressSaved = true;
+        
+        // Create Payment Intent now that we have an address
+        try {
+            \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+            $intent = \Lunar\Stripe\Facades\Stripe::createIntent($cart);
+            $this->paymentIntentClientSecret = $intent->client_secret;
+        } catch (\Exception $e) {
+            $this->error('Error creating payment intent: ' . $e->getMessage());
+        }
     }
 
     // ----------------------------------------------------------------------
