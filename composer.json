@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6",
         "lunarphp/lunar": "^1.0",
+        "lunarphp/stripe": "^1.0",
         "robsontenorio/mary": "^2.4"
     },
     "require-dev": {

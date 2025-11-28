@@ -11,19 +11,21 @@ class Servicios extends Component
 {
 
     //array de ejemplo para mostrar en la vista
-   public $servicios = [];
-    public $media = [];
-
-    public function mount()
-    {
-        $this->servicios = Product::where('status', 'published')->with(['media','variants'])->get();
-
-    }
-
+    public $search = '';
+    public $servicios = [];
 
     #[Layout('layouts.guest')]
     public function render()
     {
-        return view('livewire.servicios' );
+        $query = Product::where('status', 'published')
+            ->with(['media', 'variants']);
+
+        if ($this->search) {
+            $query->where('attribute_data', 'like', '%' . $this->search . '%');
+        }
+
+        $this->servicios = $query->get();
+
+        return view('livewire.servicios');
     }
 }
