@@ -31,6 +31,9 @@ class Cart extends Component
     
     public $addressSaved = false;
 
+    public $confirmingDeletion = false;
+    public $itemToDelete = null;
+
     public function mount()
     {
         $this->stripeKey = env('STRIPE_PK');
@@ -97,6 +100,8 @@ class Cart extends Component
                  $totalQuantity = $lines->sum('quantity');
 
                  return [
+                     'id' => $firstLine->id,
+                     'purchasable_id' => $firstLine->purchasable_id,
                      'name' => $firstLine->purchasable->product->translateAttribute('name'),
                      'description' => $firstLine->purchasable->product->translateAttribute('description'),
                      'price' => optional($firstLine->purchasable->product->variant->prices()->first())->price->decimal,
@@ -217,6 +222,110 @@ class Cart extends Component
     // ----------------------------------------------------------------------
     // Renderizado
     // ----------------------------------------------------------------------
+    public function changeQuantity($purchasableId, $change)
+    {
+        \Log::info('Cart: changeQuantity', ['purchasable_id' => $purchasableId, 'change' => $change]);
+        $cart = CartSession::current();
+        
+        // Find all lines for this purchasable
+        $lines = $cart->lines()
+            ->where('purchasable_id', $purchasableId)
+            ->get();
+            
+        if ($lines->isEmpty()) return;
+
+        $currentQuantity = $lines->sum('quantity');
+        $newQuantity = $currentQuantity + $change;
+
+        // If we have multiple lines, merge them
+        if ($lines->count() > 1) {
+            \Log::info('Cart: merging duplicates', ['count' => $lines->count()]);
+            // Keep the first one, delete others
+            $firstLine = $lines->first();
+            $lines->slice(1)->each(fn($line) => $line->delete());
+            
+            if ($newQuantity < 1) {
+                $firstLine->delete();
+            } else {
+                $cart->updateLine($firstLine->id, $newQuantity);
+            }
+        } else {
+            $line = $lines->first();
+            if ($newQuantity < 1) {
+                $line->delete();
+            } else {
+                $cart->updateLine($line->id, $newQuantity);
+            }
+        }
+
+        $cart->calculate();
+        
+        $this->cart = $cart->lines()->get();
+        $this->cartPrices = $cart->calculate();
+        $this->refreshCartMap();
+        
+        $this->dispatch('cart-updated');
+    }
+
+    public function confirmDelete($purchasableId)
+    {
+        $this->itemToDelete = $purchasableId;
+        $this->confirmingDeletion = true;
+    }
+
+    public function deleteItem()
+    {
+        if ($this->itemToDelete) {
+            $this->removeLine($this->itemToDelete);
+        }
+        $this->confirmingDeletion = false;
+        $this->itemToDelete = null;
+    }
+
+    public function removeLine($purchasableId)
+    {
+        \Log::info('Cart: removeLine', ['purchasable_id' => $purchasableId]);
+        $cart = CartSession::current();
+        
+        $cart->lines()
+            ->where('purchasable_id', $purchasableId)
+            ->delete();
+
+        $cart->calculate();
+        
+        $this->cart = $cart->lines()->get();
+        $this->cartPrices = $cart->calculate();
+        $this->refreshCartMap();
+        
+        $this->dispatch('cart-updated');
+    }
+
+    protected function refreshCartMap()
+    {
+        // Ensure we have fresh lines
+        $this->cart = CartSession::current()->lines()->get();
+
+        $this->purchasableItemsMap = $this->cart
+             ->filter(fn($line) => $line->purchasable_id)
+             ->groupBy('purchasable_id')
+             ->map(function ($lines) {
+                 $firstLine = $lines->first();
+                 $totalQuantity = $lines->sum('quantity');
+
+                 return [
+                     'id' => $firstLine->id,
+                     'purchasable_id' => $firstLine->purchasable_id,
+                     'name' => $firstLine->purchasable->product->translateAttribute('name'),
+                     'description' => $firstLine->purchasable->product->translateAttribute('description'),
+                     'price' => optional($firstLine->purchasable->product->variant->prices()->first())->price->decimal,
+                     'quantity' => $totalQuantity,
+                     'media' => $firstLine->purchasable->product->media,
+                 ];
+             })
+             ->values()
+             ->toArray();
+    }
+
     #[Layout('layouts.guest')]
     public function render()
     {

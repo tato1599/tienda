@@ -1,6 +1,4 @@
-
-
-    <div class="relative flex min-h-screen w-full flex-col">
+<div class="relative flex min-h-screen w-full flex-col">
 
         <main class="container mx-auto flex-1 px-4 py-8 sm:px-6 lg:px-8">
             <!-- Breadcrumbs & Heading -->
@@ -32,6 +30,7 @@
                     @else
                         @foreach ($purchasableItemsMap as $item)
                         <div
+                        wire:key="cart-item-{{ $item['purchasable_id'] }}"
                         class="flex flex-col gap-4 rounded-lg bg-white/5 p-4 sm:flex-row sm:items-center sm:justify-between">
                         <div class="flex items-center gap-4">
                             <div class="h-20 w-20 flex-shrink-0 rounded-lg bg-cover bg-center bg-no-repeat"
@@ -53,19 +52,25 @@
                         <div class="flex items-center justify-between gap-4 sm:justify-end">
                             <div class="flex items-center gap-2 text-white">
                                 <button
+                                    wire:click="changeQuantity('{{ $item['purchasable_id'] }}', -1)"
+                                    wire:loading.attr="disabled"
                                     class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl
                                     font-medium leading-normal transition-colors hover:bg-white/20">-</button>
                                 <input
                                     class="w-8 border-none bg-transparent p-0 text-center text-base font-medium leading-normal focus:border-none focus:outline-0 focus:ring-0 [appearance:textfield] [&amp;::-webkit-inner-spin-button]:appearance-none [&amp;::-webkit-outer-spin-button]:appearance-none"
-                                    type="number" value="{{ $item['quantity'] }}" />
+                                    type="number" value="{{ $item['quantity'] }}" readonly />
                                 <button
+                                    wire:click="changeQuantity('{{ $item['purchasable_id'] }}', 1)"
+                                    wire:loading.attr="disabled"
                                     class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/10 text-xl
                                     font-medium leading-normal transition-colors hover:bg-white/20">+</button>
                             </div>
                             <p class="hidden w-20 text-right text-base font-bold text-white sm:block">$
                                 {{ number_format($item['price'] * $item['quantity'], 2) }}
                             </p>
-                            <button class="cursor-pointer text-[#9dabb9] transition-colors hover:text-red-500">
+                            <button
+                                wire:click="confirmDelete('{{ $item['purchasable_id'] }}')"
+                                class="cursor-pointer text-[#9dabb9] transition-colors hover:text-red-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -76,9 +81,9 @@
                     </div>
                     @endforeach
                     @endif
-
-
                 </div>
+
+
                 <!-- Right Column: Order Summary -->
                 <div class="lg:col-span-1">
                     <div class="sticky top-24 rounded-lg bg-white/5 p-6">
@@ -217,7 +222,17 @@
                     @endif
                 </div>
             </div>
+            
+            @if($confirmingDeletion)
+            <x-mary-modal wire:model.live="confirmingDeletion" title="¿Eliminar producto?" subtitle="Esta acción no se puede deshacer.">
+                <div>
+                    ¿Estás seguro de que deseas eliminar este producto del carrito?
+                </div>
+                <x-slot:actions>
+                    <x-mary-button label="Cancelar" wire:click="$set('confirmingDeletion', false)" />
+                    <x-mary-button label="Eliminar" class="btn-error" wire:click="deleteItem" />
+                </x-slot:actions>
+            </x-mary-modal>
+            @endif
         </main>
     </div>
-
-

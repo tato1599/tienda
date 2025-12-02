@@ -81,25 +81,34 @@ class ProductShow extends Component
                     ]
                 );
 
-                $cartSession = CartSession::create($cart->toArray()); // crea una nueva sesion de carrito con el carrito recien creado
+                $cartSession = CartSession::use($cart);
 
             }
 
             $purchasable = ProductVariant::find($this->variants->first()->id); // obtiene la primera variante del producto
+            
+            $existingLine = $cartSession->lines()
+                ->where('purchasable_type', $purchasable->getMorphClass())
+                ->where('purchasable_id', $purchasable->id)
+                ->first();
 
-            // (en este caso solo hay una variante que es la version completa)
-            $cartLine = new CartLine(
-                //crea una nueva linea de carrito con los siguientes datos
-                [
-                    'cart_id' => $cartSession->id, // asigna el id del carrito actual
-                    'purchasable_type' => $purchasable->getMorphClass(), // asigna el tipo de producto que se esta comprando
-                    // getmorphclass devuelve el nombre de la clase del modelo en formato morfologico para relaciones polimorficas
-                    'purchasable_id' => $purchasable->id, // asigna el id del producto que se esta comprando
-                    'quantity' => 1, // asigna la cantidad a comprar (en este caso 1)
-                ]
-            );
-
-            $cartSession->lines()->create($cartLine->toArray()); // guarda la linea de carrito en el carrito actual
+            if ($existingLine) {
+                $cartSession->updateLine($existingLine->id, $existingLine->quantity + 1);
+            } else {
+                // (en este caso solo hay una variante que es la version completa)
+                $cartLine = new CartLine(
+                    //crea una nueva linea de carrito con los siguientes datos
+                    [
+                        'cart_id' => $cartSession->id, // asigna el id del carrito actual
+                        'purchasable_type' => $purchasable->getMorphClass(), // asigna el tipo de producto que se esta comprando
+                        // getmorphclass devuelve el nombre de la clase del modelo en formato morfologico para relaciones polimorficas
+                        'purchasable_id' => $purchasable->id, // asigna el id del producto que se esta comprando
+                        'quantity' => 1, // asigna la cantidad a comprar (en este caso 1)
+                    ]
+                );
+    
+                $cartSession->lines()->create($cartLine->toArray()); // guarda la linea de carrito en el carrito actual
+            }
             $cartSession->calculate();
             $this->toast(
                 type: 'success',
@@ -109,6 +118,7 @@ class ProductShow extends Component
                 timeout: 3000,                      // optional (ms)
                 redirectTo: null                    // optional (uri)
             );
+            $this->dispatch('cart-updated');
 
         } catch (\Exception $e) { // si ocurre algun error durante el proceso
             report($e); // reporta el error para su revision
