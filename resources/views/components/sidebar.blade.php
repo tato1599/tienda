@@ -11,13 +11,13 @@
         <!-- Navigation Links -->
         <nav class="flex-1 px-3 py-6 space-y-2">
             <x-sidebar-link href="{{ route('welcome') }}" icon="dashboard" :active="request()->routeIs('welcome')" :open="'openSidebar'">
-                Dashboard
+                Panel
             </x-sidebar-link>
             
             <x-sidebar-link href="{{ route('servicios') }}" icon="settings_suggest" :active="request()->routeIs('servicios')" :open="'openSidebar'">
                 Servicios
             </x-sidebar-link>
-
+            
             <x-sidebar-link href="#" icon="history" :open="'openSidebar'">
                 Historial
             </x-sidebar-link>

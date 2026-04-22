@@ -117,8 +117,8 @@
     <!-- Tech Visual Decor -->
     <div class="fixed right-0 bottom-0 pointer-events-none select-none hidden xl:block">
         <div class="flex flex-col items-end p-12 space-y-2">
-            <span class="text-[120px] font-black text-white/[0.02] tracking-tighter leading-none">SYSTEM</span>
-            <span class="text-[120px] font-black text-primary/[0.04] tracking-tighter leading-none">ACTIVE</span>
+            <span class="text-[120px] font-black text-white/[0.02] tracking-tighter leading-none">SISTEMA</span>
+            <span class="text-[120px] font-black text-primary/[0.04] tracking-tighter leading-none">ACTIVO</span>
         </div>
     </div>
 </x-guest-layout>
