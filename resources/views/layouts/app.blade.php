@@ -36,19 +36,21 @@
             document.documentElement.setAttribute('data-theme', 'light');
         }
     </script>
-    <body class="font-sans bg-black" x-data="{ openSidebar: true }">
+    <body class="font-sans bg-black" x-data="{ openSidebar: {{ $hideSidebar ? 'false' : 'true' }} }">
         <x-banner />
 
         <x-headerTienda />
 
         <div class="min-h-screen">
-            @auth
-                <x-sidebar />
-            @endauth
+            @if(!$hideSidebar)
+                @auth
+                    <x-sidebar />
+                @endauth
+            @endif
 
             <main class="transition-all duration-300 font-sans text-on-surface antialiased bg-background min-h-screen"
-                  :class="openSidebar ? 'ml-64' : 'ml-20'">
-                <div class="p-8">
+                  :class="{{ $hideSidebar ? "''" : "(openSidebar ? 'ml-64' : 'ml-20')" }}">
+                <div class="p-8 {{ $hideSidebar ? 'max-w-7xl mx-auto' : '' }}">
                     {{ $slot }}
                 </div>
             </main>

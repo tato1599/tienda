@@ -42,8 +42,65 @@
     }
 }
 
+/* Jetstream Overrides */
 [x-cloak] {
     display: none;
+}
+
+/* Section Containers */
+.md\:grid.md\:grid-cols-3.md\:gap-6 {
+    @apply mb-12;
+}
+
+/* Titles and Descriptions */
+.md\:col-span-1 h3 {
+    @apply font-space-grotesk text-primary text-xl font-bold tracking-tight !important;
+}
+
+.md\:col-span-1 p {
+    @apply text-on-surface-variant text-sm mt-2 !important;
+}
+
+/* Form sections */
+.mt-5.md\:mt-0.md\:col-span-2 {
+    @apply glass-card rounded-2xl overflow-hidden shadow-2xl border-white/5 !important;
+}
+
+.px-4.py-5.bg-white.sm\:p-6, .px-4.py-5.sm\:p-6 {
+    @apply bg-transparent !important;
+}
+
+.flex.items-center.justify-end.px-4.py-3.bg-gray-50.text-right.sm\:px-6 {
+    @apply bg-white/5 border-t border-white/5 !important;
+}
+
+/* Labels and Inputs */
+label {
+    @apply text-white font-bold text-xs uppercase tracking-widest mb-2 block !important;
+}
+
+input[type="text"], input[type="email"], input[type="password"], textarea, select {
+    @apply bg-surface-container border-surface-variant text-white rounded-lg focus:ring-primary/20 focus:border-primary/50 transition-all !important;
+}
+
+/* Profile Photo */
+.rounded-full.size-20 {
+    @apply border-2 border-primary shadow-[0_0_15px_rgba(0,174,239,0.3)] !important;
+}
+
+/* Buttons */
+button.inline-flex.items-center.px-4.py-2.bg-gray-800, 
+button.inline-flex.items-center.px-4.py-2.bg-white {
+    @apply rounded-lg font-black text-sm tracking-tight transition-all duration-300 !important;
+}
+
+button.inline-flex.items-center.px-4.py-2.bg-gray-800 {
+    @apply bg-primary text-black hover:bg-blue-400 !important;
+}
+
+/* Borders */
+.hidden.sm\:block .py-8 {
+    @apply border-t border-white/5 my-12 !important;
 }
 
 /** daisyUI */
