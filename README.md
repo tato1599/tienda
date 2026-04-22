@@ -1,61 +1,104 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Tienda Online (Laravel + LunarPHP + MaryUI)
 
-## About Laravel
+Este es un proyecto de tienda electrónica moderno construido con el stack de Laravel y LunarPHP, utilizando MaryUI para una interfaz elegante y funcional.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Guía de Inicio Rápido
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Sigue estos pasos para poner en marcha el proyecto por primera vez en tu entorno local.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 📋 Requisitos Previos
 
-## Learning Laravel
+Antes de comenzar, asegúrate de tener instalado:
+- **PHP 8.2+**
+- **Composer**
+- **Node.js & NPM**
+- **PostgreSQL** (u otro motor de base de datos compatible)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 🛠️ Instalación y Configuración
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### 1. Clonar el repositorio
+```bash
+git clone <url-del-repositorio>
+cd tienda
+```
 
-## Laravel Sponsors
+#### 2. Configuración Automática (Recomendado)
+El proyecto cuenta con un script de `setup` que automatiza la instalación de dependencias, configuración de entorno y construcción de activos:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+composer run setup
+```
 
-### Premium Partners
+> [!IMPORTANT]
+> El script de setup intentará ejecutar las migraciones. Asegúrate de tener creada la base de datos y configurada correctamente en tu archivo `.env` antes o inmediatamente después de que el script cree el archivo.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+#### 3. Configuración Manual (Opcional)
+Si prefieres realizar los pasos manualmente:
 
-## Contributing
+```bash
+# Instalar dependencias de PHP
+composer install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Configurar el entorno
+cp .env.example .env
+php artisan key:generate
 
-## Code of Conduct
+# Configurar tu base de datos en el archivo .env y luego:
+php artisan migrate
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# Instalar dependencias de JS y compilar activos
+npm install
+npm run build
+```
 
-## Security Vulnerabilities
+#### 4. Pasos Finales de Aplicación
+Para habilitar el almacenamiento de archivos y las funcionalidades de LunarPHP:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+# Crear link de almacenamiento
+php artisan storage:link
 
-## License
+# Instalar LunarPHP (Publicar configuraciones y recursos)
+php artisan lunar:install
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Crear el primer usuario administrador para el panel
+php artisan lunar:create-admin
+```
+
+---
+
+## 💻 Desarrollo Local
+
+Para iniciar el entorno de desarrollo con todos los servicios necesarios (Servidor, Vite, Colas de trabajo y Logs) de forma simultánea, utiliza:
+
+```bash
+composer run dev
+```
+
+Este comando utiliza `concurrently` para ejecutar:
+- `php artisan serve` (Servidor web)
+- `npm run dev` (Vite Hot Reload)
+- `php artisan queue:listen` (Procesamiento de colas)
+- `php artisan pail` (Visualización de logs en tiempo real)
+
+---
+
+## 🛠️ Tecnologías Principales
+
+- **[Laravel 12](https://laravel.com)** - El framework PHP para artesanos web.
+- **[LunarPHP](https://lunarphp.io)** - Headless E-commerce para Laravel.
+- **[MaryUI](https://mary-ui.com)** - Componentes Blade elegantes para Laravel.
+- **[Livewire 3](https://livewire.laravel.com)** - Desarrollo full-stack reactivo.
+- **[TailwindCSS](https://tailwindcss.com)** - Framework de CSS orientado a utilidades.
+- **[Vite](https://vitejs.dev)** - Frontend Tooling de última generación.
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia [MIT](https://opensource.org/licenses/MIT).
+
