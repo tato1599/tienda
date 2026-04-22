@@ -45,7 +45,7 @@
                     </div>
                     
                     <div class="flex-1 min-w-0">
-                        <a href="{{ route('product', $item->purchasable->product->getRouteKey()) }}"
+                        <a href="{{ route('product.show', $item->purchasable->product->getRouteKey()) }}"
                             class="block truncate text-sm font-bold text-white hover:text-primary transition-colors">{{ $item->purchasable->product->translateAttribute('name') }}</a>
                         <div class="mt-1 flex items-center justify-between">
                             <p class="text-xs text-on-surface-variant">Cant: {{ $item->quantity }}</p>

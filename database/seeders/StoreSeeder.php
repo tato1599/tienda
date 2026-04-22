@@ -161,7 +161,7 @@ class StoreSeeder extends Seeder
 
             // Agregar Precio
             Price::create([
-                'priceable_type' => ProductVariant::class,
+                'priceable_type' => 'product_variant',
                 'priceable_id' => $variant->id,
                 'currency_id' => $mxn->id,
                 'price' => $data['price'] * 100, // Lunar almacena en centavos

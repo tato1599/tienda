@@ -72,7 +72,7 @@
                             
                             <!-- Price Badge -->
                             <div class="absolute bottom-4 right-4 bg-primary text-black px-4 py-1.5 rounded-full font-black text-sm shadow-xl">
-                                ${{ number_format($servicio->variants->first()?->prices->first()?->price->decimal ?? 0, 2) }}
+                                {{ $servicio->variants->first()?->prices->first()?->price->formatted() }}
                             </div>
                         </div>
 

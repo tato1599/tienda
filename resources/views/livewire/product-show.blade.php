@@ -80,8 +80,7 @@
                         <div class="flex flex-col gap-1">
                             <span class="text-on-surface-variant text-[10px] uppercase font-black tracking-widest">Inversión Estimada</span>
                             <div class="text-4xl font-black text-white flex items-start gap-1">
-                                <span class="text-primary text-xl mt-1">$</span>
-                                {{ number_format($this->product->variants->first()?->prices->first()?->price->decimal ?? 0, 2) }}
+                                {{ $this->product->variants->first()?->prices->first()?->price->formatted() }}
                             </div>
                         </div>
                         <span class="text-primary/60 text-xs font-medium bg-primary/5 px-4 py-1 rounded-full border border-primary/10">IVA Incluido</span>
