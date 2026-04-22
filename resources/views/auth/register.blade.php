@@ -1,56 +1,194 @@
-<x-guest-layout>
-    <div class="text-center">
-        <x-mary-icon name="m-user-group" class="w-12 h-12 text-blue-500" />
-        <div class="w-full md:1/2  md:w-1/2 mx-auto mt-3 p-1">
-            <x-mary-header title="Crea tu cuenta" subtitle="Únete a la plataforma de servicios del ITCJ" separator />
-        </div>
+<x-guest-layout inherit="false">
+    <div class="fixed inset-0 z-[-1] overflow-hidden bg-background">
+        <div class="ambient-glow-top"></div>
+        <div class="ambient-glow-bottom"></div>
     </div>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-        <x-validation-errors class="mb-4" />
-        <div class="w-full md:1/2 md:w-1/2 mx-auto mt-10 p-3">
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <x-mary-input label="Nombre" id="name" wire:model="name" name="name"
-                        placeholder="Ingresa tu nombre" icon="o-user" hint="Tu nombre completo" value="{{ old('name') }}" required />
-                    @error('name') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+
+    <main class="flex items-center justify-center p-gutter relative z-10">
+        <!-- Register Card Container -->
+        <div class="max-w-[600px] w-full">
+            <div class="bg-surface border border-primary/20 p-10 rounded-xl shadow-[0_0_50px_-12px_rgba(37,99,235,0.15)] relative">
+                <!-- Top Glow Line -->
+                <div class="absolute -top-px left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-primary to-transparent"></div>
+                
+                <!-- Form Header -->
+                <div class="mb-10 text-center">
+                    <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Crea tu cuenta</h1>
+                    <p class="text-sm text-on-surface-variant">Únete a la plataforma tecnológica del ITCJ.</p>
                 </div>
 
-                <div>
-                    <x-mary-input label="Apellido" wire:model="apellido" name="apellido" placeholder="Ingresa tus apellido"
-                        icon="o-user" hint="Tus apellidos completos" value="{{ old('apellido') }}" required />
-                    @error('apellido') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
-                </div>
-            </div><br>
+                <form method="POST" action="{{ route('register') }}" class="space-y-6">
+                    @csrf
 
-            <div class="grid gap-8">
-                <div>
-                    <x-mary-input label="Correo electrónico institucional" id="email" name="email"
-                        placeholder="Tu parte del correo" prefix="" suffix="@cdjuarez.tecnm.mx" value="{{ old('email') }}"
-                        required pattern="[A-Za-z0-9._%+-]+" title="Solo la parte antes de @ (letras, números y ._%+-)" />
-                    @error('email') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
-                    @error('email_completo') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
-                </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Name Field -->
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant ml-1" for="name">Nombre</label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <span class="material-symbols-outlined text-on-surface-variant text-[18px] group-focus-within:text-primary transition-colors">person</span>
+                                </div>
+                                <input 
+                                    class="input-premium {{ $errors->has('name') ? 'border-red-500/50' : '' }}" 
+                                    id="name" 
+                                    name="name" 
+                                    type="text" 
+                                    value="{{ old('name') }}" 
+                                    placeholder="Tu nombre" 
+                                    required 
+                                    autofocus 
+                                />
+                            </div>
+                            @error('name')
+                                <p class="text-red-500 text-[10px] font-bold uppercase tracking-wider mt-1 ml-1">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                <div>
-                    <x-mary-input label="Matrícula" id="matricula" name="matricula" placeholder="Ingresa tu matrícula" value="{{ old('matricula') }}" required pattern="[A-Za-z0-9-]+" title="Matrícula válida" />
-                    @error('matricula') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
-                </div>
+                        <!-- Apellido Field -->
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant ml-1" for="apellido">Apellido</label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <span class="material-symbols-outlined text-on-surface-variant text-[18px] group-focus-within:text-primary transition-colors">person_add</span>
+                                </div>
+                                <input 
+                                    class="input-premium {{ $errors->has('apellido') ? 'border-red-500/50' : '' }}" 
+                                    id="apellido" 
+                                    name="apellido" 
+                                    type="text" 
+                                    value="{{ old('apellido') }}" 
+                                    placeholder="Tus apellidos" 
+                                    required 
+                                />
+                            </div>
+                            @error('apellido')
+                                <p class="text-red-500 text-[10px] font-bold uppercase tracking-wider mt-1 ml-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
 
-                <div>
-                    <x-mary-password label="Contraseña" id="password" name="password" right required />
-                    @error('password') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
-                </div>
+                    <!-- Email Field -->
+                    <div class="space-y-2">
+                        <label class="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant ml-1" for="email">Correo electrónico institucional</label>
+                        <div class="relative group flex items-center">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-on-surface-variant text-[18px] group-focus-within:text-primary transition-colors">alternate_email</span>
+                            </div>
+                            <input 
+                                class="input-premium {{ $errors->has('email') ? 'border-red-500/50' : '' }} pr-40" 
+                                id="email" 
+                                name="email" 
+                                type="text" 
+                                value="{{ old('email') }}" 
+                                placeholder="Parte del correo" 
+                                required 
+                                pattern="[A-Za-z0-9._%+-]+"
+                            />
+                            <div class="absolute right-3 text-xs font-bold text-on-surface-variant pointer-events-none">
+                                @cdjuarez.tecnm.mx
+                            </div>
+                        </div>
+                        @error('email')
+                            <p class="text-red-500 text-[10px] font-bold uppercase tracking-wider mt-1 ml-1">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <div>
-                    <x-mary-password label="Confirmar contraseña" id="password_confirmation" name="password_confirmation"
-                        password-icon="o-lock-closed" password-visible-icon="o-lock-open" required />
-                </div>
-            </div><br>
-            <div class="grid gap-8">
-                <x-mary-button label="Registrarse" class="btn-primary" type="submit" />
+                    <!-- Matrícula Field -->
+                    <div class="space-y-2">
+                        <label class="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant ml-1" for="matricula">Matrícula</label>
+                        <div class="relative group">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-on-surface-variant text-[18px] group-focus-within:text-primary transition-colors">badge</span>
+                            </div>
+                            <input 
+                                class="input-premium {{ $errors->has('matricula') ? 'border-red-500/50' : '' }}" 
+                                id="matricula" 
+                                name="matricula" 
+                                type="text" 
+                                value="{{ old('matricula') }}" 
+                                placeholder="Ingresa tu matrícula" 
+                                required 
+                            />
+                        </div>
+                        @error('matricula')
+                            <p class="text-red-500 text-[10px] font-bold uppercase tracking-wider mt-1 ml-1">{{ $message }}</p>
+                        @enderror
+                    </div>
 
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Password Field -->
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant ml-1" for="password">Contraseña</label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <span class="material-symbols-outlined text-on-surface-variant text-[18px] group-focus-within:text-primary transition-colors">lock</span>
+                                </div>
+                                <input 
+                                    class="input-premium {{ $errors->has('password') ? 'border-red-500/50' : '' }}" 
+                                    id="password" 
+                                    name="password" 
+                                    type="password" 
+                                    placeholder="••••••••" 
+                                    required 
+                                    autocomplete="new-password"
+                                />
+                            </div>
+                            @error('password')
+                                <p class="text-red-500 text-[10px] font-bold uppercase tracking-wider mt-1 ml-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Confirm Password Field -->
+                        <div class="space-y-2">
+                            <label class="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant ml-1" for="password_confirmation">Confirmar</label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <span class="material-symbols-outlined text-on-surface-variant text-[18px] group-focus-within:text-primary transition-colors">lock_reset</span>
+                                </div>
+                                <input 
+                                    class="input-premium" 
+                                    id="password_confirmation" 
+                                    name="password_confirmation" 
+                                    type="password" 
+                                    placeholder="••••••••" 
+                                    required 
+                                    autocomplete="new-password"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="pt-4">
+                        <button type="submit" class="btn-premium">
+                            Registrarse
+                            <span class="material-symbols-outlined text-[18px]">how_to_reg</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Footer Links -->
+                <div class="mt-10 pt-8 border-t border-surface-variant text-center">
+                    <p class="text-sm text-on-surface-variant">
+                        ¿Ya tienes una cuenta? 
+                        <a class="text-primary font-bold hover:text-blue-400 transition-colors" href="{{ route('login') }}">Iniciar sesión</a>
+                    </p>
+                </div>
             </div>
-    </form>
+
+            <!-- System Status Hint -->
+            <div class="mt-8 flex items-center justify-center gap-3 opacity-60">
+                <div class="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(37,99,235,0.8)] animate-pulse"></div>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Sistemas Operativos Activos</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- Tech Visual Decor -->
+    <div class="fixed right-0 bottom-0 pointer-events-none select-none hidden xl:block">
+        <div class="flex flex-col items-end p-12 space-y-2">
+            <span class="text-[120px] font-black text-white/[0.02] tracking-tighter leading-none">SYSTEM</span>
+            <span class="text-[120px] font-black text-primary/[0.04] tracking-tighter leading-none">ACTIVE</span>
+        </div>
     </div>
 </x-guest-layout>

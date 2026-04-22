@@ -5,9 +5,9 @@
         <div class="ambient-glow-bottom"></div>
     </div>
 
-    <main class="min-h-screen flex items-center justify-center p-gutter relative z-10">
+    <main class="flex items-center justify-center p-gutter relative z-10">
         <!-- Login Card Container -->
-        <div class="max-w-[440px] w-full mt-16">
+        <div class="max-w-[440px] w-full">
             <div
                 class="bg-surface border border-primary/20 p-10 rounded-xl shadow-[0_0_50px_-12px_rgba(37,99,235,0.15)] relative">
                 <!-- Top Glow Line -->
@@ -112,20 +112,7 @@
         </div>
     </main>
 
-    <!-- Legal Footer -->
-    <footer class="p-gutter flex flex-col md:flex-row justify-between items-center gap-stack-md relative z-10">
-        <div class="text-on-surface-variant text-[11px] font-medium tracking-tight">
-            © {{ date('Y') }} {{ config('app.name') }} SERVICIOS • CONSOLA DE ADMINISTRACIÓN V2.4.0
-        </div>
-        <div class="flex gap-8">
-            <a class="text-on-surface-variant text-[11px] font-bold uppercase tracking-widest hover:text-primary transition-colors"
-                href="#">Privacidad</a>
-            <a class="text-on-surface-variant text-[11px] font-bold uppercase tracking-widest hover:text-primary transition-colors"
-                href="#">Términos</a>
-            <a class="text-on-surface-variant text-[11px] font-bold uppercase tracking-widest hover:text-primary transition-colors"
-                href="#">Seguridad</a>
-        </div>
-    </footer>
+
 
     <!-- Tech Visual Decor -->
     <div class="fixed right-0 bottom-0 pointer-events-none select-none hidden xl:block">
