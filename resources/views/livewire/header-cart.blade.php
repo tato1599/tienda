@@ -1,88 +1,80 @@
-<div x-data="{ open: false }">
+<div x-data="{ open: false }" class="relative">
     <button x-on:click="open = ! open" type="button"
-        class="inline-flex items-center rounded-lg justify-center p-2 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium leading-none text-gray-900 dark:text-white">
-        <span class="sr-only">
-            Cart
-        </span>
-        <div class="relative sm:me-2.5">
-
-            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312" />
-            </svg>
-
+        class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-all group p-2 rounded-full hover:bg-white/5">
+        <div class="relative">
+            <span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">shopping_cart</span>
             @if ($cartQuantity > 0)
-                <div
-                    class="absolute inline-flex items-center justify-center w-4 h-4 text-xs font-medium text-white bg-red-700 rounded-full -top-1.5 -end-1.5 dark:bg-red-600 ">
+                <div class="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-black bg-primary rounded-full shadow-sm">
                     {{ $cartQuantity }}
                 </div>
             @endif
         </div>
-        <span class="hidden sm:flex">
+        <span class="hidden sm:inline text-sm font-bold">
             Mi carrito
         </span>
-        <svg class="hidden sm:flex w-4 h-4 text-gray-900 dark:text-white ms-1"
-            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-            height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" d="m19 9-7 7-7-7"></path>
-        </svg>
+        <span class="material-symbols-outlined text-sm transition-transform duration-300" :class="open ? 'rotate-180' : ''">expand_more</span>
     </button>
     <!-- Dropdown Menu -->
-    <div x-show="open" x-transition:enter="transition ease-out duration-200"
+    <div x-show="open" @click.away="open = false"
+        x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0 scale-95"
         x-transition:enter-end="opacity-100 scale-100"
         x-transition:leave="transition ease-in duration-75"
         x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95" @click.away="open = false"
-        class="z-50 absolute  mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700
-">
-        <div class="border-b border-gray-200 pb-4 dark:border-gray-700">
-            <p
-                class="text-center text-base font-semibold leading-none text-gray-900 dark:text-white">
-                Your shopping cart</p>
+        x-transition:leave-end="opacity-0 scale-95" 
+        class="z-50 absolute right-0 mt-4 w-80 glass-card rounded-xl p-4 shadow-2xl backdrop-blur-2xl">
+        
+        <div class="border-b border-white/5 pb-3 mb-4 flex justify-between items-center">
+            <p class="text-xs font-bold text-primary tracking-widest uppercase font-space-grotesk">Tu Carrito</p>
+            <span class="text-[10px] text-on-surface-variant bg-white/5 px-2 py-0.5 rounded-full">{{ $cartQuantity }} artículos</span>
         </div>
-        @foreach ($cartItems as $item)
-            <div class="grid grid-cols-2 items-center">
-                <div class="flex items-center gap-2">
-                    <a href="#"
-                        class="flex aspect-square h-9 w-9 shrink-0 items-center">
+
+        <div class="max-h-[400px] overflow-y-auto custom-scrollbar space-y-4">
+            @forelse ($cartItems as $item)
+                <div class="flex items-center gap-4 group/item">
+                    <div class="h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-white/5 bg-surface-container transition-transform group-hover/item:scale-105">
                          @if($item->purchasable->product->thumbnail)
-                            <img class="h-auto max-h-full w-full"
+                            <img class="h-full w-full object-cover"
                                 src="{{ $item->purchasable->product->thumbnail->getUrl() }}"
                                 alt="{{ $item->purchasable->product->translateAttribute('name') }}" />
                         @else
-                            <img class="h-auto max-h-full w-full dark:hidden"
-                                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/apple-watch-light.svg"
-                                alt="imac image" />
-                            <img class="hidden h-auto max-h-full w-full dark:block"
-                                src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/apple-watch-dark.svg"
-                                alt="imac image" />
+                            <div class="flex h-full w-full items-center justify-center text-on-surface-variant">
+                                <span class="material-symbols-outlined">image</span>
+                            </div>
                         @endif
-                    </a>
-                    <div>
-                        <a href="#"
-                            class="truncate text-sm font-semibold leading-none text-gray-900 hover:underline dark:text-white">{{ $item->purchasable->product->translateAttribute('name') }}</a>
-                        <p
-                            class="mt-0.5 truncate text-sm font-normal text-gray-500 dark:text-gray-400">
-                            {{ $item->unitPrice->formatted }}</p>
+                    </div>
+                    
+                    <div class="flex-1 min-w-0">
+                        <a href="{{ route('product', $item->purchasable->product->getRouteKey()) }}"
+                            class="block truncate text-sm font-bold text-white hover:text-primary transition-colors">{{ $item->purchasable->product->translateAttribute('name') }}</a>
+                        <div class="mt-1 flex items-center justify-between">
+                            <p class="text-xs text-on-surface-variant">Cant: {{ $item->quantity }}</p>
+                            <p class="text-sm font-black text-primary">{{ $item->unitPrice->formatted }}</p>
+                        </div>
                     </div>
                 </div>
-
-                <div class="flex items-center justify-end gap-3">
-                    <div class="text-sm text-gray-900 dark:text-white">
-                        x{{ $item->quantity }}
-                    </div>
+            @empty
+                <div class="py-12 text-center">
+                    <span class="material-symbols-outlined text-4xl text-white/10 mb-2">shopping_bag</span>
+                    <p class="text-sm text-on-surface-variant">Tu carrito está vacío</p>
                 </div>
-            </div>
-        @endforeach
-
-        <div class="space-y-4 border-t border-gray-200 pt-4 dark:border-gray-700">
-            <a href="{{ route('cart') }}" title=""
-                class="mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                role="button"> Ver carrito </a>
+            @endforelse
         </div>
+
+        @if($cartItems->isNotEmpty())
+            <div class="mt-6 pt-4 border-t border-white/5 space-y-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-on-surface-variant">Subtotal</span>
+                    <span class="text-lg font-black text-white">{{ $cart->subTotal->formatted() }}</span>
+                </div>
+                
+                <a href="{{ route('cart') }}" 
+                   class="btn-premium"> 
+                   Ver carrito Completo 
+                   <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                </a>
+            </div>
+        @endif
     </div>
 </div>
+
