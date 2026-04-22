@@ -4,11 +4,25 @@
 
 @layer base {
     body {
-        @apply font-sans bg-background text-on-surface;
+        @apply font-sans bg-background text-on-surface antialiased overflow-x-hidden;
+        background-color: #000000;
     }
 }
 
 @layer components {
+    /* High-Tech Utilities */
+    .glass-card {
+        background: rgba(18, 18, 18, 0.8);
+        backdrop-filter: blur(12px);
+        border: 1px solid #262626;
+    }
+
+    .tech-pattern {
+        background-image: radial-gradient(#00aeef 0.5px, transparent 0.5px);
+        background-size: 24px 24px;
+        opacity: 0.1;
+    }
+
     /* Ambient Background Elements */
     .ambient-glow-top {
         @apply absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/10 blur-[150px] pointer-events-none;
@@ -24,7 +38,7 @@
     }
 
     .btn-premium {
-        @apply w-full bg-primary hover:bg-blue-500 text-white font-bold text-sm tracking-tight py-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_0_20px_-5px_rgba(37,99,235,0.4)] active:scale-[0.98];
+        @apply w-full bg-primary hover:bg-blue-500 text-black font-bold text-sm tracking-tight py-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_0_20px_-5px_rgba(37,99,235,0.4)] active:scale-[0.98];
     }
 }
 

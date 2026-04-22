@@ -36,14 +36,23 @@
             document.documentElement.setAttribute('data-theme', 'light');
         }
     </script>
-    <body class="font-sans ">
+    <body class="font-sans bg-black" x-data="{ openSidebar: true }">
         <x-banner />
 
         <x-headerTienda />
 
-            <main class="font-sans text-gray-900 antialiased bg-gray-100 dark:bg-gray-900 dark:text-gray-100 min-h-screen">
-                {{ $slot }}
+        <div class="min-h-screen">
+            @auth
+                <x-sidebar />
+            @endauth
+
+            <main class="transition-all duration-300 font-sans text-on-surface antialiased bg-background min-h-screen"
+                  :class="openSidebar ? 'ml-64' : 'ml-20'">
+                <div class="p-8">
+                    {{ $slot }}
+                </div>
             </main>
+        </div>
 
         @stack('modals')
         @livewireScripts
