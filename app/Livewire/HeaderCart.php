@@ -4,44 +4,48 @@ namespace App\Livewire;
 
 use Livewire\Attributes\On;
 use Livewire\Component;
-use Lunar\Facades\CartSession;
+use Lunar\Models\Cart;
 
 class HeaderCart extends Component
 {
-    public $cartQuantity = 0;
-    public $cartItems = [];
-
-    public function mount()
+    #[On('cart-updated')]
+    #[On('echo:cart-updates,.CartUpdated')]
+    public function refresh(): void
     {
-        $this->updateCart();
+        // Empty — triggers re-render where all data is calculated fresh
     }
 
-    #[On('cart-updated')]
-    public function updateCart()
+    private function getCart(): ?Cart
     {
-        \Log::info('HeaderCart: event received');
-        $cart = CartSession::current();
-        
-        if ($cart) {
-            \Log::info('HeaderCart: cart found', ['id' => $cart->id]);
-            
-            // Calculate the cart to ensure prices are populated
-            $cart->calculate();
-            
-            $this->cartQuantity = $cart->lines()->count();
-            \Log::info('HeaderCart: quantity', ['qty' => $this->cartQuantity]);
-            $this->cartItems = $cart->lines;
-        } else {
-            \Log::info('HeaderCart: no cart');
-            $this->cartQuantity = 0;
-            $this->cartItems = collect();
+        // Read the cart ID directly from the PHP session — works in both
+        // regular requests AND Livewire AJAX polling/event requests.
+        $cartId = session(config('lunar.cart_session.session_key', 'lunar_cart'));
+
+        if (! $cartId) {
+            return null;
         }
+
+        return Cart::with(['lines.purchasable.product.media'])->find($cartId);
     }
 
     public function render()
     {
+        $cart = $this->getCart();
+
+        $cartItems    = collect();
+        $cartQuantity = 0;
+
+        if ($cart) {
+            $cart->calculate();
+            $cartItems    = $cart->lines;
+            $cartQuantity = $cartItems->count();
+        }
+
         return view('livewire.header-cart', [
-            'cart' => CartSession::current(),
+            'cart'         => $cart,
+            'cartItems'    => $cartItems,
+            'cartQuantity' => $cartQuantity,
         ]);
     }
 }
+

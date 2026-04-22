@@ -13,6 +13,15 @@ use Exception; // Importar la clase base de excepciones
 class Cart extends Component
 {
     use Toast;
+
+    #[On('cart-updated')]
+    #[On('echo:cart-updates,.CartUpdated')]
+    public function refresh()
+    {
+        $this->refreshCartMap();
+        $this->cartPrices = CartSession::current()->calculate();
+    }
+
     public $cart;
     public $purchasableItemsMap = [];
 
@@ -265,6 +274,7 @@ class Cart extends Component
         $this->refreshCartMap();
         
         $this->dispatch('cart-updated');
+        event(new \App\Events\CartUpdated($cart->id));
     }
 
     public function confirmDelete($purchasableId)
@@ -298,6 +308,7 @@ class Cart extends Component
         $this->refreshCartMap();
         
         $this->dispatch('cart-updated');
+        event(new \App\Events\CartUpdated($cart->id));
     }
 
     protected function refreshCartMap()

@@ -10,6 +10,7 @@
 }
 
 @layer components {
+
     /* High-Tech Utilities */
     .glass-card {
         background: rgba(18, 18, 18, 0.8);
@@ -38,8 +39,38 @@
     }
 
     .btn-premium {
-        @apply w-full bg-primary hover:bg-blue-500 text-black font-bold text-sm tracking-tight py-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_0_20px_-5px_rgba(37,99,235,0.4)] active:scale-[0.98];
+        width: 100%;
+        background-color: #00aeef;
+        color: #000000;
+        font-weight: 700;
+        font-size: 0.875rem;
+        letter-spacing: -0.025em;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.3s;
+        box-shadow: 0 0 20px -5px rgba(37,99,235,0.4);
     }
+    .btn-premium:hover {
+        background-color: #3b82f6;
+    }
+    .btn-premium:active {
+        transform: scale(0.98);
+    }
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+.animate-pop {
+    animation: pop 0.4s ease-out;
 }
 
 /* Jetstream Overrides */
@@ -66,7 +97,8 @@
     @apply glass-card rounded-2xl overflow-hidden shadow-2xl border-white/5 !important;
 }
 
-.px-4.py-5.bg-white.sm\:p-6, .px-4.py-5.sm\:p-6 {
+.px-4.py-5.bg-white.sm\:p-6,
+.px-4.py-5.sm\:p-6 {
     @apply bg-transparent !important;
 }
 
@@ -79,7 +111,11 @@ label {
     @apply text-white font-bold text-xs uppercase tracking-widest mb-2 block !important;
 }
 
-input[type="text"], input[type="email"], input[type="password"], textarea, select {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
     @apply bg-surface-container border-surface-variant text-white rounded-lg focus:ring-primary/20 focus:border-primary/50 transition-all !important;
 }
 
@@ -89,7 +125,7 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
 }
 
 /* Buttons */
-button.inline-flex.items-center.px-4.py-2.bg-gray-800, 
+button.inline-flex.items-center.px-4.py-2.bg-gray-800,
 button.inline-flex.items-center.px-4.py-2.bg-white {
     @apply rounded-lg font-black text-sm tracking-tight transition-all duration-300 !important;
 }

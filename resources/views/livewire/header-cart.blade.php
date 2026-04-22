@@ -1,13 +1,30 @@
-<div x-data="{ open: false }" class="relative">
+<div
+    x-data="{
+        open: false,
+        cartCount: {{ $cartQuantity }},
+        startPolling() {
+            setInterval(async () => {
+                try {
+                    const res = await fetch('/cart-count', { credentials: 'same-origin' });
+                    const data = await res.json();
+                    this.cartCount = data.count;
+                } catch (e) {}
+            }, 2000);
+        }
+    }"
+    x-init="startPolling()"
+    class="relative"
+    @cart-updated.window="cartCount++"
+>
     <button x-on:click="open = ! open" type="button"
         class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-all group p-2 rounded-full hover:bg-white/5">
-        <div class="relative">
+        <div class="relative transition-transform duration-300">
             <span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">shopping_cart</span>
-            @if ($cartQuantity > 0)
-                <div class="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-black bg-primary rounded-full shadow-sm">
-                    {{ $cartQuantity }}
-                </div>
-            @endif
+            <div
+                x-show="cartCount > 0"
+                x-text="cartCount"
+                class="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center w-4 h-4 text-[10px] font-bold text-black bg-primary rounded-full shadow-sm animate-pop">
+            </div>
         </div>
         <span class="hidden sm:inline text-sm font-bold">
             Mi carrito
@@ -26,7 +43,7 @@
         
         <div class="border-b border-white/5 pb-3 mb-4 flex justify-between items-center">
             <p class="text-xs font-bold text-primary tracking-widest uppercase font-space-grotesk">Tu Carrito</p>
-            <span class="text-[10px] text-on-surface-variant bg-white/5 px-2 py-0.5 rounded-full">{{ $cartQuantity }} artículos</span>
+            <span class="text-[10px] text-on-surface-variant bg-white/5 px-2 py-0.5 rounded-full" x-text="cartCount + ' artículos'"></span>
         </div>
 
         <div class="max-h-[400px] overflow-y-auto custom-scrollbar space-y-4">
@@ -49,7 +66,7 @@
                             class="block truncate text-sm font-bold text-white hover:text-primary transition-colors">{{ $item->purchasable->product->translateAttribute('name') }}</a>
                         <div class="mt-1 flex items-center justify-between">
                             <p class="text-xs text-on-surface-variant">Cant: {{ $item->quantity }}</p>
-                            <p class="text-sm font-black text-primary">{{ $item->unitPrice->formatted }}</p>
+                            <p class="text-sm font-black text-primary">{{ optional($item->unitPrice)->formatted }}</p>
                         </div>
                     </div>
                 </div>
@@ -61,11 +78,11 @@
             @endforelse
         </div>
 
-        @if($cartItems->isNotEmpty())
+        @if($cartQuantity > 0)
             <div class="mt-6 pt-4 border-t border-white/5 space-y-4">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center" wire:key="header-subtotal-{{ $cart?->subTotal?->value }}">
                     <span class="text-sm text-on-surface-variant">Subtotal</span>
-                    <span class="text-lg font-black text-white">{{ $cart->subTotal->formatted() }}</span>
+                    <span class="text-lg font-black text-white">{{ $cart?->subTotal?->formatted() }}</span>
                 </div>
                 
                 <a href="{{ route('cart') }}" 

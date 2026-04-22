@@ -119,8 +119,10 @@
                 <!-- CTA Section -->
                 <div class="flex flex-col gap-4 pt-6">
                     @auth
-                        <button wire:click="addToCart" 
-                                class="w-full bg-primary text-black py-5 rounded-2xl font-black text-xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.3)] flex items-center justify-center gap-3">
+                        <button
+                            wire:click="addToCart"
+                            @click="$dispatch('cart-updated')"
+                            class="w-full bg-primary text-black py-5 rounded-2xl font-black text-xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.3)] flex items-center justify-center gap-3">
                             <span class="material-symbols-outlined text-2xl">shopping_cart</span>
                             Reservar Servicio
                         </button>

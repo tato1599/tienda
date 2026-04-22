@@ -118,7 +118,10 @@ class ProductShow extends Component
                 timeout: 3000,                      // optional (ms)
                 redirectTo: null                    // optional (uri)
             );
+            // Notify all Livewire components on the page (including HeaderCart in the layout)
+            $this->dispatch('cart-updated')->self();
             $this->dispatch('cart-updated');
+            event(new \App\Events\CartUpdated($cartSession->id));
 
         } catch (\Exception $e) { // si ocurre algun error durante el proceso
             report($e); // reporta el error para su revision
