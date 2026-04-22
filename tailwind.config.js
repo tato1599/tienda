@@ -15,12 +15,36 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+            },
+            colors: {
+                "primary": "#2563eb",
+                "background": "#020617",
+                "surface": "#0f172a",
+                "surface-container": "#0b1120",
+                "surface-variant": "#1e293b",
+                "outline": "#334155",
+                "on-surface": "#f8fafc",
+                "on-surface-variant": "#94a3b8",
+            },
+            borderRadius: {
+                "DEFAULT": "8px",
+                "lg": "8px",
+                "xl": "12px",
+                "full": "9999px"
+            },
+            spacing: {
+                "stack-lg": "32px",
+                "stack-sm": "8px",
+                "gutter": "24px",
+                "margin-page": "48px",
+                "base-unit": "4px",
+                "stack-md": "16px"
             },
         },
     },
 
-    plugins: [typography, require('daisyui')],
+    plugins: [typography, forms, require('daisyui')],
 
     daisyui: {
         themes: ["light", "dark"],

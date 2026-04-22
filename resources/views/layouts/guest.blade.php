@@ -36,12 +36,14 @@
             document.documentElement.setAttribute('data-theme', 'light');
         }
     </script>
-    <body>
+    <body class="antialiased">
         <x-mary-toast />
 
-        <x-headerTienda  />
+        @if(!isset($inherit) || $inherit !== 'false')
+            <x-headerTienda  />
+        @endif
 
-        <div class="font-sans text-gray-900 antialiased bg-gray-100 dark:bg-gray-900 dark:text-gray-100 min-h-screen">
+        <div class="{{ (!isset($inherit) || $inherit !== 'false') ? 'font-sans text-gray-900 antialiased bg-gray-100 dark:bg-gray-900 dark:text-gray-100 min-h-screen' : '' }}">
             {{ $slot }}
         </div>
 
