@@ -14,7 +14,9 @@ class Cart extends Component
 {
     use Toast;
 
-    #[On('cart-updated')]
+    /**
+     * Listen to external updates (e.g. from the header or other components)
+     */
     #[On('echo:cart-updates,.CartUpdated')]
     public function refresh()
     {
@@ -233,10 +235,8 @@ class Cart extends Component
     // ----------------------------------------------------------------------
     public function changeQuantity($purchasableId, $change)
     {
-        \Log::info('Cart: changeQuantity', ['purchasable_id' => $purchasableId, 'change' => $change]);
         $cart = CartSession::current();
         
-        // Find all lines for this purchasable
         $lines = $cart->lines()
             ->where('purchasable_id', $purchasableId)
             ->get();
@@ -246,10 +246,7 @@ class Cart extends Component
         $currentQuantity = $lines->sum('quantity');
         $newQuantity = $currentQuantity + $change;
 
-        // If we have multiple lines, merge them
         if ($lines->count() > 1) {
-            \Log::info('Cart: merging duplicates', ['count' => $lines->count()]);
-            // Keep the first one, delete others
             $firstLine = $lines->first();
             $lines->slice(1)->each(fn($line) => $line->delete());
             
@@ -267,14 +264,7 @@ class Cart extends Component
             }
         }
 
-        $cart->calculate();
-        
-        $this->cart = $cart->lines()->get();
-        $this->cartPrices = $cart->calculate();
-        $this->refreshCartMap();
-        
-        $this->dispatch('cart-updated');
-        event(new \App\Events\CartUpdated($cart->id));
+        $this->finalizeUpdate($cart);
     }
 
     public function confirmDelete($purchasableId)
@@ -294,19 +284,34 @@ class Cart extends Component
 
     public function removeLine($purchasableId)
     {
-        \Log::info('Cart: removeLine', ['purchasable_id' => $purchasableId]);
         $cart = CartSession::current();
         
         $cart->lines()
             ->where('purchasable_id', $purchasableId)
             ->delete();
 
-        $cart->calculate();
-        
-        $this->cart = $cart->lines()->get();
+        $this->finalizeUpdate($cart);
+    }
+
+    /**
+     * Centralized method to handle everything after a cart change.
+     */
+    protected function finalizeUpdate($cart)
+    {
         $this->cartPrices = $cart->calculate();
         $this->refreshCartMap();
         
+        // Sync Stripe if address is already saved
+        if ($this->addressSaved && $this->paymentIntentClientSecret) {
+            try {
+                \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                $intent = \Lunar\Stripe\Facades\Stripe::createIntent($cart);
+                $this->paymentIntentClientSecret = $intent->client_secret;
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('Stripe sync error: ' . $e->getMessage());
+            }
+        }
+
         $this->dispatch('cart-updated');
         event(new \App\Events\CartUpdated($cart->id));
     }
