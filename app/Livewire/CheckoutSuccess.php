@@ -5,7 +5,6 @@ namespace App\Livewire;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Lunar\Facades\CartSession;
-use Lunar\Models\Order;
 
 class CheckoutSuccess extends Component
 {
@@ -16,21 +15,25 @@ class CheckoutSuccess extends Component
         $currentCart = CartSession::current();
 
         if ($currentCart) {
-            // Create Order
+            // Create Order from the confirmed cart
             $this->order = $currentCart->createOrder();
-            
-            // Update Status (assuming 'payment-received' is a valid status)
+
+            // Stripe already confirmed the payment before redirecting here,
+            // so we mark it as payment-received and set the user explicitly
+            // (Lunar doesn't auto-propagate user_id from the cart session)
             $this->order->update([
-                'status' => 'awaiting-payment',
+                'status'    => 'payment-received',
                 'placed_at' => now(),
+                'user_id'   => auth()->id(),
             ]);
 
-            // Clear Cart
+            // Clear the cart session — order is now persistent
             CartSession::forget();
         } else {
-            // If no cart, try to find the last order for this user (optional fallback)
-            // For now, just redirect if accessed directly without cart/order context
-            // return redirect()->route('home');
+            // Fallback: find the most recent order for this user
+            $this->order = \Lunar\Models\Order::where('user_id', auth()->id())
+                ->latest()
+                ->first();
         }
     }
 

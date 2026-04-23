@@ -11,7 +11,12 @@ class MisCompras extends Component
     public function getOrdersProperty()
     {
         return Order::where('user_id', auth()->id())
-            ->with(['lines.purchasable.product.media'])
+            ->with([
+                // Only eager-load product lines — ShippingOption lines are not Eloquent models
+                // and will crash the morph resolver if included
+                'lines' => fn ($q) => $q->where('purchasable_type', \Lunar\Models\ProductVariant::class),
+                'lines.purchasable.product.media',
+            ])
             ->latest()
             ->get();
     }
