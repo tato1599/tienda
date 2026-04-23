@@ -26,8 +26,12 @@ class StoreSeeder extends Seeder
             'code' => 'es',
         ], [
             'name' => 'Espanol',
-            'default' => false,
+            'default' => true,
         ]);
+
+        if (!Language::where('default', true)->exists()) {
+            $es->update(['default' => true]);
+        }
 
         $en = Language::whereCode('en')->first();
 
