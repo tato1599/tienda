@@ -1,8 +1,8 @@
 <div x-data="{ openMenu: false }" class="sticky top-0 z-50">
     <header class="w-full h-16 flex justify-between items-center px-8 bg-background/60 backdrop-blur-2xl border-b border-primary/20 font-sans tracking-tight">
         <!-- Logo -->
-        <a href="{{ route('welcome') }}" wire:navigate class="text-xl font-black tracking-tighter text-primary">
-            ITCJ SERVICIOS
+        <a href="{{ route('welcome') }}" wire:navigate class="flex items-center">
+            <x-logo class="text-primary hover:scale-105 transition-transform" />
         </a>
 
         <!-- Desktop Navigation -->
@@ -84,7 +84,7 @@
          x-transition:enter-start="translate-x-full"
          x-transition:enter-end="translate-x-0">
         <div class="flex justify-between items-center">
-            <span class="text-primary font-black tracking-tighter text-xl">MENU</span>
+            <x-logo class="h-8 text-primary" />
             <button @click="openMenu = false" class="text-on-surface">
                 <span class="material-symbols-outlined">close</span>
             </button>
