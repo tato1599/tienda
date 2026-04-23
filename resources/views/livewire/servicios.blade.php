@@ -106,19 +106,7 @@
             </div>
 
             <!-- Pagination -->
-            <div class="flex items-center justify-center gap-3 pt-12">
-                <button class="w-12 h-12 rounded-xl glass-card flex items-center justify-center text-on-surface-variant hover:text-primary transition-all border-outline-variant hover:border-primary/50">
-                    <span class="material-symbols-outlined">chevron_left</span>
-                </button>
-                <div class="flex gap-2">
-                    <button class="w-12 h-12 rounded-xl bg-primary text-on-primary font-black flex items-center justify-center shadow-[0_0_15px_rgba(0,174,239,0.3)]">1</button>
-                    <button class="w-12 h-12 rounded-xl glass-card text-on-surface font-bold flex items-center justify-center border-outline-variant hover:border-primary/50 transition-all">2</button>
-                    <button class="w-12 h-12 rounded-xl glass-card text-on-surface font-bold flex items-center justify-center border-outline-variant hover:border-primary/50 transition-all">3</button>
-                </div>
-                <button class="w-12 h-12 rounded-xl glass-card flex items-center justify-center text-on-surface-variant hover:text-primary transition-all border-outline-variant hover:border-primary/50">
-                    <span class="material-symbols-outlined">chevron_right</span>
-                </button>
-            </div>
+            {{ $servicios->links('livewire.custom-pagination') }}
         </div>
     </main>
 </div>
