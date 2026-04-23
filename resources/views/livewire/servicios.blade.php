@@ -40,12 +40,16 @@
 
                 <!-- Chips / Category Filters -->
                 <div class="flex flex-wrap justify-center gap-3">
-                    <button class="px-6 py-2 rounded-full border border-primary bg-primary/10 text-primary font-bold text-sm shadow-[0_0_15px_rgba(0,174,239,0.2)] transition-all hover:scale-105 active:scale-95">
+                    <button 
+                        wire:click="selectCategory('')"
+                        class="px-6 py-2 rounded-full border {{ $category === '' ? 'border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(0,174,239,0.2)]' : 'border-outline-variant bg-surface/50 text-on-surface-variant font-medium' }} font-bold text-sm transition-all hover:scale-105 active:scale-95">
                         Todos
                     </button>
-                    @foreach(['Software', 'Hardware', 'Redes', 'Soporte'] as $category)
-                        <button class="px-6 py-2 rounded-full border border-outline-variant bg-surface/50 text-on-surface-variant font-medium text-sm transition-all hover:border-primary/50 hover:text-primary hover:bg-on-surface/5">
-                            {{ $category }}
+                    @foreach(['Software', 'Hardware', 'Redes', 'Soporte'] as $cat)
+                        <button 
+                            wire:click="selectCategory('{{ $cat }}')"
+                            class="px-6 py-2 rounded-full border {{ $category === $cat ? 'border-primary bg-primary/10 text-primary shadow-[0_0_15px_rgba(0,174,239,0.2)]' : 'border-outline-variant bg-surface/50 text-on-surface-variant font-medium' }} text-sm transition-all hover:border-primary/50 hover:text-primary hover:bg-on-surface/5">
+                            {{ $cat }}
                         </button>
                     @endforeach
                 </div>
