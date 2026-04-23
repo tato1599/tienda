@@ -114,7 +114,6 @@ class ProductShow extends Component
                 type: 'success',
                 title: 'Producto agregado al carrito',
                 description: 'El producto se ha agregado correctamente a tu carrito de compras.',
-                css: "bg-green-500 text-white",         // optional (tailwind classes)
                 timeout: 3000,                      // optional (ms)
                 redirectTo: null                    // optional (uri)
             );

@@ -19,6 +19,8 @@
                     'GRAD' 0,
                     'opsz' 24
             }
+            /* Hide Alpine x-cloak elements before JS loads to prevent flash of undefined */
+            [x-cloak] { display: none !important; }
         </style>
 
         <!-- Scripts -->
@@ -44,7 +46,7 @@
         observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     </script>
     <body class="antialiased">
-        <x-mary-toast />
+        <x-mary-toast position="bottom-end" />
 
         @if(!isset($inherit) || $inherit !== 'false')
             <x-headerTienda  />

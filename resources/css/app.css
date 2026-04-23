@@ -89,11 +89,6 @@
     display: none;
 }
 
-/* Section Containers */
-.md\:grid.md\:grid-cols-3.md\:gap-6 {
-    @apply mb-12;
-}
-
 /* Titles and Descriptions */
 .md\:col-span-1 h3 {
     @apply font-space-grotesk text-primary text-xl font-bold tracking-tight !important;
@@ -119,7 +114,7 @@
 
 /* Labels and Inputs */
 label {
-    @apply text-white font-bold text-xs uppercase tracking-widest mb-2 block !important;
+    @apply text-on-surface font-bold text-xs uppercase tracking-widest mb-2 block !important;
 }
 
 input[type="text"],
@@ -127,7 +122,7 @@ input[type="email"],
 input[type="password"],
 textarea,
 select {
-    @apply bg-surface-container border-surface-variant text-white rounded-lg focus:ring-primary/20 focus:border-primary/50 transition-all !important;
+    @apply bg-surface-container border-surface-variant text-on-surface rounded-lg focus:ring-primary/20 focus:border-primary/50 transition-all !important;
 }
 
 /* Profile Photo */
@@ -142,7 +137,7 @@ button.inline-flex.items-center.px-4.py-2.bg-white {
 }
 
 button.inline-flex.items-center.px-4.py-2.bg-gray-800 {
-    @apply bg-primary text-black hover:bg-blue-400 !important;
+    @apply bg-primary text-on-primary hover:bg-blue-400 !important;
 }
 
 /* Borders */
@@ -160,3 +155,67 @@ button.inline-flex.items-center.px-4.py-2.bg-gray-800 {
 
 /* Theme toggle */
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* Toast and Alert Customization — DO NOT use display with !important here, Alpine x-show needs control */
+.toast {
+    position: fixed !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    left: auto !important;
+    padding: 1.5rem !important;
+    z-index: 100 !important;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+}
+
+.toast > * {
+    pointer-events: auto;
+}
+
+/* Alert / Notification box */
+.toast .alert {
+    @apply rounded-2xl backdrop-blur-3xl shadow-2xl border-primary/20 transition-all duration-300;
+    background: rgb(var(--surface-container) / 0.9);
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+    align-items: center;
+}
+
+.alert span,
+.alert .font-bold {
+    @apply text-sm text-on-surface;
+    font-weight: 700;
+}
+
+.alert .text-xs {
+    @apply text-on-surface-variant;
+}
+
+/* Alert specific colors */
+.alert-success {
+    background: rgb(34 197 94 / 0.1) !important;
+    border-color: rgb(34 197 94 / 0.2) !important;
+    color: rgb(22 163 74) !important;
+}
+
+.dark .alert-success {
+    color: rgb(74 222 128) !important;
+}
+
+.alert-error {
+    background: rgb(239 68 68 / 0.1) !important;
+    border-color: rgb(239 68 68 / 0.2) !important;
+    color: rgb(220 38 38) !important;
+}
+
+.dark .alert-error {
+    color: rgb(248 113 113) !important;
+}
+
+.alert-info {
+    background: rgb(var(--primary) / 0.1) !important;
+    border-color: rgb(var(--primary) / 0.2) !important;
+    color: rgb(var(--primary)) !important;
+}
