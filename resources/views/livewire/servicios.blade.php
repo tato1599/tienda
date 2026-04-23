@@ -90,7 +90,7 @@
                                     <span class="material-symbols-outlined text-xs">verified_user</span>
                                     Garantía Académica
                                 </span>
-                                <a href="{{ route('product.show', $servicio) }}" 
+                                <a href="{{ route('product.show', $servicio) }}" wire:navigate
                                    class="text-primary text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
                                     Detalle <span class="material-symbols-outlined text-xs">arrow_forward</span>
                                 </a>

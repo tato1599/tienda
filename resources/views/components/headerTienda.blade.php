@@ -1,16 +1,16 @@
 <div x-data="{ openMenu: false }" class="sticky top-0 z-50">
     <header class="w-full h-16 flex justify-between items-center px-8 bg-background/60 backdrop-blur-2xl border-b border-primary/20 font-sans tracking-tight">
         <!-- Logo -->
-        <a href="{{ route('welcome') }}" class="text-xl font-black tracking-tighter text-primary">
+        <a href="{{ route('welcome') }}" wire:navigate class="text-xl font-black tracking-tighter text-primary">
             ITCJ SERVICIOS
         </a>
 
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center gap-8">
-            <a href="{{ route('welcome') }}" class="{{ request()->routeIs('welcome') ? 'text-primary border-b-2 border-primary pb-1' : 'text-on-surface-variant font-medium hover:text-primary transition-all duration-300' }}">
+            <a href="{{ route('welcome') }}" wire:navigate class="{{ request()->routeIs('welcome') ? 'text-primary border-b-2 border-primary pb-1' : 'text-on-surface-variant font-medium hover:text-primary transition-all duration-300' }}">
                 Inicio
             </a>
-            <a href="{{ route('servicios') }}" class="{{ request()->routeIs('servicios') ? 'text-primary border-b-2 border-primary pb-1' : 'text-on-surface-variant font-medium hover:text-primary transition-all duration-300' }}">
+            <a href="{{ route('servicios') }}" wire:navigate class="{{ request()->routeIs('servicios') ? 'text-primary border-b-2 border-primary pb-1' : 'text-on-surface-variant font-medium hover:text-primary transition-all duration-300' }}">
                 Servicios
             </a>
             <a href="{{ route('welcome') }}#servicios" class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300">
@@ -45,7 +45,7 @@
                             <p class="text-xs font-bold text-primary tracking-widest uppercase">Cuenta</p>
                             <p class="text-sm font-medium text-on-surface truncate">{{ Auth::user()->email }}</p>
                         </div>
-                        <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-4 py-2 text-sm text-on-surface-variant hover:text-primary hover:bg-surface-variant/20 rounded-lg transition-all">
+                        <a href="{{ route('profile.show') }}" wire:navigate class="flex items-center gap-3 px-4 py-2 text-sm text-on-surface-variant hover:text-primary hover:bg-surface-variant/20 rounded-lg transition-all">
                             <span class="material-symbols-outlined text-lg">person</span>
                             Perfil
                         </a>
@@ -61,10 +61,10 @@
             @endauth
 
             @guest
-                <a href="{{ route('login') }}" class="text-on-surface-variant hover:text-primary transition-colors font-bold text-sm">
+                <a href="{{ route('login') }}" wire:navigate class="text-on-surface-variant hover:text-primary transition-colors font-bold text-sm">
                     Ingresar
                 </a>
-                <a href="{{ route('register') }}" class="bg-primary text-black px-4 py-1.5 rounded-lg font-bold text-sm active:opacity-80 active:scale-95 transition-all shadow-[0_0_15px_rgba(0,174,239,0.3)]">
+                <a href="{{ route('register') }}" wire:navigate class="bg-primary text-black px-4 py-1.5 rounded-lg font-bold text-sm active:opacity-80 active:scale-95 transition-all shadow-[0_0_15px_rgba(0,174,239,0.3)]">
                     Crear Cuenta
                 </a>
             @endguest
@@ -89,14 +89,14 @@
             </button>
         </div>
         <nav class="flex flex-col gap-6">
-            <a href="{{ route('welcome') }}" class="text-2xl font-bold text-on-surface hover:text-primary transition-colors">Inicio</a>
-            <a href="{{ route('servicios') }}" class="text-2xl font-bold text-on-surface hover:text-primary transition-colors">Servicios</a>
+            <a href="{{ route('welcome') }}" wire:navigate class="text-2xl font-bold text-on-surface hover:text-primary transition-colors">Inicio</a>
+            <a href="{{ route('servicios') }}" wire:navigate class="text-2xl font-bold text-on-surface hover:text-primary transition-colors">Servicios</a>
             <a href="{{ route('welcome') }}#servicios" class="text-2xl font-bold text-on-surface hover:text-primary transition-colors">Proyectos</a>
             <a href="{{ route('welcome') }}#contacto" class="text-2xl font-bold text-on-surface hover:text-primary transition-colors">Contacto</a>
             @guest
                 <hr class="border-outline-variant/30 my-2">
-                <a href="{{ route('login') }}" class="text-xl font-bold text-on-surface-variant">Ingresar</a>
-                <a href="{{ route('register') }}" class="text-xl font-bold text-primary">Crear Cuenta</a>
+                <a href="{{ route('login') }}" wire:navigate class="text-xl font-bold text-on-surface-variant">Ingresar</a>
+                <a href="{{ route('register') }}" wire:navigate class="text-xl font-bold text-primary">Crear Cuenta</a>
             @endguest
         </nav>
     </div>

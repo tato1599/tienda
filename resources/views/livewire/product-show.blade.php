@@ -9,11 +9,11 @@
     <div class="relative z-10 flex flex-col w-full max-w-7xl flex-1 mx-auto py-8 sm:py-16">
         <!-- Breadcrumbs -->
         <nav class="flex items-center gap-3 px-4 mb-12 animate-fade-in">
-            <a href="/" class="text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+            <a href="/" wire:navigate class="text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-1">
                 <span class="material-symbols-outlined text-sm">home</span> Inicio
             </a>
             <span class="text-on-surface/10 text-xs">/</span>
-            <a href="{{ route('servicios') }}" class="text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest">
+            <a href="{{ route('servicios') }}" wire:navigate class="text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest">
                 Servicios
             </a>
             <span class="text-on-surface/10 text-xs">/</span>
@@ -128,6 +128,7 @@
                         </button>
                     @else
                         <a href="{{ route('login') }}" 
+                           wire:navigate
                            class="w-full border border-primary text-primary py-5 rounded-2xl font-black text-xl hover:bg-primary/5 transition-all flex items-center justify-center gap-3 text-center">
                             <span class="material-symbols-outlined text-2xl">login</span>
                             Iniciar Sesión para Reservar

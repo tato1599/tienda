@@ -63,7 +63,8 @@
                     
                     <div class="flex-1 min-w-0">
                         <a href="{{ route('product.show', $item->purchasable->product->getRouteKey()) }}"
-                            class="block truncate text-sm font-bold text-on-surface hover:text-primary transition-colors">{{ $item->purchasable->product->translateAttribute('name') }}</a>
+                           wire:navigate
+                           class="block truncate text-sm font-bold text-on-surface hover:text-primary transition-colors">{{ $item->purchasable->product->translateAttribute('name') }}</a>
                         <div class="mt-1 flex items-center justify-between">
                             <p class="text-xs text-on-surface-variant">Cant: {{ $item->quantity }}</p>
                             <p class="text-sm font-black text-primary">{{ optional($item->unitPrice)->formatted }}</p>
@@ -86,6 +87,7 @@
                 </div>
                 
                 <a href="{{ route('cart') }}" 
+                   wire:navigate
                    class="btn-premium"> 
                    Ver carrito Completo 
                    <span class="material-symbols-outlined text-lg">arrow_forward</span>

@@ -10,9 +10,9 @@
         <!-- Breadcrumbs & Heading -->
         <div class="mb-12 animate-fade-in">
             <nav class="flex flex-wrap gap-3 items-center mb-6">
-                <a class="text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="/">Inicio</a>
+                <a class="text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="/" wire:navigate>Inicio</a>
                 <span class="text-on-surface/10 text-xs">/</span>
-                <a class="text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="{{ route('servicios') }}">Servicios</a>
+                <a class="text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="{{ route('servicios') }}" wire:navigate>Servicios</a>
                 <span class="text-on-surface/10 text-xs">/</span>
                 <span class="text-xs font-bold uppercase tracking-widest text-primary">Carrito</span>
             </nav>
@@ -35,7 +35,7 @@
                     <div class="glass-card p-20 flex flex-col items-center justify-center text-center opacity-50 rounded-3xl">
                         <span class="material-symbols-outlined text-8xl mb-4">shopping_cart_off</span>
                         <p class="text-xl font-bold italic">Tu carrito está vacío.</p>
-                        <a href="{{ route('servicios') }}" class="mt-8 text-primary font-bold hover:underline">Explorar Catálogo</a>
+                        <a href="{{ route('servicios') }}" wire:navigate class="mt-8 text-primary font-bold hover:underline">Explorar Catálogo</a>
                     </div>
                 @else
                     @foreach ($purchasableItemsMap as $item)
@@ -103,7 +103,7 @@
                 @endif
                 
                 <a class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:text-primary transition-all group pt-6"
-                   href="{{ route('servicios') }}">
+                   href="{{ route('servicios') }}" wire:navigate>
                     <span class="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
                     Seguir Explorando Servicios
                 </a>

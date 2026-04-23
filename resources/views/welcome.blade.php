@@ -19,6 +19,7 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="{{ route('servicios') }}"
+                        wire:navigate
                         class="bg-primary text-on-primary px-8 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,174,239,0.3)]">
                         Explorar Servicios
                         <span class="material-symbols-outlined">arrow_forward</span>
@@ -175,11 +176,13 @@
 
                         @guest
                             <a href="{{ route('register') }}"
+                                wire:navigate
                                 class="inline-block bg-primary text-on-primary px-12 py-5 rounded-full font-black text-xl hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.4)]">
                                 REGÍSTRATE GRATIS
                             </a>
                         @else
                             <a href="{{ route('servicios') }}"
+                                wire:navigate
                                 class="inline-block bg-primary text-on-primary px-12 py-5 rounded-full font-black text-xl hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.4)]">
                                 EXPLORAR SERVICIOS
                             </a>

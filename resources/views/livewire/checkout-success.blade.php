@@ -23,7 +23,7 @@
         @endif
 
         <div class="pt-4">
-            <a href="{{ route('servicios') }}" class="btn-premium">
+            <a href="{{ route('servicios') }}" wire:navigate class="btn-premium">
                 Volver a Servicios
             </a>
         </div>
