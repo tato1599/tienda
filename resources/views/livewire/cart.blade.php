@@ -122,8 +122,8 @@
                             Resumen de Pedido
                         </h3>
 
-                        @if (empty($cartPrices))
-                            <p class="text-center text-on-surface-variant">No hay artículos.</p>
+                        @if (count($purchasableItemsMap) == 0)
+                            <p class="text-center text-on-surface-variant p-8">Tu carrito está vacío.</p>
                         @else
                             <div class="space-y-4 mb-8">
                                 <div class="flex justify-between items-center text-sm">
@@ -254,6 +254,12 @@
                                                 <span class="material-symbols-outlined text-2xl font-black">lock</span>
                                                 Pagar Ahora
                                             </button>
+
+                                            <!-- Cancel Option -->
+                                            <button wire:click="$set('confirmingCancellation', true)" 
+                                                    class="w-full mt-4 text-on-surface-variant hover:text-red-500 text-xs font-bold uppercase tracking-widest transition-colors py-2">
+                                                Cancelar Compra y Vaciar Carrito
+                                            </button>
                                             
                                             <div id="error-message" class="text-red-500 mt-4 text-xs font-bold text-center hidden p-3 bg-red-500/10 rounded-xl border border-red-500/20"></div>
                                         </div>
@@ -280,6 +286,28 @@
                     </button>
                     <button wire:click="deleteItem" class="flex-1 py-3 rounded-xl bg-red-500/20 text-red-500 border border-red-500/30 font-bold hover:bg-red-500 hover:text-on-primary transition-all text-sm">
                         Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!-- Cancel Confirmation Modal -->
+    @if($confirmingCancellation)
+        <div class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <div class="fixed inset-0 bg-background/80 backdrop-blur-sm" wire:click="$set('confirmingCancellation', false)"></div>
+            <div class="glass-card relative z-110 w-full max-w-md p-8 rounded-3xl border border-outline-variant/20 shadow-3xl animate-in zoom-in duration-200">
+                <div class="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 mb-6 mx-auto">
+                    <span class="material-symbols-outlined text-4xl">shopping_cart_off</span>
+                </div>
+                <h4 class="text-xl font-black text-on-surface mb-2 text-center">¿Vaciar el carrito?</h4>
+                <p class="text-on-surface-variant text-sm mb-8 text-center">Se perderán todos los servicios seleccionados y se cancelará el proceso de pago actual.</p>
+                <div class="flex gap-4">
+                    <button wire:click="$set('confirmingCancellation', false)" class="flex-1 py-3 rounded-xl border border-outline-variant/20 font-bold text-on-surface hover:bg-on-surface/5 transition-all text-sm">
+                        No, Continuar
+                    </button>
+                    <button wire:click="emptyCart" class="flex-1 py-3 rounded-xl bg-red-500 text-white font-black hover:opacity-90 transition-all text-sm shadow-[0_0_20px_rgba(239,68,68,0.3)]">
+                        Sí, Vaciar Todo
                     </button>
                 </div>
             </div>

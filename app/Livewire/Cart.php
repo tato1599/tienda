@@ -43,6 +43,7 @@ class Cart extends Component
     public $addressSaved = false;
 
     public $confirmingDeletion = false;
+    public $confirmingCancellation = false;
     public $itemToDelete = null;
 
     public function mount()
@@ -293,6 +294,22 @@ class Cart extends Component
             ->delete();
 
         $this->finalizeUpdate($cart);
+    }
+
+    /**
+     * Clear all items from the cart
+     */
+    public function emptyCart()
+    {
+        $cart = CartSession::current();
+        $cart->lines()->delete();
+        
+        $this->addressSaved = false;
+        $this->paymentIntentClientSecret = null;
+        $this->confirmingCancellation = false;
+        
+        $this->finalizeUpdate($cart);
+        $this->success('Carrito vaciado y compra cancelada.', 'Éxito', position: 'bottom-right');
     }
 
     /**
