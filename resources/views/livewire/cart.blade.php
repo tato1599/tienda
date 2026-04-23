@@ -188,66 +188,74 @@
                                             <p class="text-xs opacity-60">{{ $lineOne }}</p>
                                             <p class="text-xs opacity-60">{{ $city }}, {{ $state }} {{ $postcode }}</p>
                                         </div>
-                                    </div>
+                                                                      @if($paymentIntentClientSecret)
+                                        <script src="https://js.stripe.com/v3/"></script>
+                                        <script>
+                                            function stripePayment() {
+                                                return {
+                                                    stripe: null,
+                                                    elements: null,
+                                                    async initStripe() {
+                                                        if (this.stripe) return;
+                                                        this.stripe = Stripe('{{ $stripeKey }}');
+                                                        this.elements = this.stripe.elements({
+                                                            clientSecret: '{{ $paymentIntentClientSecret }}',
+                                                            appearance: {
+                                                                theme: 'night',
+                                                                variables: {
+                                                                    colorPrimary: '#00AEEF',
+                                                                    colorBackground: '#0b1120',
+                                                                    colorText: '#ffffff',
+                                                                    borderRadius: '16px',
+                                                                }
+                                                            }
+                                                        });
+                                                        const paymentElement = this.elements.create('payment');
+                                                        paymentElement.mount('#payment-element');
+                                                    },
+                                                    async handleSubmit() {
+                                                        const btn = document.getElementById('submit-payment');
+                                                        const errorMsg = document.getElementById('error-message');
+                                                        
+                                                        btn.disabled = true;
+                                                        btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-xl">refresh</span> Procesando...';
+                                                        
+                                                        const { error } = await this.stripe.confirmPayment({
+                                                            elements: this.elements,
+                                                            confirmParams: {
+                                                                return_url: '{{ route('checkout.success') }}',
+                                                            },
+                                                        });
 
-                                    @if($paymentIntentClientSecret)
-                                        <div id="stripe-container" class="animate-fade-in">
-                                            <h4 class="text-xs font-black uppercase tracking-[0.2em] text-primary mb-4">Detalles de Pago</h4>
-                                            <div id="payment-element" class="p-4 bg-on-surface/5 border border-outline-variant/20 rounded-2xl mb-6"></div>
+                                                        if (error) {
+                                                            btn.disabled = false;
+                                                            btn.innerHTML = '<span class="material-symbols-outlined text-2xl font-black">lock</span> Pagar Ahora';
+                                                            errorMsg.innerText = error.message;
+                                                            errorMsg.classList.remove('hidden');
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        </script>
+                                        <div id="stripe-container" 
+                                             x-data="stripePayment()"
+                                             x-init="initStripe()"
+                                             class="animate-fade-in">
+                                            
+                                            <h4 class="text-xs font-black uppercase tracking-[0.2em] text-primary mb-4 text-center">Detalles de Pago Seguro</h4>
+                                            
+                                            <div id="payment-element" class="p-4 bg-on-surface/5 border border-outline-variant/20 rounded-2xl mb-6 shadow-inner" wire:ignore>
+                                                <!-- Stripe will mount here -->
+                                            </div>
                                             
                                             <button id="submit-payment"
+                                                    @click="handleSubmit"
                                                     class="w-full bg-primary text-on-primary py-5 rounded-2xl font-black text-xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.3)] flex items-center justify-center gap-3">
                                                 <span class="material-symbols-outlined text-2xl font-black">lock</span>
                                                 Pagar Ahora
                                             </button>
                                             
-                                            <div id="error-message" class="text-red-500 mt-4 text-xs font-bold text-center hidden"></div>
-
-                                            <script src="https://js.stripe.com/v3/"></script>
-                                            <script>
-                                                document.addEventListener('livewire:initialized', () => {
-                                                    const stripe = Stripe('{{ $stripeKey }}');
-                                                    const options = {
-                                                        clientSecret: '{{ $paymentIntentClientSecret }}',
-                                                        appearance: {
-                                                            theme: 'night',
-                                                            variables: {
-                                                                colorPrimary: '#00AEEF',
-                                                                colorBackground: '#0b1120',
-                                                                colorText: '#ffffff',
-                                                                borderRadius: '16px',
-                                                            }
-                                                        },
-                                                    };
-                                                    const elements = stripe.elements(options);
-                                                    const paymentElement = elements.create('payment');
-                                                    paymentElement.mount('#payment-element');
-
-                                                    const submitBtn = document.getElementById('submit-payment');
-                                                    const errorMsg = document.getElementById('error-message');
-
-                                                    submitBtn.addEventListener('click', async (e) => {
-                                                        e.preventDefault();
-                                                        submitBtn.disabled = true;
-                                                        const originalText = submitBtn.innerHTML;
-                                                        submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Procesando...';
-
-                                                        const { error } = await stripe.confirmPayment({
-                                                            elements,
-                                                            confirmParams: {
-                                                                return_url: '{{ route("checkout.success") }}', 
-                                                            },
-                                                        });
-
-                                                        if (error) {
-                                                            submitBtn.disabled = false;
-                                                            submitBtn.innerHTML = originalText;
-                                                            errorMsg.innerText = error.message;
-                                                            errorMsg.classList.remove('hidden');
-                                                        }
-                                                    });
-                                                });
-                                            </script>
+                                            <div id="error-message" class="text-red-500 mt-4 text-xs font-bold text-center hidden p-3 bg-red-500/10 rounded-xl border border-red-500/20"></div>
                                         </div>
                                     @endif
                                 @endif

@@ -181,6 +181,8 @@ class Cart extends Component
         } catch (\Exception $e) {
             $this->error('Error creating payment intent: ' . $e->getMessage());
         }
+
+        $this->finalizeUpdate($cart);
     }
 
     // ----------------------------------------------------------------------
