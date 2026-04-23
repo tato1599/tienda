@@ -13,7 +13,7 @@
             <!-- Page Heading -->
             <div class="flex flex-col items-center gap-4 text-center">
                 <span class="font-space-grotesk text-primary tracking-[0.2em] block text-sm uppercase">Marketplace</span>
-                <h1 class="text-white text-4xl md:text-6xl font-black leading-tight tracking-tight bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent">
+                <h1 class="text-on-surface text-4xl md:text-6xl font-black leading-tight tracking-tight bg-gradient-to-br from-on-surface via-on-surface to-primary bg-clip-text text-transparent">
                     Servicios Tecnológicos
                 </h1>
                 <p class="text-on-surface-variant text-lg font-normal leading-normal max-w-2xl">
@@ -32,7 +32,7 @@
                         </div>
                         <input
                             wire:model.live.debounce.300ms="search"
-                            class="w-full bg-surface-container border border-outline-variant text-white rounded-2xl py-5 pl-14 pr-6 focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all shadow-[0_0_20px_rgba(0,0,0,0.2)] placeholder-on-surface-variant/50 font-medium"
+                            class="w-full bg-surface-container border border-outline-variant text-on-surface rounded-2xl py-5 pl-14 pr-6 focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all shadow-[0_0_20px_rgba(0,0,0,0.2)] placeholder:text-on-surface-variant/50 font-medium"
                             placeholder="Buscar servicios (ej. 'Reparación PC', 'Software')..." />
                         <div class="absolute inset-0 bg-primary/5 blur-xl rounded-2xl opacity-0 group-focus-within:opacity-100 transition-opacity pointer-events-none"></div>
                     </div>
@@ -44,7 +44,7 @@
                         Todos
                     </button>
                     @foreach(['Software', 'Hardware', 'Redes', 'Soporte'] as $category)
-                        <button class="px-6 py-2 rounded-full border border-outline-variant bg-surface/50 text-on-surface-variant font-medium text-sm transition-all hover:border-primary/50 hover:text-white hover:bg-white/5">
+                        <button class="px-6 py-2 rounded-full border border-outline-variant bg-surface/50 text-on-surface-variant font-medium text-sm transition-all hover:border-primary/50 hover:text-primary hover:bg-on-surface/5">
                             {{ $category }}
                         </button>
                     @endforeach
@@ -71,21 +71,21 @@
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
                             
                             <!-- Price Badge -->
-                            <div class="absolute bottom-4 right-4 bg-primary text-black px-4 py-1.5 rounded-full font-black text-sm shadow-xl">
+                            <div class="absolute bottom-4 right-4 bg-primary text-on-primary px-4 py-1.5 rounded-full font-black text-sm shadow-xl">
                                 {{ $servicio->variants->first()?->prices->first()?->price->formatted() }}
                             </div>
                         </div>
 
                         <!-- Content -->
                         <div class="p-6 flex flex-col flex-1 gap-3">
-                            <h3 class="text-white text-lg font-bold leading-tight group-hover:text-primary transition-colors line-clamp-1">
+                            <h3 class="text-on-surface text-lg font-bold leading-tight group-hover:text-primary transition-colors line-clamp-1">
                                 {{ $servicio->translateAttribute('name') }}
                             </h3>
                             <p class="text-on-surface-variant text-sm line-clamp-2 min-h-[2.5rem]">
                                 {{ $servicio->translateAttribute('description') }}
                             </p>
                             
-                            <div class="pt-4 mt-auto border-t border-white/5 flex items-center justify-between">
+                            <div class="pt-4 mt-auto border-t border-outline-variant/20 flex items-center justify-between">
                                 <span class="text-[10px] uppercase tracking-tighter text-on-surface-variant font-bold flex items-center gap-1">
                                     <span class="material-symbols-outlined text-xs">verified_user</span>
                                     Garantía Académica
@@ -107,15 +107,15 @@
 
             <!-- Pagination -->
             <div class="flex items-center justify-center gap-3 pt-12">
-                <button class="w-12 h-12 rounded-xl glass-card flex items-center justify-center text-on-surface-variant hover:text-white transition-all border-outline-variant hover:border-primary/50">
+                <button class="w-12 h-12 rounded-xl glass-card flex items-center justify-center text-on-surface-variant hover:text-primary transition-all border-outline-variant hover:border-primary/50">
                     <span class="material-symbols-outlined">chevron_left</span>
                 </button>
                 <div class="flex gap-2">
-                    <button class="w-12 h-12 rounded-xl bg-primary text-black font-black flex items-center justify-center shadow-[0_0_15px_rgba(0,174,239,0.3)]">1</button>
-                    <button class="w-12 h-12 rounded-xl glass-card text-white font-bold flex items-center justify-center border-outline-variant hover:border-primary/50 transition-all">2</button>
-                    <button class="w-12 h-12 rounded-xl glass-card text-white font-bold flex items-center justify-center border-outline-variant hover:border-primary/50 transition-all">3</button>
+                    <button class="w-12 h-12 rounded-xl bg-primary text-on-primary font-black flex items-center justify-center shadow-[0_0_15px_rgba(0,174,239,0.3)]">1</button>
+                    <button class="w-12 h-12 rounded-xl glass-card text-on-surface font-bold flex items-center justify-center border-outline-variant hover:border-primary/50 transition-all">2</button>
+                    <button class="w-12 h-12 rounded-xl glass-card text-on-surface font-bold flex items-center justify-center border-outline-variant hover:border-primary/50 transition-all">3</button>
                 </div>
-                <button class="w-12 h-12 rounded-xl glass-card flex items-center justify-center text-on-surface-variant hover:text-white transition-all border-outline-variant hover:border-primary/50">
+                <button class="w-12 h-12 rounded-xl glass-card flex items-center justify-center text-on-surface-variant hover:text-primary transition-all border-outline-variant hover:border-primary/50">
                     <span class="material-symbols-outlined">chevron_right</span>
                 </button>
             </div>

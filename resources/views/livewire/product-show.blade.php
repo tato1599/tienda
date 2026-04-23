@@ -9,14 +9,14 @@
     <div class="relative z-10 flex flex-col w-full max-w-7xl flex-1 mx-auto py-8 sm:py-16">
         <!-- Breadcrumbs -->
         <nav class="flex items-center gap-3 px-4 mb-12 animate-fade-in">
-            <a href="/" class="text-on-surface-variant hover:text-white transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+            <a href="/" class="text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-1">
                 <span class="material-symbols-outlined text-sm">home</span> Inicio
             </a>
-            <span class="text-white/10 text-xs">/</span>
-            <a href="{{ route('servicios') }}" class="text-on-surface-variant hover:text-white transition-colors text-xs font-bold uppercase tracking-widest">
+            <span class="text-on-surface/10 text-xs">/</span>
+            <a href="{{ route('servicios') }}" class="text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest">
                 Servicios
             </a>
-            <span class="text-white/10 text-xs">/</span>
+            <span class="text-on-surface/10 text-xs">/</span>
             <span class="text-primary text-xs font-bold uppercase tracking-widest">
                 {{ $this->product->translateAttribute('name') }}
             </span>
@@ -69,17 +69,17 @@
                             {{ $this->product->translateAttribute('marca') ?? 'Servicio Especializado' }}
                         </p>
                     </div>
-                    <h1 class="text-white text-4xl sm:text-5xl font-black leading-tight tracking-tight bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent">
+                    <h1 class="text-on-surface text-4xl sm:text-5xl font-black leading-tight tracking-tight bg-gradient-to-br from-on-surface via-on-surface to-primary bg-clip-text text-transparent">
                         {{ $this->product->translateAttribute('name') }}
                     </h1>
                 </div>
 
                 <!-- Pricing & Info -->
-                <div class="glass-card p-8 rounded-2xl border border-white/5 space-y-8 bg-white/[0.02]">
+                <div class="glass-card p-8 rounded-2xl border border-outline-variant/20 space-y-8">
                     <div class="flex items-end justify-between">
                         <div class="flex flex-col gap-1">
                             <span class="text-on-surface-variant text-[10px] uppercase font-black tracking-widest">Inversión Estimada</span>
-                            <div class="text-4xl font-black text-white flex items-start gap-1">
+                            <div class="text-4xl font-black text-on-surface flex items-start gap-1">
                                 {{ $this->product->variants->first()?->prices->first()?->price->formatted() }}
                             </div>
                         </div>
@@ -88,20 +88,20 @@
 
                     <div class="space-y-4">
                         <div class="flex items-center gap-4 text-on-surface-variant group">
-                            <div class="w-10 h-10 rounded-full glass-card border-white/5 flex items-center justify-center group-hover:text-primary transition-colors">
+                            <div class="w-10 h-10 rounded-full glass-card border-outline-variant/20 flex items-center justify-center group-hover:text-primary transition-colors">
                                 <span class="material-symbols-outlined text-xl">verified</span>
                             </div>
                             <div>
-                                <p class="text-white text-sm font-bold">Garantía Extendida</p>
+                                <p class="text-on-surface text-sm font-bold">Garantía Extendida</p>
                                 <p class="text-xs opacity-60">Soporte post-servicio por 30 días.</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-4 text-on-surface-variant group">
-                            <div class="w-10 h-10 rounded-full glass-card border-white/5 flex items-center justify-center group-hover:text-primary transition-colors">
+                            <div class="w-10 h-10 rounded-full glass-card border-outline-variant/20 flex items-center justify-center group-hover:text-primary transition-colors">
                                 <span class="material-symbols-outlined text-xl">bolt</span>
                             </div>
                             <div>
-                                <p class="text-white text-sm font-bold">Respuesta Flash</p>
+                                <p class="text-on-surface text-sm font-bold">Respuesta Flash</p>
                                 <p class="text-xs opacity-60">Diagnóstico en menos de 24 horas.</p>
                             </div>
                         </div>
@@ -110,8 +110,8 @@
 
                 <!-- Description -->
                 <div class="flex flex-col gap-4">
-                    <h3 class="font-space-grotesk text-white text-sm font-bold uppercase tracking-widest">Información del Servicio</h3>
-                    <div class="text-on-surface-variant leading-relaxed text-sm glass-card p-6 rounded-2xl border border-white/5">
+                    <h3 class="font-space-grotesk text-on-surface text-sm font-bold uppercase tracking-widest">Información del Servicio</h3>
+                    <div class="text-on-surface-variant leading-relaxed text-sm glass-card p-6 rounded-2xl border border-outline-variant/20">
                         {{ $this->product->translateAttribute('description') }}
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                         <button
                             wire:click="addToCart"
                             @click="$dispatch('cart-updated')"
-                            class="w-full bg-primary text-black py-5 rounded-2xl font-black text-xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.3)] flex items-center justify-center gap-3">
+                            class="w-full bg-primary text-on-primary py-5 rounded-2xl font-black text-xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.3)] flex items-center justify-center gap-3">
                             <span class="material-symbols-outlined text-2xl">shopping_cart</span>
                             Reservar Servicio
                         </button>
