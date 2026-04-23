@@ -2,10 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --primary: 0 174 239;
+    --on-primary: 255 255 255;
+    --background: 252 252 252;
+    --surface: 255 255 255;
+    --surface-container: 241 244 249;
+    --surface-variant: 223 227 231;
+    --outline: 115 119 127;
+    --on-surface: 26 28 30;
+    --on-surface-variant: 67 71 78;
+    --primary-container: 209 228 255;
+    --outline-variant: 195 199 207;
+    --glass-bg: 255 255 255;
+    --glass-border: 0 0 0;
+}
+
+.dark {
+    --primary: 0 174 239;
+    --on-primary: 0 52 75;
+    --background: 19 19 19;
+    --surface: 19 19 19;
+    --surface-container: 31 31 31;
+    --surface-variant: 53 53 53;
+    --outline: 135 146 155;
+    --on-surface: 226 226 226;
+    --on-surface-variant: 189 200 209;
+    --primary-container: 0 52 75;
+    --outline-variant: 62 72 80;
+    --glass-bg: 18 18 18;
+    --glass-border: 38 38 38;
+}
+
 @layer base {
     body {
-        @apply font-sans bg-background text-on-surface antialiased overflow-x-hidden;
-        background-color: #000000;
+        @apply font-sans bg-background text-on-surface antialiased overflow-x-hidden transition-colors duration-300;
     }
 }
 
@@ -13,13 +44,13 @@
 
     /* High-Tech Utilities */
     .glass-card {
-        background: rgba(18, 18, 18, 0.8);
+        background: rgb(var(--glass-bg) / 0.8);
         backdrop-filter: blur(12px);
-        border: 1px solid #262626;
+        border: 1px solid rgb(var(--glass-border) / 0.1);
     }
 
     .tech-pattern {
-        background-image: radial-gradient(#00aeef 0.5px, transparent 0.5px);
+        background-image: radial-gradient(var(--primary) 0.5px, transparent 0.5px);
         background-size: 24px 24px;
         opacity: 0.1;
     }
@@ -30,36 +61,16 @@
     }
 
     .ambient-glow-bottom {
-        @apply absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-blue-900/20 blur-[120px] pointer-events-none;
+        @apply absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[120px] pointer-events-none;
     }
 
     /* Standardized Input Styles */
     .input-premium {
-        @apply w-full bg-surface-container border border-surface-variant text-white text-sm rounded-lg py-3.5 pl-11 pr-4 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-slate-700;
+        @apply w-full bg-surface-container border border-surface-variant text-on-surface text-sm rounded-lg py-3.5 pl-11 pr-4 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all duration-300 placeholder:text-on-surface-variant/50;
     }
 
     .btn-premium {
-        width: 100%;
-        background-color: #00aeef;
-        color: #000000;
-        font-weight: 700;
-        font-size: 0.875rem;
-        letter-spacing: -0.025em;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        border-radius: 0.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        transition: all 0.3s;
-        box-shadow: 0 0 20px -5px rgba(37,99,235,0.4);
-    }
-    .btn-premium:hover {
-        background-color: #3b82f6;
-    }
-    .btn-premium:active {
-        transform: scale(0.98);
+        @apply w-full bg-primary text-on-primary font-bold text-sm tracking-tight py-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_0_20px_-5px_rgba(0,174,239,0.4)] active:scale-[0.98] hover:brightness-110;
     }
 }
 

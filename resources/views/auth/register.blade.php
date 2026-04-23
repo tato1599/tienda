@@ -13,7 +13,7 @@
                 
                 <!-- Form Header -->
                 <div class="mb-10 text-center">
-                    <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Crea tu cuenta</h1>
+                    <h1 class="text-3xl font-bold tracking-tight text-on-surface mb-2">Crea tu cuenta</h1>
                     <p class="text-sm text-on-surface-variant">Únete a la plataforma tecnológica del ITCJ.</p>
                 </div>
 

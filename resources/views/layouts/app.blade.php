@@ -28,15 +28,22 @@
         @livewireStyles
     </head>
     <script>
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-            document.documentElement.setAttribute('data-theme', 'light');
-        }
+        const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        if (theme === 'dark') document.documentElement.classList.add('dark');
+
+        // Sync dark class with DaisyUI data-theme
+        const observer = new MutationObserver(() => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
     </script>
-    <body class="font-sans bg-black" x-data="{ openSidebar: {{ $hideSidebar ? 'false' : 'true' }} }">
+    <body class="font-sans bg-background" x-data="{ openSidebar: {{ $hideSidebar ? 'false' : 'true' }} }">
         <x-banner />
 
         <x-headerTienda />

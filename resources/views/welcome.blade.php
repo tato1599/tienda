@@ -11,21 +11,20 @@
                     class="font-space-grotesk text-primary tracking-[0.2em] mb-stack-lg block text-sm uppercase mt-12">Innovación
                     & Soporte</span>
                 <h1
-                    class="text-5xl md:text-7xl font-bold mb-stack-lg bg-gradient-to-b from-white to-gray-500 bg-clip-text text-transparent leading-tight">
-                    Tu solución tecnológica al alcance de un click
+                    class="text-5xl md:text-7xl font-black mb-stack-lg bg-gradient-to-br from-on-surface via-on-surface to-primary bg-clip-text text-transparent leading-tight tracking-tighter">
+                    Impulsando tu Potencial Tecnológico
                 </h1>
-                <p class="text-lg text-on-surface-variant max-w-2xl mx-auto mb-10">
-                    Soporte experto para potenciar tu flujo de trabajo. Desde mantenimiento preventivo hasta
-                    implementaciones de red avanzadas.
+                <p class="text-xl text-on-surface-variant max-w-2xl mx-auto mb-10 font-medium leading-relaxed">
+                    Soporte experto y soluciones integrales para la comunidad del ITCJ. Excelencia en mantenimiento e infraestructura digital.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="{{ route('servicios') }}"
-                        class="bg-primary text-black px-8 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,174,239,0.3)]">
+                        class="bg-primary text-on-primary px-8 py-4 rounded-xl font-bold text-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,174,239,0.3)]">
                         Explorar Servicios
                         <span class="material-symbols-outlined">arrow_forward</span>
                     </a>
                     <a href="#"
-                        class="border border-outline-variant text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/5 transition-all">
+                        class="border border-outline-variant text-on-surface px-8 py-4 rounded-xl font-bold text-lg hover:bg-on-surface/5 transition-all">
                         Consultoría Gratis
                     </a>
                 </div>
@@ -46,8 +45,8 @@
         <section class="py-32 px-gutter bg-surface">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-20">
-                    <h2 class="text-4xl font-bold text-primary mb-4 tracking-tight">¿Cómo funciona?</h2>
-                    <p class="text-on-surface-variant">Un proceso simplificado para tu tranquilidad digital.</p>
+                    <h2 class="text-4xl font-black text-primary mb-4 tracking-tighter uppercase">Proceso de Atención</h2>
+                    <p class="text-on-surface-variant font-medium">Gestión simplificada y seguimiento en tiempo real para tu tranquilidad digital.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter relative">
                     <!-- Progress Line (Hidden on mobile) -->
@@ -56,7 +55,7 @@
                     <!-- Step 1 -->
                     <div class="relative z-10 flex flex-col items-center text-center group">
                         <div
-                            class="w-24 h-24 rounded-full bg-surface-container border-2 border-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform bg-black shadow-[0_0_20px_rgba(0,174,239,0.2)]">
+                            class="w-24 h-24 rounded-full bg-surface-container border-2 border-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(0,174,239,0.2)]">
                             <span class="material-symbols-outlined text-3xl text-primary">search</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Encuentra</h3>
@@ -67,7 +66,7 @@
                     <!-- Step 2 -->
                     <div class="relative z-10 flex flex-col items-center text-center group">
                         <div
-                            class="w-24 h-24 rounded-full bg-surface-container border-2 border-outline-variant flex items-center justify-center mb-6 group-hover:scale-110 transition-transform bg-black">
+                            class="w-24 h-24 rounded-full bg-surface-container border-2 border-outline-variant flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <span class="material-symbols-outlined text-3xl text-primary">shopping_cart</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Realiza pedido</h3>
@@ -77,7 +76,7 @@
                     <!-- Step 3 -->
                     <div class="relative z-10 flex flex-col items-center text-center group">
                         <div
-                            class="w-24 h-24 rounded-full bg-surface-container border-2 border-outline-variant flex items-center justify-center mb-6 group-hover:scale-110 transition-transform bg-black">
+                            class="w-24 h-24 rounded-full bg-surface-container border-2 border-outline-variant flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                             <span class="material-symbols-outlined text-3xl text-primary">monitoring</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Sigue progreso</h3>
@@ -87,7 +86,7 @@
                     <!-- Step 4 -->
                     <div class="relative z-10 flex flex-col items-center text-center group">
                         <div
-                            class="w-24 h-24 rounded-full bg-surface-container border-2 border-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform bg-black shadow-[0_0_20px_rgba(0,174,239,0.2)]">
+                            class="w-24 h-24 rounded-full bg-surface-container border-2 border-primary flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(0,174,239,0.2)]">
                             <span class="material-symbols-outlined text-3xl text-primary">task_alt</span>
                         </div>
                         <h3 class="text-lg font-bold mb-2">Servicio completado</h3>
@@ -98,14 +97,13 @@
         </section>
 
         <!-- Nuestros Servicios -->
-        <section class="py-32 px-gutter space-y-20">
+        <section id="servicios" class="py-32 px-gutter space-y-20">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                     <div>
                         <span
-                            class="font-space-grotesk text-primary mb-2 block uppercase tracking-widest text-sm">Catálogo
-                            de Servicios</span>
-                        <h2 class="text-4xl font-bold">Experiencia Tecnológica</h2>
+                            class="font-space-grotesk text-primary mb-2 block uppercase tracking-[0.3em] text-xs font-bold">Servicios Especializados</span>
+                        <h2 class="text-4xl font-black tracking-tighter">Excelencia Tecnológica</h2>
                     </div>
                     <p class="text-on-surface-variant max-w-md">
                         Soluciones integrales diseñadas para instituciones, empresas y usuarios particulares que buscan
@@ -163,27 +161,26 @@
         </section>
 
         <!-- CTA Final -->
-        <section class="py-24 px-gutter">
+        <section id="contacto" class="py-24 px-gutter">
             <div class="max-w-7xl mx-auto">
-                <div class="relative rounded-3xl overflow-hidden p-12 md:p-20 text-center">
-                    <div class="absolute inset-0 bg-[#051424]"></div>
+                <div class="relative rounded-3xl overflow-hidden p-12 md:p-20 text-center glass-card">
                     <div class="absolute inset-0 opacity-10 tech-pattern"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#051424] via-transparent to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent"></div>
 
                     <div class="relative z-10 max-w-2xl mx-auto">
-                        <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">¿Listo para resolver tus problemas
+                        <h2 class="text-3xl md:text-5xl font-bold text-on-surface mb-8">¿Listo para resolver tus problemas
                             tecnológicos?</h2>
-                        <p class="text-primary tracking-wide mb-10 text-lg font-medium">Únete a cientos de usuarios que
+                        <p class="text-primary tracking-wide mb-10 text-lg font-medium uppercase">Únete a cientos de usuarios que
                             confían en ITCJ Servicios para mantener su vida digital en movimiento.</p>
 
                         @guest
                             <a href="{{ route('register') }}"
-                                class="inline-block bg-primary text-black px-12 py-5 rounded-full font-black text-xl hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.4)]">
+                                class="inline-block bg-primary text-on-primary px-12 py-5 rounded-full font-black text-xl hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.4)]">
                                 REGÍSTRATE GRATIS
                             </a>
                         @else
                             <a href="{{ route('servicios') }}"
-                                class="inline-block bg-primary text-black px-12 py-5 rounded-full font-black text-xl hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.4)]">
+                                class="inline-block bg-primary text-on-primary px-12 py-5 rounded-full font-black text-xl hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.4)]">
                                 EXPLORAR SERVICIOS
                             </a>
                         @endguest
@@ -195,23 +192,23 @@
 
     <!-- Footer -->
     <footer
-        class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6 bg-black border-t border-[#262626] font-sans text-sm mt-12">
+        class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6 bg-surface-container border-t border-outline-variant/20 font-sans text-sm mt-12">
         <div class="flex flex-col gap-2">
             <div class="text-lg font-bold text-primary tracking-tighter">ITCJ SERVICIOS</div>
             <p class="text-on-surface-variant text-xs uppercase tracking-widest">© {{ date('Y') }} ITCJ SERVICIOS.
                 SISTEMA DE GESTIÓN V2.</p>
         </div>
         <div class="flex gap-8">
-            <a class="text-on-surface-variant hover:text-white transition-colors" href="#">Mantenimiento</a>
-            <a class="text-on-surface-variant hover:text-white transition-colors" href="#">Software</a>
-            <a class="text-on-surface-variant hover:text-white transition-colors" href="#">Redes</a>
-            <a class="text-on-surface-variant hover:text-white transition-colors" href="#">Privacidad</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Mantenimiento</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Software</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Redes</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacidad</a>
         </div>
         <div class="flex gap-4">
-            <a class="text-primary p-2 hover:bg-white/5 rounded-full transition-all" href="#">
+            <a class="text-primary p-2 hover:bg-primary/10 rounded-full transition-all" href="#">
                 <span class="material-symbols-outlined">language</span>
             </a>
-            <a class="text-primary p-2 hover:bg-white/5 rounded-full transition-all" href="#">
+            <a class="text-primary p-2 hover:bg-primary/10 rounded-full transition-all" href="#">
                 <span class="material-symbols-outlined">alternate_email</span>
             </a>
         </div>

@@ -17,7 +17,7 @@
 
                 <!-- Form Header -->
                 <div class="mb-10 text-center">
-                    <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Bienvenido</h1>
+                    <h1 class="text-3xl font-bold tracking-tight text-on-surface mb-2">Bienvenido</h1>
                     <p class="text-sm text-on-surface-variant">Ingresa tus credenciales para acceder a la plataforma
                         tecnológica.</p>
                 </div>
