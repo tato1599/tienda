@@ -179,6 +179,13 @@ class Cart extends Component
             }
 
             $this->paymentIntentClientSecret = $intent->client_secret;
+
+            // Dispatch event so JS can initialize Stripe at the right moment
+            $this->dispatch('stripe-ready',
+                clientSecret: $intent->client_secret,
+                stripeKey: $this->stripeKey,
+                returnUrl: route('checkout.success'),
+            );
         } catch (\Exception $e) {
             $this->error('Error creating payment intent: ' . $e->getMessage());
         }

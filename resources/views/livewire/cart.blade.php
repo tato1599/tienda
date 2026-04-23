@@ -189,67 +189,14 @@
                                             <p class="text-xs opacity-60">{{ $city }}, {{ $state }} {{ $postcode }}</p>
                                         </div>
                                                                       @if($paymentIntentClientSecret)
-                                        <script src="https://js.stripe.com/v3/"></script>
-                                        <script>
-                                            function stripePayment() {
-                                                return {
-                                                    stripe: null,
-                                                    elements: null,
-                                                    async initStripe() {
-                                                        if (this.stripe) return;
-                                                        this.stripe = Stripe('{{ $stripeKey }}');
-                                                        this.elements = this.stripe.elements({
-                                                            clientSecret: '{{ $paymentIntentClientSecret }}',
-                                                            appearance: {
-                                                                theme: 'night',
-                                                                variables: {
-                                                                    colorPrimary: '#00AEEF',
-                                                                    colorBackground: '#0b1120',
-                                                                    colorText: '#ffffff',
-                                                                    borderRadius: '16px',
-                                                                }
-                                                            }
-                                                        });
-                                                        const paymentElement = this.elements.create('payment');
-                                                        paymentElement.mount('#payment-element');
-                                                    },
-                                                    async handleSubmit() {
-                                                        const btn = document.getElementById('submit-payment');
-                                                        const errorMsg = document.getElementById('error-message');
-                                                        
-                                                        btn.disabled = true;
-                                                        btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-xl">refresh</span> Procesando...';
-                                                        
-                                                        const { error } = await this.stripe.confirmPayment({
-                                                            elements: this.elements,
-                                                            confirmParams: {
-                                                                return_url: '{{ route('checkout.success') }}',
-                                                            },
-                                                        });
-
-                                                        if (error) {
-                                                            btn.disabled = false;
-                                                            btn.innerHTML = '<span class="material-symbols-outlined text-2xl font-black">lock</span> Pagar Ahora';
-                                                            errorMsg.innerText = error.message;
-                                                            errorMsg.classList.remove('hidden');
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        </script>
-                                        <div id="stripe-container" 
-                                             x-data="stripePayment()"
-                                             x-init="initStripe()"
-                                             class="animate-fade-in">
-                                            
+                                        <div id="stripe-container" class="animate-fade-in mt-6">
                                             <h4 class="text-xs font-black uppercase tracking-[0.2em] text-primary mb-4 text-center">Detalles de Pago Seguro</h4>
                                             
-                                            <div id="payment-element" class="p-4 bg-on-surface/5 border border-outline-variant/20 rounded-2xl mb-6 shadow-inner" wire:ignore>
-                                                <!-- Stripe will mount here -->
+                                            <div id="payment-element" class="p-4 bg-on-surface/5 border border-outline-variant/20 rounded-2xl mb-6 shadow-inner min-h-[80px] flex items-center justify-center" wire:ignore>
+                                                <span class="text-xs text-on-surface-variant animate-pulse">Cargando formulario de pago...</span>
                                             </div>
                                             
                                             <button id="submit-payment"
-                                                    @click="handleSubmit"
                                                     class="w-full bg-primary text-on-primary py-5 rounded-2xl font-black text-xl hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_30px_rgba(0,174,239,0.3)] flex items-center justify-center gap-3">
                                                 <span class="material-symbols-outlined text-2xl font-black">lock</span>
                                                 Pagar Ahora
@@ -314,3 +261,61 @@
         </div>
     @endif
 </div>
+
+{{-- Stripe.js loaded unconditionally so it's always available --}}
+<script src="https://js.stripe.com/v3/"></script>
+
+@script
+<script>
+    let stripeInstance = null;
+    let stripeElements = null;
+
+    $wire.on('stripe-ready', ({ clientSecret, stripeKey, returnUrl }) => {
+        // Give Livewire a tick to finish rendering the #payment-element div
+        requestAnimationFrame(() => {
+            const container = document.getElementById('payment-element');
+            if (!container) return;
+
+            stripeInstance = Stripe(stripeKey);
+            stripeElements = stripeInstance.elements({
+                clientSecret,
+                appearance: {
+                    theme: 'night',
+                    variables: {
+                        colorPrimary: '#00AEEF',
+                        colorBackground: '#0b1120',
+                        colorText: '#ffffff',
+                        borderRadius: '16px',
+                    }
+                }
+            });
+
+            // Clear the loading placeholder and mount
+            container.innerHTML = '';
+            const paymentEl = stripeElements.create('payment');
+            paymentEl.mount('#payment-element');
+
+            // Attach submit handler
+            const btn = document.getElementById('submit-payment');
+            const errorMsg = document.getElementById('error-message');
+
+            btn.onclick = async () => {
+                btn.disabled = true;
+                btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-xl">refresh</span> Procesando...';
+
+                const { error } = await stripeInstance.confirmPayment({
+                    elements: stripeElements,
+                    confirmParams: { return_url: returnUrl },
+                });
+
+                if (error) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<span class="material-symbols-outlined text-2xl font-black">lock</span> Pagar Ahora';
+                    errorMsg.textContent = error.message;
+                    errorMsg.classList.remove('hidden');
+                }
+            };
+        });
+    });
+</script>
+@endscript

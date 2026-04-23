@@ -49,6 +49,10 @@
                             <span class="material-symbols-outlined text-lg">person</span>
                             Perfil
                         </a>
+                        <a href="{{ route('mis-compras') }}" wire:navigate class="flex items-center gap-3 px-4 py-2 text-sm text-on-surface-variant hover:text-primary hover:bg-surface-variant/20 rounded-lg transition-all">
+                            <span class="material-symbols-outlined text-lg">receipt_long</span>
+                            Mis Compras
+                        </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit" class="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-400 hover:bg-red-400/10 rounded-lg transition-all">
@@ -93,6 +97,11 @@
             <a href="{{ route('servicios') }}" wire:navigate class="text-2xl font-bold text-on-surface hover:text-primary transition-colors">Servicios</a>
             <a href="{{ route('welcome') }}#servicios" class="text-2xl font-bold text-on-surface hover:text-primary transition-colors">Proyectos</a>
             <a href="{{ route('welcome') }}#contacto" class="text-2xl font-bold text-on-surface hover:text-primary transition-colors">Contacto</a>
+            @auth
+                <hr class="border-outline-variant/30 my-2">
+                <a href="{{ route('mis-compras') }}" wire:navigate class="text-xl font-bold text-on-surface hover:text-primary transition-colors">Mis Compras</a>
+                <a href="{{ route('profile.show') }}" wire:navigate class="text-xl font-bold text-on-surface hover:text-primary transition-colors">Perfil</a>
+            @endauth
             @guest
                 <hr class="border-outline-variant/30 my-2">
                 <a href="{{ route('login') }}" wire:navigate class="text-xl font-bold text-on-surface-variant">Ingresar</a>
