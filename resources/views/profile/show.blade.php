@@ -9,7 +9,7 @@
                 <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 mb-6 shadow-[0_0_30px_rgba(0,174,239,0.1)]">
                     <span class="material-symbols-outlined text-4xl text-primary">account_circle</span>
                 </div>
-                <h2 class="font-space-grotesk text-4xl font-black text-white tracking-tighter mb-2">
+                <h2 class="font-space-grotesk text-4xl font-black text-on-surface tracking-tighter mb-2">
                     Configuración de Perfil
                 </h2>
                 <p class="text-on-surface-variant max-w-md mx-auto">

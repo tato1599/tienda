@@ -100,7 +100,7 @@
 
 /* Form sections */
 .mt-5.md\:mt-0.md\:col-span-2 {
-    @apply glass-card rounded-2xl overflow-hidden shadow-2xl border-white/5 !important;
+    @apply glass-card rounded-2xl overflow-hidden shadow-2xl border-outline-variant/10 !important;
 }
 
 .px-4.py-5.bg-white.sm\:p-6,
@@ -109,7 +109,7 @@
 }
 
 .flex.items-center.justify-end.px-4.py-3.bg-gray-50.text-right.sm\:px-6 {
-    @apply bg-white/5 border-t border-white/5 !important;
+    @apply bg-surface-container/30 border-t border-outline-variant/10 !important;
 }
 
 /* Labels and Inputs — scoped to Jetstream form sections only */
@@ -122,7 +122,7 @@ input[type="email"],
 input[type="password"],
 textarea,
 select {
-    @apply bg-surface-container border-surface-variant text-on-surface rounded-lg focus:ring-primary/20 focus:border-primary/50 transition-all !important;
+    @apply bg-surface-container border-outline-variant/20 text-on-surface rounded-lg focus:ring-primary/20 focus:border-primary/50 transition-all !important;
 }
 
 /* Profile Photo */
@@ -140,9 +140,13 @@ button.inline-flex.items-center.px-4.py-2.bg-gray-800 {
     @apply bg-primary text-on-primary hover:bg-blue-400 !important;
 }
 
+button.inline-flex.items-center.px-4.py-2.bg-white {
+    @apply bg-surface-container text-on-surface border border-outline-variant/20 hover:bg-surface-variant !important;
+}
+
 /* Borders */
 .hidden.sm\:block .py-8 {
-    @apply border-t border-white/5 my-12 !important;
+    @apply border-t border-outline-variant/10 my-12 !important;
 }
 
 /** daisyUI */
