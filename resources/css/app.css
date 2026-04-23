@@ -112,8 +112,8 @@
     @apply bg-white/5 border-t border-white/5 !important;
 }
 
-/* Labels and Inputs */
-label {
+/* Labels and Inputs — scoped to Jetstream form sections only */
+.md\:grid label:not(.swap) {
     @apply text-on-surface font-bold text-xs uppercase tracking-widest mb-2 block !important;
 }
 
