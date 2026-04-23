@@ -118,7 +118,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Service 1 -->
-                    <div class="glass-card p-8 rounded-2xl hover:border-primary/50 transition-all group cursor-pointer">
+                    <a href="{{ route('servicios') }}" wire:navigate class="glass-card p-8 rounded-2xl hover:border-primary/50 transition-all group cursor-pointer block">
                         <div
                             class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 text-primary">
                             <span class="material-symbols-outlined">settings_suggest</span>
@@ -127,11 +127,11 @@
                         <p class="text-on-surface-variant text-sm mb-6">Limpieza, diagnóstico y mantenimiento preventivo de computadoras, laptops y dispositivos.</p>
                         <div
                             class="flex items-center gap-2 text-primary text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                            Ver detalles <span class="material-symbols-outlined text-sm">chevron_right</span>
+                            Ver catálogo <span class="material-symbols-outlined text-sm">chevron_right</span>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="glass-card p-8 rounded-2xl hover:border-primary/50 transition-all group cursor-pointer">
+                    <a href="{{ route('servicios') }}" wire:navigate class="glass-card p-8 rounded-2xl hover:border-primary/50 transition-all group cursor-pointer block">
                         <div
                             class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 text-primary">
                             <span class="material-symbols-outlined">terminal</span>
@@ -140,11 +140,11 @@
                         <p class="text-on-surface-variant text-sm mb-6">Desarrollo de aplicaciones, sitios web, scripts y apoyo en tareas y proyectos de código.</p>
                         <div
                             class="flex items-center gap-2 text-primary text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                            Ver detalles <span class="material-symbols-outlined text-sm">chevron_right</span>
+                            Ver catálogo <span class="material-symbols-outlined text-sm">chevron_right</span>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="glass-card p-8 rounded-2xl hover:border-primary/50 transition-all group cursor-pointer">
+                    <a href="{{ route('servicios') }}" wire:navigate class="glass-card p-8 rounded-2xl hover:border-primary/50 transition-all group cursor-pointer block">
                         <div
                             class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 text-primary">
                             <span class="material-symbols-outlined">school</span>
@@ -153,9 +153,9 @@
                         <p class="text-on-surface-variant text-sm mb-6">Refuerzo en materias de ingeniería, matemáticas, programación y más, impartido por alumnos avanzados.</p>
                         <div
                             class="flex items-center gap-2 text-primary text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                            Ver detalles <span class="material-symbols-outlined text-sm">chevron_right</span>
+                            Ver catálogo <span class="material-symbols-outlined text-sm">chevron_right</span>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="text-center mt-12">
@@ -207,16 +207,12 @@
                 Plataforma de Servicios Estudiantiles.</p>
         </div>
         <div class="flex gap-8">
+            <a class="text-on-surface-variant hover:text-primary transition-colors" href="{{ route('welcome') }}" wire:navigate>Inicio</a>
             <a class="text-on-surface-variant hover:text-primary transition-colors" href="{{ route('servicios') }}" wire:navigate>Servicios</a>
             <a class="text-on-surface-variant hover:text-primary transition-colors" href="{{ route('mis-compras') }}" wire:navigate>Mis Compras</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacidad</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Contacto</a>
         </div>
         <div class="flex gap-4">
-            <a class="text-primary p-2 hover:bg-primary/10 rounded-full transition-all" href="#">
-                <span class="material-symbols-outlined">language</span>
-            </a>
-            <a class="text-primary p-2 hover:bg-primary/10 rounded-full transition-all" href="#">
+            <a class="text-primary p-2 hover:bg-primary/10 rounded-full transition-all" href="mailto:soporte@itcj.edu.mx" title="Contacto por Email">
                 <span class="material-symbols-outlined">alternate_email</span>
             </a>
         </div>

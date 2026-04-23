@@ -15,10 +15,10 @@ class Servicios extends Component
     public $category = '';
 
     protected $categoryKeywords = [
-        'Software' => ['software', 'windows', 'formateo', 'instalacion', 'office', 'programacion', 'aplicacion', 'script'],
-        'Hardware' => ['hardware', 'pc', 'laptop', 'limpieza', 'pasta', 'armado', 'reparacion', 'componente'],
-        'Redes'    => ['red', 'wifi', 'router', 'configuracion', 'redes', 'conectividad'],
-        'Soporte'  => ['soporte', 'remoto', 'ayuda', 'tecnico', 'asistencia', 'diagnostico'],
+        'Software' => ['software', 'windows', 'formateo', 'formatear', 'instalacion', 'instalar', 'office', 'programacion', 'aplicacion', 'script', 'sistema'],
+        'Hardware' => ['hardware', 'pc', 'laptop', 'limpieza', 'pasta', 'armado', 'reparacion', 'componente', 'computadora', 'disco', 'memoria'],
+        'Redes'    => ['red', 'wifi', 'router', 'configuracion', 'redes', 'conectividad', 'internet', 'señal', 'repetidor'],
+        'Soporte'  => ['soporte', 'remoto', 'ayuda', 'tecnico', 'asistencia', 'diagnostico', 'mantenimiento', 'preventivo'],
     ];
 
     #[Layout('layouts.guest')]
@@ -28,14 +28,14 @@ class Servicios extends Component
             ->with(['media', 'variants.prices.currency', 'variants.prices.priceable']);
 
         if ($this->search) {
-            $query->where('attribute_data', 'like', '%' . $this->search . '%');
+            $query->where('attribute_data', 'ilike', '%' . $this->search . '%');
         }
 
         if ($this->category && isset($this->categoryKeywords[$this->category])) {
             $keywords = $this->categoryKeywords[$this->category];
             $query->where(function ($q) use ($keywords) {
                 foreach ($keywords as $keyword) {
-                    $q->orWhere('attribute_data', 'like', '%' . $keyword . '%');
+                    $q->orWhere('attribute_data', 'ilike', '%' . $keyword . '%');
                 }
             });
         }

@@ -13,9 +13,6 @@
             <a href="{{ route('servicios') }}" wire:navigate class="{{ request()->routeIs('servicios') ? 'text-primary border-b-2 border-primary pb-1' : 'text-on-surface-variant font-medium hover:text-primary transition-all duration-300' }}">
                 Servicios
             </a>
-            <a href="{{ route('welcome') }}#servicios" class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300">
-                Proyectos
-            </a>
             <a href="{{ route('welcome') }}#contacto" class="text-on-surface-variant font-medium hover:text-primary transition-all duration-300">
                 Contacto
             </a>
