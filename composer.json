@@ -41,13 +41,7 @@
     },
     "scripts": {
         "setup": [
-            "composer install",
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "@php artisan key:generate",
-            "@php artisan migrate --force",
-            "@php artisan storage:link",
-            "npm install",
-            "npm run build"
+            "bash scripts/setup.sh"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",

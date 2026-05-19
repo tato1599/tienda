@@ -21,26 +21,32 @@ class StoreSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. Asegurar Lenguaje Espanol
+        // 1. Asegurar Lenguaje Ingles (requerido por Lunar)
+        $en = Language::firstOrCreate([
+            'code' => 'en',
+        ], [
+            'name' => 'English',
+            'default' => true,
+        ]);
+
+        // 2. Asegurar Lenguaje Espanol
         $es = Language::firstOrCreate([
             'code' => 'es',
         ], [
             'name' => 'Espanol',
-            'default' => true,
+            'default' => false,
         ]);
 
         if (!Language::where('default', true)->exists()) {
             $es->update(['default' => true]);
         }
 
-        $en = Language::whereCode('en')->first();
-
-        // 2. Configurar Moneda MXN
+        // 3. Configurar Moneda MXN
         $mxn = Currency::firstOrCreate([
             'code' => 'MXN',
         ], [
             'name' => 'Peso Mexicano',
-            'exchange_rate' => 1.0, // Base para este ejemplo
+            'exchange_rate' => 1.0,
             'decimal_places' => 2,
             'enabled' => true,
             'default' => true,
@@ -50,25 +56,37 @@ class StoreSeeder extends Seeder
         Currency::where('code', 'USD')->update(['default' => false]);
         $mxn->update(['default' => true]);
 
-        // 3. Tax Class
+        // 4. Tax Class
         $taxClass = TaxClass::firstOrCreate([
             'name' => 'Default Tax Class',
         ]);
 
-        // 4. Atributos
+        // 5. AttributeGroup (crear si no existe)
         $group = AttributeGroup::whereHandle('details')->first();
+        if (!$group) {
+            $group = AttributeGroup::create([
+                'attributable_type' => Product::morphName(),
+                'name' => collect(['en' => 'Details', 'es' => 'Detalles']),
+                'handle' => 'details',
+                'position' => 1,
+            ]);
+        }
 
+        // 6. Atributos
         $nameAttr = Attribute::firstOrCreate([
             'handle' => 'name',
             'attribute_type' => 'product',
         ], [
             'attribute_group_id' => $group->id,
+            'position' => 1,
             'name' => ['en' => 'Name', 'es' => 'Nombre'],
             'type' => Text::class,
             'required' => true,
             'searchable' => true,
             'filterable' => true,
             'system' => false,
+            'configuration' => [],
+            'description' => ['en' => '', 'es' => ''],
         ]);
 
         $descAttr = Attribute::firstOrCreate([
@@ -76,15 +94,18 @@ class StoreSeeder extends Seeder
             'attribute_type' => 'product',
         ], [
             'attribute_group_id' => $group->id,
+            'position' => 2,
             'name' => ['en' => 'Description', 'es' => 'Descripcion'],
-            'type' => Text::class, // Usamos Text para simplificar, Lunar maneja JSON
+            'type' => Text::class,
             'required' => false,
             'searchable' => true,
             'filterable' => false,
             'system' => false,
+            'configuration' => [],
+            'description' => ['en' => '', 'es' => ''],
         ]);
 
-        // 5. Product Type
+        // 7. Product Type
         $productType = ProductType::firstOrCreate([
             'name' => 'Servicio',
         ]);
@@ -92,7 +113,7 @@ class StoreSeeder extends Seeder
         // Vincular atributos al tipo de producto
         $productType->mappedAttributes()->syncWithoutDetaching([$nameAttr->id, $descAttr->id]);
 
-        // 6. Lista de Servicios
+        // 8. Lista de Servicios
         $serviciosData = [
             [
                 'name' => 'Mantenimiento Preventivo PC',
@@ -151,7 +172,7 @@ class StoreSeeder extends Seeder
                 'status' => 'published',
                 'attribute_data' => [
                     'name' => new Text($data['name']),
-                    'description' => new Text($data['desc']), // Simplificado para seeding
+                    'description' => new Text($data['desc']),
                 ],
             ]);
 
@@ -160,7 +181,7 @@ class StoreSeeder extends Seeder
                 'product_id' => $product->id,
                 'sku' => strtoupper(str_replace(' ', '-', $data['name'])) . '-' . rand(100, 999),
                 'tax_class_id' => $taxClass->id,
-                'stock' => 999, // Servicios tienen stock "infinito"
+                'stock' => 999,
             ]);
 
             // Agregar Precio
@@ -168,7 +189,7 @@ class StoreSeeder extends Seeder
                 'priceable_type' => 'product_variant',
                 'priceable_id' => $variant->id,
                 'currency_id' => $mxn->id,
-                'price' => $data['price'] * 100, // Lunar almacena en centavos
+                'price' => $data['price'] * 100,
             ]);
 
             // Agregar Imagen (asumimos que estan en public/images/seed/)
